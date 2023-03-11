@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title>Project Revelation</title>
+
+        <link rel="stylesheet" href="stylesheets/core.css">
+        <link rel="stylesheet" href="stylesheets/styles.css">
+        <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@400&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <div id="app">
+            Money: {{player.money}} / 7e777<br><br>
+
+            <div v-for="building, i in database.buildings">
+                {{building.name}}: {{player.buildings[building.id]}} (+ {{building.getProduction(player.buildings[building.id])}}/s)<br>
+                Cost: {{building.getCost(player.buildings[building.id])}} Money<br>
+                <button @click="buy(i)">Buy 1</button><br><br>
+            </div>
+        </div>
+
+        <script src="javascripts/libraries/break_infinity.min.js"></script>
+        <script src="javascripts/libraries/vue.js"></script>
+
+        <script src="javascripts/database/index.js"></script>
+        <script src="javascripts/database/buildings.js"></script>
+
+        <script src="javascripts/player.js"></script>
+        <script src="javascripts/index.js"></script>
+    </body>
+</html>

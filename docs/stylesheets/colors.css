@@ -1,0 +1,20 @@
+:root, .dark-theme{
+    --color: #d9d9d9;
+    --primary: #323232;
+    --secondary: #222222;
+    --background: #121212;
+    --warning: #cf6679;
+    --hover: #d9d9d926;
+    --tooltip: #d9d9d9;
+    --modal: #00000080;
+}
+
+.light-theme{
+    --color: #4f5957;
+    --primary: #ffffff;
+    --secondary: #fafafa;
+    --background: #f0f0f0;
+    --warning: #b00020;
+    --hover: #4f595726;
+    --tooltip: #ffffff;
+}
