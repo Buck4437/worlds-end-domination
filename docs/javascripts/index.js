@@ -7,16 +7,27 @@ const app = new Vue({
         version: "v0.0.0"
     },
     computed: {
+        buildings() {
+            return this.database.buildings.all();
+        },
+        upgrades() {
+            return this.database.upgrades.all();
+        }
     },
     methods: {
         buy(id) {
-            const building = this.database.buildings[id]
-            const targetBuilding = this.player.buildings[building.id];
-            const cost = building.getCost(targetBuilding);
+            const building = this.database.buildings.getBuilding(id);
+            const cost = building.cost();
             if (this.player.money.gte(cost)) {
                 this.player.money = this.player.money.sub(cost);
-                this.player.buildings[building.id] += 1;
+                this.player.buildings[id] += 1;
             }
+        }
+    },
+    watch: {
+        player: {
+            deep: true,
+            handler: () => {}
         }
     },
     mounted() {
@@ -26,8 +37,8 @@ const app = new Vue({
 
             if (dt < 0) return;
 
-            for (const building of this.database.buildings) {
-                const production = building.getProduction(this.player.buildings[building.id]);
+            for (const building of this.database.buildings.all()) {
+                const production = building.production();
                 this.player.money = this.player.money.add(production.times(dt / 1000));
             }
         }, 50)
