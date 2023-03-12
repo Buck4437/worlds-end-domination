@@ -13,13 +13,13 @@ database.buildings = {
         {
             name: "Farmers",
             baseCost: new Decimal(1000),
-            baseScaling: new Decimal(1.2),
-            baseProduction: new Decimal(50)
+            baseScaling: new Decimal(1.15),
+            baseProduction: new Decimal(100)
         },  
         {
             name: "Builders",
             baseCost: new Decimal(1e9),
-            baseScaling: new Decimal(1.3),
+            baseScaling: new Decimal(1.2),
             baseProduction: new Decimal(1e7)
         }, 
     ],
@@ -50,7 +50,7 @@ database.buildings = {
                 const baseProduction = building.baseProduction;
 
                 const multiplier = new Decimal(ownedBuilding)
-                                   .times(n === 1 ? database.upgrades.getUpgrade(1).apply() : 1)
+                                   .times(database.upgrades.getUpgrade(1).apply())
                 return baseProduction.times(multiplier);
             }
         }
@@ -58,3 +58,4 @@ database.buildings = {
 }
 
 // Workers, Farmers, Builders, Merchants, Priests, Monarchs
+// Priests and Monarchs will be unlocked later in the game

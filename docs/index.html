@@ -10,22 +10,23 @@
     </head>
     <body>
         <div id="app">
-            Money: {{player.money}} / 7e777<br><br>
+            Money: {{format(player.money)}} / 7e777<br><br>
 
             <div v-for="building in buildings">
-                {{building.name}}: {{building.owned()}} (+ {{building.production()}}/s)<br>
-                Cost: {{building.cost()}} Money<br>
+                {{building.name}}: {{building.owned()}} (+ {{format(building.production())}}/s)<br>
+                Cost: {{format(building.cost())}} Money<br>
                 <button @click="buy(building.id)">Buy 1</button><br><br>
             </div>
 
             Upgrades:<br><br>
             <div v-for="upg in upgrades">
-                {{upg.name}}<br>
-                {{upg.desc}}<br>
+                {{upg.name}}: {{upg.desc}}<br>
                 <div v-if="upg.hasEffect">
                     Currently: {{upg.effectPrefix}}{{upg.effect()}}<br>
                 </div>
-                Cost: {{upg.cost}}<br><br>
+                Cost: {{format(upg.cost)}}<br>
+                Owned: {{database.upgrades.hasUpgrade(upg.id) ? "Yes" : "No"}}
+                <button @click="buyUpgrade(upg.id)">Buy upgrade!</button><br><br>
             </div>
         </div>
 
@@ -37,6 +38,7 @@
         <script src="javascripts/database/index.js"></script>
         <script src="javascripts/database/buildings.js"></script>
         <script src="javascripts/database/upgrades.js"></script>
+        <script src="javascripts/utils.js"></script>
 
         <script src="javascripts/index.js"></script>
     </body>

@@ -1,0 +1,18 @@
+todo: show base production of those buildings
+todo: reorganize utils file
+
+Convo from discord:
+I might also add an upgrade that just multiplies the production of a building by e.g. x100
+or 6 more upgrades that is based on total buildings, but multiplies a specific building
+
+though I guess we can have 4 buildings to start with, and add an upgrade later in the game that unlocks the 5th and 6th ones
+
+I also need a progression management class
+
+1st Seal (Conquer)
+2nd Seal (War)
+3rd Seal (Famine)
+4th Seal (Death)
+5th ????
+6th Seal: Sun, Moon, Stars, Terrain
+7th Seal: Firestorm ===> 7 Trumpets

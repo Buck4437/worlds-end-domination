@@ -5,20 +5,15 @@ database.upgrades = {
     data: [
         null,
         {
-            name: "Blob",
-            desc: "×2 production to workers per 10 workers bought",
-            cost: new Decimal(10000000),
+            name: "Worker's Union",
+            desc: "×2 production per 20 workers bought",
+            cost: new Decimal(1e4),
             defaultEffect: new Decimal(1),
             effect() {
                 const buildingCount = player.buildings[1];
-                return Decimal.pow(2, Math.max(0, Math.floor(buildingCount / 10)))
+                return Decimal.pow(2, Math.max(0, Math.floor(buildingCount / 20)))
             },
             effectPrefix: "×"
-        },
-        {
-            name: "Dold",
-            desc: "Unlock dold100000",
-            cost: new Decimal(1e100)
         }
     ],
     hasUpgrade(n) {

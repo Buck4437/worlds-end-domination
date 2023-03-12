@@ -4,6 +4,7 @@ const app = new Vue({
     data: {
         player: player,
         database: database,
+        format: toSci,
         version: "v0.0.0"
     },
     computed: {
@@ -21,6 +22,15 @@ const app = new Vue({
             if (this.player.money.gte(cost)) {
                 this.player.money = this.player.money.sub(cost);
                 this.player.buildings[id] += 1;
+            }
+        },
+        buyUpgrade(id) {
+            if (!this.database.upgrades.hasUpgrade(id)) {
+                const upg = this.database.upgrades.getUpgrade(id);
+                if (this.player.money.gte(upg.cost)) {
+                    this.player.money = this.player.money.sub(upg.cost);
+                    this.player.upgradeBits |= 2 ** (id - 1)
+                }
             }
         }
     },
