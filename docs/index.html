@@ -10,19 +10,20 @@
     </head>
     <body>
         <div id="app">
-            Money: {{format(player.money)}} / 7e777<br><br>
+            Money: {{format(player.money)}} / {{format(database.constants.goal)}}<br><br>
 
             <div v-for="building in buildings">
-                {{building.name}}: {{building.owned()}} (+ {{format(building.production())}}/s)<br>
+                {{building.name}}: {{building.owned()}} (×{{format(building.multiplier())}}) (+ {{format(building.production())}}/s)<br>
                 Cost: {{format(building.cost())}} Money<br>
-                <button @click="buy(building.id)">Buy 1</button><br><br>
+                <button @click="building.buy()">Buy 1</button>
+                <button @click="building.buyMax()">Buy max</button><br><br>
             </div>
 
             Upgrades:<br><br>
             <div v-for="upg in upgrades">
                 {{upg.name}}: {{upg.desc}}<br>
-                <div v-if="upg.hasEffect">
-                    Currently: {{upg.effectPrefix}}{{upg.effect()}}<br>
+                <div v-if="upg.type === database.constants.upgradeType.EFFECT">
+                    Currently: {{upg.effectPrefix}}{{format(upg.effect())}}<br>
                 </div>
                 Cost: {{format(upg.cost)}}<br>
                 Owned: {{database.upgrades.hasUpgrade(upg.id) ? "Yes" : "No"}}
@@ -36,6 +37,7 @@
         <script src="javascripts/player.js"></script>
 
         <script src="javascripts/database/index.js"></script>
+        <script src="javascripts/database/constants.js"></script>
         <script src="javascripts/database/buildings.js"></script>
         <script src="javascripts/database/upgrades.js"></script>
         <script src="javascripts/utils.js"></script>

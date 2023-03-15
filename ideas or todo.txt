@@ -1,5 +1,10 @@
+
+
 todo: show base production of those buildings
 todo: reorganize utils file
+
+Later nerf:
+Change to all multi to always 2x => 10
 
 Convo from discord:
 I might also add an upgrade that just multiplies the production of a building by e.g. x100
@@ -9,6 +14,7 @@ though I guess we can have 4 buildings to start with, and add an upgrade later i
 
 I also need a progression management class
 
+Section 1: Possibly a new prestige layer
 1st Seal (Conquer)
 2nd Seal (War)
 3rd Seal (Famine)
