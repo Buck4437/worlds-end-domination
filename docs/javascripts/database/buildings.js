@@ -94,6 +94,9 @@ database.buildings = {
             cost() {
                 return this._costFor(this.owned());
             },
+            isBuyable() {
+                return player.money.gte(this.cost());
+            },
             multiplier() {
                 const multiplier = new Decimal(1)
                     .times(database.upgrades.getUpgrade(1).apply())
