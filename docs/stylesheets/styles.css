@@ -1,4 +1,59 @@
 body {
     margin: 16px;
-    font-size: 20px;
+    font-size: 16px;
+    background-color: var(--background);
 }
+
+/* global stuff */
+
+button {
+    background-color: var(--background);
+    border: 2px solid var(--color);
+    cursor: pointer;
+}
+
+button:hover {
+	background-color: var(--hover);
+	transition-duration: 0.3s;
+}
+
+button.buyable {
+	border-color: var(--color-green);
+}
+
+button.locked {
+	border-color: var(--color-red);
+}
+
+button.bought {
+    background-color: var(--color-yellow);
+	border-color: var(--color);
+}
+
+/* Actual stuff */
+
+.building-buy-btn {
+    min-width: 60px;
+    min-height: 36px;
+}
+
+.upg-con {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.upg-btn {
+	width: 208px;
+	margin: 8px;
+	min-height: 134px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	text-align: center;
+	align-items: center;
+	background-color: var(--background);
+    border: 2px solid var(--color);
+}
+

@@ -5,6 +5,7 @@
         <title>Project Revelation</title>
 
         <link rel="stylesheet" href="stylesheets/core.css">
+        <link rel="stylesheet" href="stylesheets/colors.css">
         <link rel="stylesheet" href="stylesheets/styles.css">
         <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@400&display=swap" rel="stylesheet">
     </head>
@@ -15,19 +16,25 @@
             <div v-for="building in buildings">
                 {{building.name}}: {{building.owned()}} (×{{format(building.multiplier())}}) (+ {{format(building.production())}}/s)<br>
                 Cost: {{format(building.cost())}} Money<br>
-                <button @click="building.buy()">Buy 1</button>
-                <button @click="building.buyMax()">Buy max</button><br><br>
+                <button class="building-buy-btn" @click="building.buy()">Buy 1</button>
+                <button class="building-buy-btn" @click="building.buyMax()">Buy max</button><br><br>
             </div>
 
             Upgrades:<br><br>
-            <div v-for="upg in upgrades">
-                {{upg.name}}: {{upg.desc}}<br>
-                <div v-if="upg.type === database.constants.upgradeType.EFFECT">
-                    Currently: {{upg.effectPrefix}}{{format(upg.effect())}}<br>
-                </div>
-                Cost: {{format(upg.cost)}}<br>
-                Owned: {{database.upgrades.hasUpgrade(upg.id) ? "Yes" : "No"}}
-                <button @click="buyUpgrade(upg.id)">Buy upgrade!</button><br><br>
+            <div class="upg-con">
+                <button v-for="upg in upgrades" class="upg-btn"
+                        :class="{
+                            'bought': database.upgrades.hasUpgrade(upg.id),
+                            'locked': !database.upgrades.hasUpgrade(upg.id) && !database.upgrades.isBuyable(upg.id),      
+                            'buyable': !database.upgrades.hasUpgrade(upg.id) && database.upgrades.isBuyable(upg.id),
+                        }"
+                        @click="buyUpgrade(upg.id)">
+                    {{upg.name}}: {{upg.desc}}<br>
+                    <div v-if="upg.type === database.constants.upgradeType.EFFECT">
+                        Currently: {{upg.effectPrefix}}{{format(upg.effect())}}<br>
+                    </div>
+                    Cost: {{format(upg.cost)}}<br>
+                </button>
             </div>
         </div>
 

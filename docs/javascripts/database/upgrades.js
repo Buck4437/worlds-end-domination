@@ -118,6 +118,9 @@ database.upgrades = {
     hasUpgrade(n) {
         return (player.upgradeBits & (2 ** (n - 1))) !== 0; // eslint-disable-line no-bitwise
     },
+    isBuyable(n) {
+        return player.money.gte(this.getUpgrade(n).cost);
+    },
     all() {
         const upgrades = [];
         for (let i = 1; i < this.data.length; i++) {
