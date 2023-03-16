@@ -70,7 +70,7 @@ database.upgrades = {
             name: "Builders 2",
             type: database.constants.upgradeType.EFFECT,
             desc: "×8 production to builders per 10 builders bought",
-            cost: new Decimal("1e54"),
+            cost: new Decimal("3e47"),
             defaultEffect: new Decimal(1),
             effect() {
                 const buildingCount = database.buildings.getBuilding(3).owned();
@@ -99,6 +99,17 @@ database.upgrades = {
             effect() {
                 const buildingCount = database.buildings.getBuilding(4).owned();
                 return Decimal.pow(12.5, Math.max(0, Math.floor(buildingCount / 10)));
+            },
+            effectPrefix: "×"
+        },
+        {
+            name: "Merchants 3",
+            type: database.constants.upgradeType.EFFECT,
+            desc: "×1e9 production to merchants",
+            cost: new Decimal("1e340"),
+            defaultEffect: new Decimal(1),
+            effect() {
+                return new Decimal("1e9");
             },
             effectPrefix: "×"
         },

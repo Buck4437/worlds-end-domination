@@ -33,6 +33,14 @@
                         </button>
                         <button class="building-buy-btn"
                                 :class="{
+                                    'locked': !building.isBuyableToTen(),      
+                                    'buyable': building.isBuyableToTen()
+                                }"
+                                @click="building.buyToTen()">
+                                Buy to next 10
+                        </button>
+                        <button class="building-buy-btn"
+                                :class="{
                                     'locked': !building.isBuyable(),      
                                     'buyable': building.isBuyable()
                                 }"
@@ -40,6 +48,9 @@
                                 Buy max
                         </button>
                     </div>
+                </div>
+                <div class="building-max-all-btn-con">
+                    <button class="building-max-all-btn" @click="database.buildings.maxAll()">Max All</button>
                 </div>
             </div>
             Upgrades:
@@ -51,11 +62,11 @@
                             'buyable': !database.upgrades.hasUpgrade(upg.id) && upg.isBuyable()
                         }"
                         @click="buyUpgrade(upg.id)">
-                    {{upg.name}}: {{upg.desc}}<br>
-                    <div v-if="upg.type === database.constants.upgradeType.EFFECT">
+                    <span>{{upg.name}}: {{upg.desc}}</span>
+                    <span v-if="upg.type === database.constants.upgradeType.EFFECT">
                         Currently: {{upg.effectPrefix}}{{format(upg.effect())}}<br>
-                    </div>
-                    Cost: {{format(upg.cost)}}<br>
+                    </span>
+                    <span>Cost: {{format(upg.cost)}} Money</span>
                 </button>
             </div>
         </div>
