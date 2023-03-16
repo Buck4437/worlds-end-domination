@@ -4,6 +4,11 @@ body {
     background-color: var(--background);
 }
 
+#app {
+    max-width: 1200px;
+    margin: auto;
+}
+
 /* global stuff */
 
 button {
@@ -14,7 +19,7 @@ button {
 
 button:hover {
 	background-color: var(--hover);
-	transition-duration: 0.3s;
+	transition-duration: background-color 0.3s;
 }
 
 button.buyable {
@@ -32,8 +37,24 @@ button.bought {
 
 /* Actual stuff */
 
+.building-con {
+    padding-bottom: 16px;
+}
+
+.building {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 8px 0;
+}
+
+.building-text-con {
+    display: flex;
+    flex-direction: column;
+}
+
 .building-buy-btn {
-    min-width: 60px;
+    min-width: 72px;
     min-height: 36px;
 }
 

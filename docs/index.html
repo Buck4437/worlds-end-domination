@@ -12,21 +12,43 @@
     <body>
         <div id="app">
             Money: {{format(player.money)}} / {{format(database.constants.goal)}}<br><br>
-
-            <div v-for="building in buildings">
-                {{building.name}}: {{building.owned()}} (×{{format(building.multiplier())}}) (+ {{format(building.production())}}/s)<br>
-                Cost: {{format(building.cost())}} Money<br>
-                <button class="building-buy-btn" @click="building.buy()">Buy 1</button>
-                <button class="building-buy-btn" @click="building.buyMax()">Buy max</button><br><br>
+            <div class="building-con">
+                <div v-for="building in buildings" class="building">
+                    <div class="building-text-con">
+                        <div>
+                            {{building.name}}: {{building.owned()}} (×{{format(building.multiplier())}}) (+ {{format(building.production())}}/s)
+                        </div>
+                        <div>
+                            Cost: {{format(building.cost())}} Money
+                        </div>
+                    </div>
+                    <div class="building-buy-btn-con">
+                        <button class="building-buy-btn" 
+                                :class="{
+                                    'locked': !building.isBuyable(),      
+                                    'buyable': building.isBuyable()
+                                }"
+                                @click="building.buy()">
+                                Buy 1
+                        </button>
+                        <button class="building-buy-btn"
+                                :class="{
+                                    'locked': !building.isBuyable(),      
+                                    'buyable': building.isBuyable()
+                                }"
+                                @click="building.buyMax()">
+                                Buy max
+                        </button>
+                    </div>
+                </div>
             </div>
-
-            Upgrades:<br><br>
+            Upgrades:
             <div class="upg-con">
                 <button v-for="upg in upgrades" class="upg-btn"
                         :class="{
                             'bought': database.upgrades.hasUpgrade(upg.id),
-                            'locked': !database.upgrades.hasUpgrade(upg.id) && !database.upgrades.isBuyable(upg.id),      
-                            'buyable': !database.upgrades.hasUpgrade(upg.id) && database.upgrades.isBuyable(upg.id),
+                            'locked': !database.upgrades.hasUpgrade(upg.id) && !upg.isBuyable(),      
+                            'buyable': !database.upgrades.hasUpgrade(upg.id) && upg.isBuyable()
                         }"
                         @click="buyUpgrade(upg.id)">
                     {{upg.name}}: {{upg.desc}}<br>

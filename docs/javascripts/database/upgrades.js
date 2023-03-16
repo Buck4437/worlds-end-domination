@@ -118,9 +118,6 @@ database.upgrades = {
     hasUpgrade(n) {
         return (player.upgradeBits & (2 ** (n - 1))) !== 0; // eslint-disable-line no-bitwise
     },
-    isBuyable(n) {
-        return player.money.gte(this.getUpgrade(n).cost);
-    },
     all() {
         const upgrades = [];
         for (let i = 1; i < this.data.length; i++) {
@@ -136,7 +133,10 @@ database.upgrades = {
             name: upgrade.name,
             desc: upgrade.desc,
             cost: upgrade.cost,
-            type: upgrade.type
+            type: upgrade.type,
+            isBuyable() {
+                return player.money.gte(this.cost);
+            }
         };
 
         if (upgradeObject.type === database.constants.upgradeType.EFFECT) {
