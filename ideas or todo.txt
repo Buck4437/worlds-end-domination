@@ -1,3 +1,29 @@
+Suggestions by jazz
+you look under the couch cushions
+If an additional worker doesn’t break the game, you can probably start with it
+or start with, like, 1/second
+real_rapid_jazz — Today at 23:18
+anyway hi I like the scaling so far
+I feel like a ‘buy to next 10’ might be nice
+Oh and a “buy max all”
+You can probably increase the price of builders 2 considerably, because you basically start with merchants giving enough for it
+real_rapid_jazz — Today at 23:27
+hit 7e777, what’s next?
+Buck — Today at 23:29
+grats you completed the first run
+Buck — Today at 23:29
+1 worker/second?
+real_rapid_jazz — Today at 23:30
+1 money/second
+or start with 1 worker 
+Buck — Today at 23:30
+I kinda want the player to initiate the production of money to not confuse them
+or I guess I can also make the first worker free
+having 1 worker at the start certainly won't break the game though
+real_rapid_jazz — Today at 23:33
+nope
+Starting with 2 money is also fine, but it does mean that if you alter the base costs of workers in the future, you need to alter starting money 
+so ‘1 free worker’ is slightly safer
 
 
 todo: show base production of those buildings
@@ -22,3 +48,7 @@ Section 1: Possibly a new prestige layer
 5th ????
 6th Seal: Sun, Moon, Stars, Terrain
 7th Seal: Firestorm ===> 7 Trumpets
+
+Oh yeah credits:
+- Jazz
+- IDK

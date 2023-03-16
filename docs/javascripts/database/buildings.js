@@ -78,12 +78,29 @@ database.buildings = {
                 const priceStart = this._baseCost();
                 const scaling = this._scaling();
                 const owned = this.owned();
+                // No workers bought - includes 1 free worker in the calculations
+                if (this.id === 1 && owned === 0) {
+                    // Buying 1 or less workers: Free of charge
+                    if (count <= 1) {
+                        return new Decimal(0);
+                    }
+                    // Buying 2+ workers: Subtract the free worker from calculation
+                    return Decimal.sumGeometricSeries(count - 1, priceStart, scaling, owned);
+                }
+                // No free workers
                 return Decimal.sumGeometricSeries(count, priceStart, scaling, owned);
             },
             // Returns the cost if the player has owned n buildings.
             _costFor(n) {
                 const baseCost = this._baseCost();
                 const scaling = this._scaling();
+                if (this.id === 1) {
+                    // Includes 1 free worker in the calculations
+                    if (n === 0) {
+                        return new Decimal(0);
+                    }
+                    return baseCost.times(scaling.pow(n - 1));
+                }
                 return baseCost.times(scaling.pow(n));
             },
             // Returns the number of buildings owned by the player.

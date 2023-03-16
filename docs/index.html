@@ -51,11 +51,11 @@
                             'buyable': !database.upgrades.hasUpgrade(upg.id) && upg.isBuyable()
                         }"
                         @click="buyUpgrade(upg.id)">
-                    {{upg.name}}: {{upg.desc}}<br>
-                    <div v-if="upg.type === database.constants.upgradeType.EFFECT">
+                    <span>{{upg.name}}: {{upg.desc}}</span>
+                    <span v-if="upg.type === database.constants.upgradeType.EFFECT">
                         Currently: {{upg.effectPrefix}}{{format(upg.effect())}}<br>
-                    </div>
-                    Cost: {{format(upg.cost)}}<br>
+                    </span>
+                    <span>Cost: {{format(upg.cost)}} Money</span>
                 </button>
             </div>
         </div>
