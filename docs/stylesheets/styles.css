@@ -37,6 +37,8 @@ button.bought {
 
 /* Actual stuff */
 
+/* Buildings */
+
 .building-con {
     padding-bottom: 16px;
 }
@@ -45,7 +47,7 @@ button.bought {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    padding: 8px 0;
+    padding-bottom: 16px;
 }
 
 .building-text-con {
@@ -57,6 +59,19 @@ button.bought {
     min-width: 72px;
     min-height: 36px;
 }
+
+.building-max-all-btn-con {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.building-max-all-btn {
+    min-width: 144px;
+    min-height: 36px;
+}
+
+/* Upgrades */
 
 .upg-con {
     display: flex;

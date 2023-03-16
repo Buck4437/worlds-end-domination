@@ -24,26 +24,26 @@ database.buildings = {
             name: "Merchants",
             baseCost: new Decimal("1e40"),
             baseScaling: new Decimal("1.3"),
-            baseProduction: new Decimal("1e45")
+            baseProduction: new Decimal("1e36")
         },  
         // Priests, Bishops and Monarchs and will be unlocked later in the game
         // {
         //     name: "Priests",
-        //     baseCost: new Decimal("1e3"),
+        //     baseCost: new Decimal("1e1000"),
         //     baseScaling: new Decimal("1.35"),
-        //     baseProduction: new Decimal("1000")
+        //     baseProduction: new Decimal("1")
         // },  
         // {
         //     name: "Bishops",
-        //     baseCost: new Decimal("1e3"),
+        //     baseCost: new Decimal("1e1000"),
         //     baseScaling: new Decimal("1.4"),
-        //     baseProduction: new Decimal("1000")
+        //     baseProduction: new Decimal("1")
         // },  
         // {
         //     name: "Monarchs",
-        //     baseCost: new Decimal("1e999"),
+        //     baseCost: new Decimal("1e1000"),
         //     baseScaling: new Decimal("1.5"),
-        //     baseProduction: new Decimal("1000")
+        //     baseProduction: new Decimal("1")
         // }
     ],
     totalCount() {
@@ -55,6 +55,11 @@ database.buildings = {
             buildings.push(this.getBuilding(i));
         }
         return buildings;
+    },
+    maxAll() {
+        for (const building of this.all()) {
+            building.buyMax();
+        }
     },
     getBuilding(id) {
         if (id <= 0 || id >= this.data.length) return null;
@@ -78,16 +83,20 @@ database.buildings = {
                 const priceStart = this._baseCost();
                 const scaling = this._scaling();
                 const owned = this.owned();
-                // No workers bought - includes 1 free worker in the calculations
-                if (this.id === 1 && owned === 0) {
-                    // Buying 1 or less workers: Free of charge
-                    if (count <= 1) {
-                        return new Decimal(0);
+                // First building includes 1 free worker - requires special calculation
+                if (this.id === 1) {
+                    if (owned === 0) {
+                        // Owning no workers and buying 0-1 worker: Free of charge
+                        if (count <= 1) {
+                            return new Decimal(0);
+                        }
+                        // Owning no workers and buying 2+ workers: Subtract the free worker from calculation
+                        return Decimal.sumGeometricSeries(count - 1, priceStart, scaling, owned);
                     }
-                    // Buying 2+ workers: Subtract the free worker from calculation
-                    return Decimal.sumGeometricSeries(count - 1, priceStart, scaling, owned);
+                    // Owning free workers - Subtract the free worker from calculation
+                    return Decimal.sumGeometricSeries(count, priceStart, scaling, owned - 1);
                 }
-                // No free workers
+                // Other buildings
                 return Decimal.sumGeometricSeries(count, priceStart, scaling, owned);
             },
             // Returns the cost if the player has owned n buildings.
@@ -114,17 +123,23 @@ database.buildings = {
             isBuyable() {
                 return player.money.gte(this.cost());
             },
+            isBuyableToTen() {
+                const amount = 10 - this.owned() % 10;
+                const cost = this._totalCost(amount);
+                return player.money.gte(cost);
+            },
             multiplier() {
                 const multiplier = new Decimal(1)
                     .times(database.upgrades.getUpgrade(1).apply())
                     .times(database.upgrades.getUpgrade(3).apply())
                     .times(database.upgrades.getUpgrade(5).apply())
                     .times(database.upgrades.getUpgrade(7).apply())
-                    .times(database.upgrades.getUpgrade(9).apply())
+                    .times(database.upgrades.getUpgrade(10).apply())
                     .times(this.id === 1 ? database.upgrades.getUpgrade(2).apply() : 1)
                     .times(this.id === 2 ? database.upgrades.getUpgrade(4).apply() : 1)
                     .times(this.id === 3 ? database.upgrades.getUpgrade(6).apply() : 1)
-                    .times(this.id === 4 ? database.upgrades.getUpgrade(8).apply() : 1);
+                    .times(this.id === 4 ? database.upgrades.getUpgrade(8).apply() : 1)
+                    .times(this.id === 4 ? database.upgrades.getUpgrade(9).apply() : 1);
                 return multiplier;
             }, 
             // Returns the production rate for the buildings per second.
@@ -146,12 +161,21 @@ database.buildings = {
                     this._addBuilding(1);
                 }
             },
+            buyToTen() {
+                if (this.isBuyableToTen()) {
+                    const amount = 10 - this.owned() % 10;
+                    for (let i = 0; i < amount; i++) {
+                        this.buy();
+                    }   
+                }
+            },
             // Purchase the maximum number of buildings affordable.
             buyMax() {
                 const money = player.money;
                 if (money.lt(this.cost())) return;
                 const owned = this.owned();
                 // The +1 is for extra buffer in case of off-by-one error, since I don't want to tackle them.
+                // The reason for not using +1 is that, the first worker is free and does not increase the scaling.
                 const maxAmount = Math.ceil(database.constants.goal.div(this._baseCost()).log(this._scaling()) + 1);
                 let min = 0, max = maxAmount - owned;
                 while (min < max) {

@@ -33,6 +33,14 @@
                         </button>
                         <button class="building-buy-btn"
                                 :class="{
+                                    'locked': !building.isBuyableToTen(),      
+                                    'buyable': building.isBuyableToTen()
+                                }"
+                                @click="building.buyToTen()">
+                                Buy to next 10
+                        </button>
+                        <button class="building-buy-btn"
+                                :class="{
                                     'locked': !building.isBuyable(),      
                                     'buyable': building.isBuyable()
                                 }"
@@ -40,6 +48,9 @@
                                 Buy max
                         </button>
                     </div>
+                </div>
+                <div class="building-max-all-btn-con">
+                    <button class="building-max-all-btn" @click="database.buildings.maxAll()">Max All</button>
                 </div>
             </div>
             Upgrades:
