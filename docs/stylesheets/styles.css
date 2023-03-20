@@ -37,6 +37,41 @@ button.bought {
 
 /* Actual stuff */
 
+/* top bar display */
+
+.top-bar {
+    margin: 32px 0;
+}
+
+.apocalypse-btn {
+    min-width: 100%;
+    min-height: 96px;
+}
+
+.top-bar-layer-2 {
+    margin-top: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+/* Nav-bar */
+.nav-bar {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+}
+
+.nav-bar-btn {
+    min-width: 120px;
+    min-height: 48px;
+    margin-right: 8px;
+}
+
+/* Buildings tab */
+
 /* Buildings */
 
 .building-con {
@@ -76,14 +111,14 @@ button.bought {
 .upg-con {
     display: flex;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-between;
     flex-wrap: wrap;
 }
 
 .upg-btn {
 	width: 208px;
-	margin: 8px;
 	min-height: 134px;
+    margin: 8px 0;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-around;
@@ -93,3 +128,23 @@ button.bought {
     border: 2px solid var(--color);
 }
 
+
+/* Apocalypses tab */
+.apocalypse-info {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 16px;
+}
+
+.apocalypse-name, .apocalypse-nerf-desc, .apocalypse-info-revelation {
+    padding-bottom: 8px;
+}
+
+.apocalypse-name {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.apocalypse-info-revelation {
+    font-size: 20px;
+}

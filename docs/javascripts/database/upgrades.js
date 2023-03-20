@@ -9,7 +9,7 @@ database.upgrades = {
         {
             name: "Workers 1",
             type: database.constants.upgradeType.EFFECT,
-            desc: "Increase production of all buildings based on total workers bought",
+            getDesc: () => "Increase production of all buildings based on total workers bought",
             cost: new Decimal("3e5"),
             defaultEffect: new Decimal(1),
             effect() {
@@ -21,7 +21,7 @@ database.upgrades = {
         {
             name: "Workers 2",
             type: database.constants.upgradeType.EFFECT,
-            desc: "×2.5 production to workers per 10 workers bought",
+            getDesc: () => "×2.5 production to workers per 10 workers bought",
             cost: new Decimal("7.77e7"),
             defaultEffect: new Decimal(1),
             effect() {
@@ -33,7 +33,7 @@ database.upgrades = {
         {
             name: "Farmers 1",
             type: database.constants.upgradeType.EFFECT,
-            desc: "Increase production of all buildings based on total farmers bought",
+            getDesc: () => "Increase production of all buildings based on total farmers bought",
             cost: new Decimal("1e17"),
             defaultEffect: new Decimal(1),
             effect() {
@@ -45,7 +45,7 @@ database.upgrades = {
         {
             name: "Farmers 2",
             type: database.constants.upgradeType.EFFECT,
-            desc: "×4 production to farmers per 10 farmers bought",
+            getDesc: () => "×4 production to farmers per 10 farmers bought",
             cost: new Decimal("1e20"),
             defaultEffect: new Decimal(1),
             effect() {
@@ -57,7 +57,7 @@ database.upgrades = {
         {
             name: "Builders 1",
             type: database.constants.upgradeType.EFFECT,
-            desc: "Increase production of all buildings based on total builders bought",
+            getDesc: () => "Increase production of all buildings based on total builders bought",
             cost: new Decimal("1e33"),
             defaultEffect: new Decimal(1),
             effect() {
@@ -69,7 +69,7 @@ database.upgrades = {
         {
             name: "Builders 2",
             type: database.constants.upgradeType.EFFECT,
-            desc: "×8 production to builders per 10 builders bought",
+            getDesc: () => "×8 production to builders per 10 builders bought",
             cost: new Decimal("3e47"),
             defaultEffect: new Decimal(1),
             effect() {
@@ -81,7 +81,7 @@ database.upgrades = {
         {
             name: "Merchants 1",
             type: database.constants.upgradeType.EFFECT,
-            desc: "Increase production of all buildings based on total merchants bought",
+            getDesc: () => "Increase production of all buildings based on total merchants bought",
             cost: new Decimal("1e180"),
             defaultEffect: new Decimal(1),
             effect() {
@@ -93,7 +93,7 @@ database.upgrades = {
         {
             name: "Merchants 2",
             type: database.constants.upgradeType.EFFECT,
-            desc: "×12.5 production to merchants per 10 merchants bought",
+            getDesc: () => "×12.5 production to merchants per 10 merchants bought",
             cost: new Decimal("1e235"),
             defaultEffect: new Decimal(1),
             effect() {
@@ -105,7 +105,7 @@ database.upgrades = {
         {
             name: "Merchants 3",
             type: database.constants.upgradeType.EFFECT,
-            desc: "×1e9 production to merchants",
+            getDesc: () => "×1e9 production to merchants",
             cost: new Decimal("1e340"),
             defaultEffect: new Decimal(1),
             effect() {
@@ -116,7 +116,7 @@ database.upgrades = {
         {
             name: "Coalesce",
             type: database.constants.upgradeType.EFFECT,
-            desc: "Increase production of all buildings based on total buildings bought",
+            getDesc: () => "Increase production of all buildings based on total buildings bought",
             cost: new Decimal("1e620"),
             defaultEffect: new Decimal(1),
             effect() {
@@ -126,6 +126,9 @@ database.upgrades = {
             effectPrefix: "×"
         },
     ],
+    reset() {
+        player.upgradeBits = 0;
+    },
     hasUpgrade(n) {
         return (player.upgradeBits & (2 ** (n - 1))) !== 0; // eslint-disable-line no-bitwise
     },
@@ -142,11 +145,17 @@ database.upgrades = {
         const upgradeObject = {
             id: n,
             name: upgrade.name,
-            desc: upgrade.desc,
+            getDesc: upgrade.getDesc,
             cost: upgrade.cost,
             type: upgrade.type,
             isBuyable() {
-                return player.money.gte(this.cost);
+                return !database.upgrades.hasUpgrade(this.id) && player.money.gte(this.cost);
+            },
+            buy() {
+                if (this.isBuyable()) {
+                    player.money = player.money.sub(this.cost);
+                    player.upgradeBits |= 2 ** (this.id - 1); // eslint-disable-line no-bitwise
+                }
             }
         };
 

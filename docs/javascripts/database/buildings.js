@@ -1,6 +1,6 @@
 // Building id starts from 1 
 database.buildings = {
-    data: [
+    _data: [
         null, 
         {
             name: "Workers",
@@ -51,7 +51,7 @@ database.buildings = {
     },
     all() {
         const buildings = [];
-        for (let i = 1; i < this.data.length; i++) {
+        for (let i = 1; i < this._data.length; i++) {
             buildings.push(this.getBuilding(i));
         }
         return buildings;
@@ -61,9 +61,14 @@ database.buildings = {
             building.buyMax();
         }
     },
+    reset() {
+        for (const building of this.all()) {
+            building._resetBuilding();
+        }
+    },
     getBuilding(id) {
-        if (id <= 0 || id >= this.data.length) return null;
-        const building = this.data[id];
+        if (id <= 0 || id >= this._data.length) return null;
+        const building = this._data[id];
 
         return {
             id,
@@ -152,6 +157,9 @@ database.buildings = {
             // Adds building to the player directly, without cost checking.
             _addBuilding(count) {
                 player.buildings.splice(this.id, 1, this.owned() + count);
+            },
+            _resetBuilding() {
+                player.buildings.splice(this.id, 1, 0);
             },
             // Purchase the next building, if affordable.
             buy() {

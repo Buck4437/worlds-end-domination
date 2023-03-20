@@ -11,64 +11,26 @@
     </head>
     <body>
         <div id="app">
-            Money: {{format(player.money)}} / {{format(database.constants.goal)}}<br><br>
-            <div class="building-con">
-                <div v-for="building in buildings" class="building">
-                    <div class="building-text-con">
-                        <div>
-                            {{building.name}}: {{building.owned()}} (×{{format(building.multiplier())}}) (+ {{format(building.production())}}/s)
-                        </div>
-                        <div>
-                            Cost: {{format(building.cost())}} Money
-                        </div>
-                    </div>
-                    <div class="building-buy-btn-con">
-                        <button class="building-buy-btn" 
-                                :class="{
-                                    'locked': !building.isBuyable(),      
-                                    'buyable': building.isBuyable()
-                                }"
-                                @click="building.buy()">
-                                Buy 1
-                        </button>
-                        <button class="building-buy-btn"
-                                :class="{
-                                    'locked': !building.isBuyableToTen(),      
-                                    'buyable': building.isBuyableToTen()
-                                }"
-                                @click="building.buyToTen()">
-                                Buy to next 10
-                        </button>
-                        <button class="building-buy-btn"
-                                :class="{
-                                    'locked': !building.isBuyable(),      
-                                    'buyable': building.isBuyable()
-                                }"
-                                @click="building.buyMax()">
-                                Buy max
-                        </button>
+            <div class="top-bar">
+                <div v-if="database.apocalypses.canApocalypse()" class="top-bar-layer-1">
+                    <button class="apocalypse-btn" @click="database.apocalypses.performApocalypse()">
+                        ...
+                    </button>
+                </div>
+                <div class="top-bar-layer-2">
+                    <div>
+                        Money: {{format(player.money)}} / {{format(database.constants.goal)}} (Max: {{maxPercentage}}%)
                     </div>
                 </div>
-                <div class="building-max-all-btn-con">
-                    <button class="building-max-all-btn" @click="database.buildings.maxAll()">Max All</button>
-                </div>
             </div>
-            Upgrades:
-            <div class="upg-con">
-                <button v-for="upg in upgrades" class="upg-btn"
-                        :class="{
-                            'bought': database.upgrades.hasUpgrade(upg.id),
-                            'locked': !database.upgrades.hasUpgrade(upg.id) && !upg.isBuyable(),      
-                            'buyable': !database.upgrades.hasUpgrade(upg.id) && upg.isBuyable()
-                        }"
-                        @click="buyUpgrade(upg.id)">
-                    <span>{{upg.name}}: {{upg.desc}}</span>
-                    <span v-if="upg.type === database.constants.upgradeType.EFFECT">
-                        Currently: {{upg.effectPrefix}}{{format(upg.effect())}}<br>
-                    </span>
-                    <span>Cost: {{format(upg.cost)}} Money</span>
-                </button>
+            <div class="nav-bar">
+                <button v-for="tab in tabs" class="nav-bar-btn" @click="switchTab(tab)">{{tab}}</button> 
             </div>
+            
+            <component v-for="tab in tabs"
+                       v-show="currentTab == tab"
+                       :is="toTabComponent(tab)"
+                       :key="tab"></component>
         </div>
 
         <script src="javascripts/libraries/break_infinity.min.js"></script>
@@ -80,8 +42,19 @@
         <script src="javascripts/database/constants.js"></script>
         <script src="javascripts/database/buildings.js"></script>
         <script src="javascripts/database/upgrades.js"></script>
+        <script src="javascripts/database/apocalypses.js"></script>
         <script src="javascripts/utils.js"></script>
 
+        <script src="javascripts/components/buildings-tab.js"></script>
+        <script src="javascripts/components/upgrade-button.js"></script>
+
+        <script src="javascripts/components/apocalypses-tab.js"></script>
+
+        
+        <script src="javascripts/components/placeholders.js"></script>
+
+        
+        <script src="javascripts/gameloop.js"></script>
         <script src="javascripts/index.js"></script>
     </body>
 </html>
