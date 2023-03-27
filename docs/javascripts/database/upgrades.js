@@ -4,6 +4,14 @@ database.upgrades = {
         EFFECT: 0,
         UNLOCK: 1
     },
+    // Helper method
+    _getUpgrade2Multi(upgradeObject) {
+        const level = database.apocalypses.getApocalypseLevel();
+        if (level >= 1) {
+            return upgradeObject._data.multiA1;
+        }
+        return upgradeObject._data.multiA0;
+    },
     data: [
         null,
         {
@@ -16,19 +24,27 @@ database.upgrades = {
                 const totalCount = database.buildings.getBuilding(1).owned();
                 return Decimal.pow(totalCount, 0.9).add(1);
             },
-            effectPrefix: "×"
+            effectPrefix: "×",
         },
         {
             name: "Workers 2",
             type: database.constants.upgradeType.EFFECT,
-            getDesc: () => "×2.5 production to workers per 10 workers bought",
+            getDesc() {
+                const multi = database.upgrades._getUpgrade2Multi(this);
+                return `×${multi} production to workers per 10 workers bought`;
+            },
             cost: new Decimal("7.77e7"),
             defaultEffect: new Decimal(1),
             effect() {
                 const buildingCount = database.buildings.getBuilding(1).owned();
-                return Decimal.pow(2.5, Math.max(0, Math.floor(buildingCount / 10)));
+                const multi = database.upgrades._getUpgrade2Multi(this);
+                return Decimal.pow(multi, Math.max(0, Math.floor(buildingCount / 10)));
             },
-            effectPrefix: "×"
+            effectPrefix: "×",
+            _data: {
+                multiA0: 2.5,
+                multiA1: 1.5
+            }
         },
         {
             name: "Farmers 1",
@@ -45,14 +61,22 @@ database.upgrades = {
         {
             name: "Farmers 2",
             type: database.constants.upgradeType.EFFECT,
-            getDesc: () => "×4 production to farmers per 10 farmers bought",
+            getDesc() {
+                const multi = database.upgrades._getUpgrade2Multi(this);
+                return `×${multi} production to farmers per 10 farmers bought`;
+            },
             cost: new Decimal("1e20"),
             defaultEffect: new Decimal(1),
             effect() {
                 const buildingCount = database.buildings.getBuilding(2).owned();
-                return Decimal.pow(4, Math.max(0, Math.floor(buildingCount / 10)));
+                const multi = database.upgrades._getUpgrade2Multi(this);
+                return Decimal.pow(multi, Math.max(0, Math.floor(buildingCount / 10)));
             },
-            effectPrefix: "×"
+            effectPrefix: "×",
+            _data: {
+                multiA0: 4,
+                multiA1: 3
+            }
         },
         {
             name: "Builders 1",
@@ -69,14 +93,22 @@ database.upgrades = {
         {
             name: "Builders 2",
             type: database.constants.upgradeType.EFFECT,
-            getDesc: () => "×8 production to builders per 10 builders bought",
-            cost: new Decimal("3e47"),
+            getDesc() {
+                const multi = database.upgrades._getUpgrade2Multi(this);
+                return `×${multi} production to builders per 10 builders bought`;
+            },
+            cost: new Decimal("2e47"),
             defaultEffect: new Decimal(1),
             effect() {
                 const buildingCount = database.buildings.getBuilding(3).owned();
-                return Decimal.pow(8, Math.max(0, Math.floor(buildingCount / 10)));
+                const multi = database.upgrades._getUpgrade2Multi(this);
+                return Decimal.pow(multi, Math.max(0, Math.floor(buildingCount / 10)));
             },
-            effectPrefix: "×"
+            effectPrefix: "×",
+            _data: {
+                multiA0: 8,
+                multiA1: 6
+            }
         },
         {
             name: "Merchants 1",
@@ -93,20 +125,28 @@ database.upgrades = {
         {
             name: "Merchants 2",
             type: database.constants.upgradeType.EFFECT,
-            getDesc: () => "×12.5 production to merchants per 10 merchants bought",
+            getDesc() {
+                const multi = database.upgrades._getUpgrade2Multi(this);
+                return `×${multi} production to merchants per 10 merchants bought`;
+            },
             cost: new Decimal("1e235"),
             defaultEffect: new Decimal(1),
             effect() {
                 const buildingCount = database.buildings.getBuilding(4).owned();
-                return Decimal.pow(12.5, Math.max(0, Math.floor(buildingCount / 10)));
+                const multi = database.upgrades._getUpgrade2Multi(this);
+                return Decimal.pow(multi, Math.max(0, Math.floor(buildingCount / 10)));
             },
-            effectPrefix: "×"
+            effectPrefix: "×",
+            _data: {
+                multiA0: 12.5,
+                multiA1: 10
+            }
         },
         {
             name: "Merchants 3",
             type: database.constants.upgradeType.EFFECT,
             getDesc: () => "×1e9 production to merchants",
-            cost: new Decimal("1e340"),
+            cost: new Decimal("1e310"),
             defaultEffect: new Decimal(1),
             effect() {
                 return new Decimal("1e9");
@@ -163,6 +203,10 @@ database.upgrades = {
             upgradeObject.effect = upgrade.effect;
             upgradeObject.effectPrefix = upgrade.effectPrefix;
             upgradeObject.apply = () => (this.hasUpgrade(n) ? upgrade.effect() : upgrade.defaultEffect);
+        }
+
+        if (upgrade._data !== undefined) {
+            upgradeObject._data = upgrade._data;
         }
 
         return upgradeObject;

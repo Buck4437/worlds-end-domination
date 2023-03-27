@@ -1,12 +1,12 @@
-Suggestions by jazz
-real_rapid_jazz — Today at 23:18
-anyway hi I like the scaling so far
+Suggestions by minghinshi
+
+Add stats for tracking time needed to complete each apocalypse
 
 todo: show base production of those buildings
 todo: reorganize utils file
 
 Later nerf:
-Change to all multi to always 2x => 10?????
+Change to all multi to always 1.5x => 10?????
 
 Convo from discord:
 I might also add an upgrade that just multiplies the production of a building by e.g. x100
@@ -15,6 +15,33 @@ or 6 more upgrades that is based on total buildings, but multiplies a specific b
 though I guess we can have 4 buildings to start with, and add an upgrade later in the game that unlocks the 5th and 6th ones
 
 I also need a progression management class
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 Section 1: Possibly a new prestige layer
 1st Seal (Conquer)

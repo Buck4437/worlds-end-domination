@@ -3,9 +3,14 @@ database.apocalypses = {
         {
             level: 1,
             text: {
-                name: "1st",
-                nerfs: "Placeholder",
-                buffs: "Unlock BLOBMEGATHINK"
+                name: "(Placeholder)",
+                nerfs: [
+                    "2.5 => 1.5, 4 => 3, 8 => 6, 12.5 => 10 "
+                ],
+                buffs: [
+                    "Unlock BLOBMEGATHINK",
+                    "x2 production to all buildings"
+                ]
             }
         },
         {

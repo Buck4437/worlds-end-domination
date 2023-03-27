@@ -134,6 +134,7 @@ database.buildings = {
                 return player.money.gte(cost);
             },
             multiplier() {
+                const apocalypseLevel = database.apocalypses.getApocalypseLevel();
                 const multiplier = new Decimal(1)
                     .times(database.upgrades.getUpgrade(1).apply())
                     .times(database.upgrades.getUpgrade(3).apply())
@@ -144,7 +145,8 @@ database.buildings = {
                     .times(this.id === 2 ? database.upgrades.getUpgrade(4).apply() : 1)
                     .times(this.id === 3 ? database.upgrades.getUpgrade(6).apply() : 1)
                     .times(this.id === 4 ? database.upgrades.getUpgrade(8).apply() : 1)
-                    .times(this.id === 4 ? database.upgrades.getUpgrade(9).apply() : 1);
+                    .times(this.id === 4 ? database.upgrades.getUpgrade(9).apply() : 1)
+                    .times(apocalypseLevel >= 1 ? 2 : 1);
                 return multiplier;
             }, 
             // Returns the production rate for the buildings per second.

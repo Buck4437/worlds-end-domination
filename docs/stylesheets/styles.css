@@ -136,7 +136,7 @@ button.bought {
     padding-bottom: 16px;
 }
 
-.apocalypse-name, .apocalypse-nerf-desc, .apocalypse-info-revelation {
+.apocalypse-name, .apocalypse-nerf-desc, .apocalypse-info-subheading {
     padding-bottom: 8px;
 }
 
@@ -145,6 +145,6 @@ button.bought {
     font-weight: bold;
 }
 
-.apocalypse-info-revelation {
+.apocalypse-info-subheading {
     font-size: 20px;
 }

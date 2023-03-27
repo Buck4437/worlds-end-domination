@@ -14,9 +14,18 @@ Vue.component("apocalypses-tab", {
     <div>
         <div v-for="apocalypse in apocalypsesList" class="apocalypse-info">
             <span class="apocalypse-name">Apocalypse {{apocalypse.level}}: {{apocalypse.text.name}}</span>
-            <i class="apocalypse-nerf-desc">{{apocalypse.text.nerfs}}</i>
-            <i class="apocalypse-info-revelation">Revelations</i>
-            <i class="apocalypse-buff-desc">{{apocalypse.text.buffs}}</i>
+            <i class="apocalypse-info-subheading">Disasters</i>
+            <ul>
+                <li v-for="nerf in apocalypse.text.nerfs">
+                    <i class="apocalypse-nerf-desc">{{nerf}}</i>
+                </li>
+            </ul>
+            <i class="apocalypse-info-subheading">Revelations</i>
+            <ul>
+                <li v-for="buff in apocalypse.text.buffs">
+                    <i class="apocalypse-buff-desc">{{buff}}</i>
+                </li>
+            </ul>
         </div>
     </div>`
 });
