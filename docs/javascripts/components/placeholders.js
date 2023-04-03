@@ -1,7 +1,7 @@
-Vue.component("options-tab", {
+
+const OptionsTab = {
     data() {
         return {
-            database,
             format: toSci
         };
     },
@@ -9,12 +9,11 @@ Vue.component("options-tab", {
     <div>
         Placeholder 1
     </div>`
-});
+};
 
-Vue.component("blobmegathink-tab", {
+const BlobmegathinkTab = {
     data() {
         return {
-            database,
             format: toSci
         };
     },
@@ -22,4 +21,9 @@ Vue.component("blobmegathink-tab", {
     <div>
         Placeholder 2
     </div>`
-});
+};
+
+export {
+    OptionsTab,
+    BlobmegathinkTab
+};

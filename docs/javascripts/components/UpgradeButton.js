@@ -1,10 +1,10 @@
-Vue.component("upgrade-button", {
+const UpgradeButton = {
     props: {
-        upgrade: Object
+        upgrade: Object,
+        player: Object
     },
     data() {
         return {
-            database,
             format: toSci
         };
     },
@@ -12,9 +12,9 @@ Vue.component("upgrade-button", {
     <div>
         <button class="upg-btn"
                 :class="{
-                    'bought': database.upgrades.hasUpgrade(upgrade.id),
-                    'locked': !database.upgrades.hasUpgrade(upgrade.id) && !upgrade.isBuyable(),      
-                    'buyable': !database.upgrades.hasUpgrade(upgrade.id) && upgrade.isBuyable()
+                    'bought': database.upgrades(player).hasUpgrade(upgrade.id),
+                    'locked': !database.upgrades(player).hasUpgrade(upgrade.id) && !upgrade.isBuyable(),      
+                    'buyable': !database.upgrades(player).hasUpgrade(upgrade.id) && upgrade.isBuyable()
                 }"
                 @click="upgrade.buy()">
             <span>{{upgrade.name}}: {{upgrade.getDesc()}}</span>
@@ -24,4 +24,6 @@ Vue.component("upgrade-button", {
             <span>Cost: {{format(upgrade.cost)}} Money</span>
         </button>
     </div>`
-});
+};
+
+export default UpgradeButton;

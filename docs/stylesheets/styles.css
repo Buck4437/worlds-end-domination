@@ -93,6 +93,7 @@ button.bought {
 .building-buy-btn {
     min-width: 72px;
     min-height: 36px;
+    margin-right: 8px;
 }
 
 .building-max-all-btn-con {

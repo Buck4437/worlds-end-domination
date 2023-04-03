@@ -12,8 +12,8 @@
     <body>
         <div id="app">
             <div class="top-bar">
-                <div v-if="database.apocalypses.canApocalypse()" class="top-bar-layer-1">
-                    <button class="apocalypse-btn" @click="database.apocalypses.performApocalypse()">
+                <div v-if="database.apocalypses(player).canApocalypse()" class="top-bar-layer-1">
+                    <button class="apocalypse-btn" @click="database.apocalypses(player).performApocalypse()">
                         ...
                     </button>
                 </div>
@@ -30,31 +30,27 @@
             <component v-for="tab in tabs"
                        v-show="currentTab == tab"
                        :is="toTabComponent(tab)"
+                       :player="player"
                        :key="tab"></component>
+
         </div>
 
+        <script type="importmap">
+            {
+              "imports": {
+                "vue": "./javascripts/libraries/vue.esm-browser.js",
+                "database": "./javascripts/database/index.js",
+                "components/": "./javascripts/components/"
+              }
+            }
+        </script>
+
         <script src="javascripts/libraries/break_infinity.min.js"></script>
-        <script src="javascripts/libraries/vue.min.js"></script>
 
-        <script src="javascripts/player.js"></script>
-
-        <script src="javascripts/database/index.js"></script>
-        <script src="javascripts/database/constants.js"></script>
-        <script src="javascripts/database/buildings.js"></script>
-        <script src="javascripts/database/upgrades.js"></script>
-        <script src="javascripts/database/apocalypses.js"></script>
+        <script src="javascripts/createplayer.js"></script>
         <script src="javascripts/utils.js"></script>
-
-        <script src="javascripts/components/buildings-tab.js"></script>
-        <script src="javascripts/components/upgrade-button.js"></script>
-
-        <script src="javascripts/components/apocalypses-tab.js"></script>
-
         
-        <script src="javascripts/components/placeholders.js"></script>
-
-        
-        <script src="javascripts/gameloop.js"></script>
-        <script src="javascripts/index.js"></script>
+        <script type="module" src="javascripts/database/index.js"></script>
+        <script type="module" src="javascripts/index.js"></script>
     </body>
 </html>

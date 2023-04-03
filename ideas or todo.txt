@@ -1,3 +1,21 @@
+New system for vue 3:
+
+
+
+--------------------
+|PLAYER            |
+|                  |      contains         -----------
+|           DATA   | <-------------------- |  Vue 3  | <---------------------
+|                  |                       -----------                      |
+|                  |                            |                           |
+|                  |                            |
+|                  |                            | passes player object to   |
+--------------------                            |                           |
+           ^                                    v                           |
+           |                                ------------                    |
+           -------------------------------- | Database | --------------------
+                                            ------------    calculates result
+
 Suggestions by minghinshi
 
 Add stats for tracking time needed to complete each apocalypse

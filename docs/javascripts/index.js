@@ -1,12 +1,29 @@
-// eslint-disable-next-line no-new, no-unused-vars
-const app = new Vue({
-    el: "#app",
-    data: {
-        player,
-        database,
-        format: toSci,
-        currentTab: "",
-        version: "v0.0.0"
+import { createApp } from "vue";
+
+import database from "database";
+import gameloop from "./gameloop.js";
+
+import ApocalypsesTab from "components/ApocalypsesTab.js";
+import BuildingsTab from "components/BuildingsTab.js";
+import { OptionsTab, BlobmegathinkTab } from "components/Placeholders.js";
+
+const player = createPlayerObject();
+// // eslint-disable-next-line no-unused-vars
+const app = createApp({
+    data() {
+        return {
+            player,
+            database,
+            format: toSci,
+            currentTab: "",
+            version: "v0.0.0"
+        };
+    },
+    components: {
+        ApocalypsesTab,
+        BuildingsTab,
+        BlobmegathinkTab,
+        OptionsTab
     },
     computed: {
         tabs() {
@@ -17,7 +34,7 @@ const app = new Vue({
                 ["Options", -1]
             ];
             const tabList = [];
-            const apocalypseLevel = database.apocalypses.getApocalypseLevel();
+            const apocalypseLevel = this.database.apocalypses(this.player).getApocalypseLevel();
             for (const item of data) {
                 if (apocalypseLevel >= item[1]) {
                     tabList.push(item[0]);
@@ -48,7 +65,13 @@ const app = new Vue({
     },
     mounted() {
         this.switchTab(this.tabs[0]);
-        setInterval(gameloop, 25);
+        setInterval(() => {
+            gameloop(this.player);
+        }, 25);
     }
 });
 
+app.config.globalProperties.database = database;
+
+// Storing the root component to global for debugging purpose
+window.app = app.mount("#app");

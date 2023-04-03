@@ -1,17 +1,23 @@
-Vue.component("buildings-tab", {
+import UpgradeButton from "./UpgradeButton.js";
+
+const BuildingsTab = {
+    props: {
+        player: Object
+    },
     data() {
         return {
-            player,
-            database,
             format: toSci
         };
     },
+    components: {
+        UpgradeButton
+    },
     computed: {
         buildings() {
-            return this.database.buildings.all();
+            return this.database.buildings(this.player).all();
         },
         upgrades() {
-            return this.database.upgrades.all();
+            return this.database.upgrades(this.player).all();
         }
     },
     watch: {
@@ -63,15 +69,18 @@ Vue.component("buildings-tab", {
                 </div>
             </div>
             <div class="building-max-all-btn-con">
-                <button class="building-max-all-btn" @click="database.buildings.maxAll()">Max All</button>
+                <button class="building-max-all-btn" @click="database.buildings(player).maxAll()">Max All</button>
             </div>
         </div>
         Upgrades:
         <div class="upg-con">
             <upgrade-button v-for="upg in upgrades"
-                            :upgrade="upg" 
+                            :upgrade="upg"
+                            :player="player"
                             :key="upg.id">
             </upgrade-button>
         </div>
     </div>`
-});
+};
+
+export default BuildingsTab;

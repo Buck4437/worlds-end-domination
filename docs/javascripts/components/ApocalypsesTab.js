@@ -1,7 +1,10 @@
-Vue.component("apocalypses-tab", {
+const ApocalypsesTab = {
+    props: {
+        player: Object
+    },
     data() {
         return {
-            apocalypses: database.apocalypses,
+            apocalypses: this.database.apocalypses(player),
             format: toSci
         };
     },
@@ -28,4 +31,6 @@ Vue.component("apocalypses-tab", {
             </ul>
         </div>
     </div>`
-});
+};
+
+export default ApocalypsesTab;
