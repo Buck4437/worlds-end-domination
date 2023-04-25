@@ -22,6 +22,7 @@
                         Money: {{format(player.money)}} / {{format(database.constants.goal)}} (Max: {{maxPercentage}}%)
                     </div>
                 </div>
+                <button @click="player.apocalypseLevel = 1">Cheat to Apocalypse 1</button>
             </div>
             <div class="nav-bar">
                 <button v-for="tab in tabs" class="nav-bar-btn" @click="switchTab(tab)">{{tab}}</button> 
@@ -45,10 +46,10 @@
         <script src="javascripts/database/apocalypses.js"></script>
         <script src="javascripts/utils.js"></script>
 
-        <script src="javascripts/components/buildings-tab.js"></script>
-        <script src="javascripts/components/upgrade-button.js"></script>
+        <script src="javascripts/components/BuildingsTab.js"></script>
+        <script src="javascripts/components/UpgradeButton.js"></script>
 
-        <script src="javascripts/components/apocalypses-tab.js"></script>
+        <script src="javascripts/components/ApocalypsesTab.js"></script>
 
         
         <script src="javascripts/components/placeholders.js"></script>

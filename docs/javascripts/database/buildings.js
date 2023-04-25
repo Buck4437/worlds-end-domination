@@ -148,10 +148,13 @@ database.buildings = {
                     .times(this.id === 4 ? database.upgrades.getUpgrade(9).apply() : 1)
                     .times(apocalypseLevel >= 1 ? 2 : 1);
                 return multiplier;
-            }, 
+            },
+            baseProduction() {
+                return building.baseProduction;
+            },
             // Returns the production rate for the buildings per second.
             production() {
-                const baseProduction = building.baseProduction;
+                const baseProduction = new Decimal(this.baseProduction());
                 const owned = new Decimal(this.owned());
                 const multiplier = this.multiplier();
                 return baseProduction.times(owned).times(multiplier);

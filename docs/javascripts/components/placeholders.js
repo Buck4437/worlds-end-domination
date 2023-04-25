@@ -1,4 +1,4 @@
-Vue.component("options-tab", {
+Vue.component("OptionsTab", {
     data() {
         return {
             database,
@@ -11,7 +11,7 @@ Vue.component("options-tab", {
     </div>`
 });
 
-Vue.component("blobmegathink-tab", {
+Vue.component("BlobmegathinkTab", {
     data() {
         return {
             database,

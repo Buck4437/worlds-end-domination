@@ -1,4 +1,4 @@
-Vue.component("upgrade-button", {
+Vue.component("UpgradeButton", {
     props: {
         upgrade: Object
     },

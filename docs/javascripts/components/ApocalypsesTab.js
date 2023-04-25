@@ -1,4 +1,4 @@
-Vue.component("apocalypses-tab", {
+Vue.component("ApocalypsesTab", {
     data() {
         return {
             apocalypses: database.apocalypses,

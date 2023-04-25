@@ -36,14 +36,7 @@ const app = new Vue({
             this.currentTab = tab;
         },
         toTabComponent(name) {
-            return `${name.toLowerCase().replace(" ", "-")}-tab`;
-        }
-    },
-    watch: {
-        player: {
-            deep: true,
-            // eslint-disable-next-line no-empty-function
-            handler() {}
+            return `${capitalize(name.toLowerCase())}Tab`;
         }
     },
     mounted() {

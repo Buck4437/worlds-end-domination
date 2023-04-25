@@ -2,7 +2,7 @@ Suggestions by minghinshi
 
 Add stats for tracking time needed to complete each apocalypse
 
-todo: show base production of those buildings
+todo: show base production of those buildings [Via hover tooltip]
 todo: reorganize utils file
 
 Later nerf:

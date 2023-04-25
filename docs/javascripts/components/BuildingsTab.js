@@ -1,4 +1,4 @@
-Vue.component("buildings-tab", {
+Vue.component("BuildingsTab", {
     data() {
         return {
             player,
@@ -14,13 +14,6 @@ Vue.component("buildings-tab", {
             return this.database.upgrades.all();
         }
     },
-    watch: {
-        player: {
-            deep: true,
-            // eslint-disable-next-line no-empty-function
-            handler() {}
-        }
-    },
     template: `
     <div>
         <div class="building-con">
@@ -29,7 +22,7 @@ Vue.component("buildings-tab", {
                     <div>
                         {{building.name}}: {{building.owned()}}
                         (×{{format(building.multiplier())}})
-                        (+ {{format(building.production())}}/s)
+                        (Total: + {{format(building.production())}}/s)
                     </div>
                     <div>
                         Cost: {{format(building.cost())}} Money
@@ -68,10 +61,10 @@ Vue.component("buildings-tab", {
         </div>
         Upgrades:
         <div class="upg-con">
-            <upgrade-button v-for="upg in upgrades"
+            <UpgradeButton v-for="upg in upgrades"
                             :upgrade="upg" 
                             :key="upg.id">
-            </upgrade-button>
+            </UpgradeButton>
         </div>
     </div>`
 });
