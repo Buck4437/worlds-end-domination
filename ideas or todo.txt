@@ -1,3 +1,12 @@
+Current idea for guilds:
+- When you prestige, you gain one alliance (Threshold-based)
+- Alliance boosts your coin production
+- Milestone-based rewards based on alliance
+
+
+
+
+
 Suggestions by minghinshi
 
 Add stats for tracking time needed to complete each apocalypse
@@ -13,11 +22,6 @@ I might also add an upgrade that just multiplies the production of a building by
 or 6 more upgrades that is based on total buildings, but multiplies a specific building
 
 though I guess we can have 4 buildings to start with, and add an upgrade later in the game that unlocks the 5th and 6th ones
-
-I also need a progression management class
-
-
-
 
 
 

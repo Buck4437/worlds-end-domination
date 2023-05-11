@@ -5,5 +5,10 @@ window.player = {
     maxMoney: new Decimal(0),
 
     apocalypseLevel: 0,
+
+    guilds: {
+        members: 0
+    },
+
     lastTick: Date.now()
 };

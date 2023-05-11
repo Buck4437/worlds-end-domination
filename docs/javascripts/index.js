@@ -12,7 +12,7 @@ const app = new Vue({
         tabs() {
             const data = [
                 ["Buildings", -1],
-                ["BLOBMEGATHINK", 1],
+                ["Guilds", 1],
                 ["Apocalypses", 1],
                 ["Options", -1]
             ];
