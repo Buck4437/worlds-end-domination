@@ -29,11 +29,9 @@ database.apocalypses = {
         if (this.canApocalypse()) {
             const confirmed = confirm("Do you want to proceed?");
             if (confirmed) {
+                database.player.reset();
                 database.buildings.reset();
                 database.upgrades.reset();
-
-                player.money = new Decimal(0);
-                player.maxMoney = new Decimal(0);
                 player.apocalypseLevel += 1;
             }
         }

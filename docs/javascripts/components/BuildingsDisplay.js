@@ -1,4 +1,4 @@
-Vue.component("BuildingsTab", {
+Vue.component("BuildingsDisplay", {
     data() {
         return {
             player,
@@ -58,13 +58,6 @@ Vue.component("BuildingsTab", {
             <div class="building-max-all-btn-con">
                 <button class="building-max-all-btn" @click="database.buildings.maxAll()">Max All</button>
             </div>
-        </div>
-        Upgrades:
-        <div class="upg-con">
-            <UpgradeButton v-for="upg in upgrades"
-                            :upgrade="upg" 
-                            :key="upg.id">
-            </UpgradeButton>
         </div>
     </div>`
 });

@@ -22,7 +22,11 @@
                         Money: {{format(player.money)}} / {{format(database.constants.goal)}} (Max: {{maxPercentage}}%)
                     </div>
                 </div>
-                <button @click="player.apocalypseLevel = 1">Cheat to Apocalypse 1</button>
+                <button @click="player.apocalypseLevel = 1">Cheat to Apocalypse 1 (Temporary)</button>
+                <button v-if="database.apocalypses.getApocalypseLevel() >= 1" @click="database.spells.convert()">
+                    Convert Money to Mana<br>
+                    Gain {{format(database.spells.gainOnConversion())}} Mana
+                </button>
             </div>
             <div class="nav-bar">
                 <button v-for="tab in tabs" class="nav-bar-btn" @click="switchTab(tab)">{{tab}}</button> 
@@ -35,19 +39,23 @@
         </div>
 
         <script src="javascripts/libraries/break_infinity.min.js"></script>
-        <script src="javascripts/libraries/vue.min.js"></script>
+        <script src="javascripts/libraries/vue.js"></script>
 
         <script src="javascripts/player.js"></script>
 
         <script src="javascripts/database/index.js"></script>
+        <script src="javascripts/database/player.js"></script>
         <script src="javascripts/database/constants.js"></script>
         <script src="javascripts/database/buildings.js"></script>
         <script src="javascripts/database/upgrades.js"></script>
         <script src="javascripts/database/apocalypses.js"></script>
+        <script src="javascripts/database/spells.js"></script>
         <script src="javascripts/utils.js"></script>
 
-        <script src="javascripts/components/BuildingsTab.js"></script>
-        <script src="javascripts/components/UpgradeButton.js"></script>
+        <script src="javascripts/components/MainTab.js"></script>
+        <script src="javascripts/components/BuildingsDisplay.js"></script>
+        <script src="javascripts/components/UpgradeContainer.js"></script>
+        <script src="javascripts/components/SpellsDisplay.js"></script>
 
         <script src="javascripts/components/ApocalypsesTab.js"></script>
 

@@ -12,8 +12,7 @@ const app = new Vue({
         tabs() {
             // Format [Tabname, Apocalypse level required to unlock tab]
             const data = [
-                ["Buildings", -1],
-                ["Guilds", 1],
+                ["Main", -1],
                 ["Apocalypses", 1],
                 ["Options", -1]
             ];
