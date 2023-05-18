@@ -187,8 +187,8 @@ database.buildings = {
                 const money = player.money;
                 if (money.lt(this.cost())) return;
                 const owned = this.owned();
-                // The +1 is for extra buffer in case of off-by-one error, since I don't want to tackle them.
-                // The reason for not using +1 is that, the first worker is free and does not increase the scaling.
+                // The +1 and ceil is for extra buffer in case of off-by-one error, since I don't want to tackle them.
+                // The reason for using +1 is that, the first worker is free and does not increase the scaling.
                 const maxAmount = Math.ceil(database.constants.goal.div(this._baseCost()).log(this._scaling()) + 1);
                 let min = 0, max = maxAmount - owned;
                 while (min < max) {

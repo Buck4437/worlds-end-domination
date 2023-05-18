@@ -15,7 +15,6 @@ Vue.component("MainTab", {
     <div>
         <div class="main-tab-wrapper">
             <div class="buildings-section">
-                Buildings:
                 <BuildingsDisplay/>
                 Upgrades:
                 <div class="upg-list">

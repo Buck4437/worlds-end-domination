@@ -1,6 +1,9 @@
+html {
+    font-size: 0.75em;
+}
+
 body {
     margin: 16px;
-    font-size: 12px;
     background-color: var(--background);
 }
 
@@ -12,6 +15,7 @@ body {
 /* global stuff */
 
 button {
+    font-size: 1rem;
     background-color: var(--background);
     border: 2px solid var(--color);
     cursor: pointer;
@@ -55,6 +59,10 @@ button.bought {
     align-items: center;
     flex-direction: row;
     flex-wrap: wrap;
+}
+
+.top-bar-layer-2 .money-display {
+    font-size: 1.5rem;
 }
 
 /* Nav-bar */
@@ -106,23 +114,25 @@ button.bought {
 .building-text-con {
     display: flex;
     flex-direction: column;
+    font-size: 1.2rem;
 }
 
-.building-buy-btn {
-    min-width: 72px;
-    min-height: 36px;
+.building-buy-btn, .building-max-all-btn {
+    min-width: 10rem;
+    height: 2.3rem;
 }
 
-.building-max-all-btn-con {
+.building-util-btn-con {
     display: flex;
-    flex-direction: column;
-    align-items: flex-end;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
-.building-max-all-btn {
-    min-width: 144px;
-    min-height: 36px;
+.building-mode-btn {
+    min-width: 12rem;
+    height: 2.3rem;
 }
+
 
 /* Upgrades */
 
@@ -169,10 +179,10 @@ button.bought {
 }
 
 .apocalypse-name {
-    font-size: 24px;
+    font-size: 1.5rem;
     font-weight: bold;
 }
 
 .apocalypse-info-subheading {
-    font-size: 20px;
+    font-size: 1.3rem;
 }
