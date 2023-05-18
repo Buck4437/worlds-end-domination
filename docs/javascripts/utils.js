@@ -1,6 +1,5 @@
 // Number formatting
 
-// eslint-disable-next-line no-unused-vars
 function toSci(num, dpSci = 2, dpNorm = 2, useNorm = 1000) {
     if (typeof num === "number") {
         return _numberToSci(num, dpSci, dpNorm, useNorm);

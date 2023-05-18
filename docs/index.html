@@ -18,14 +18,17 @@
                     </button>
                 </div>
                 <div class="top-bar-layer-2">
-                    <div class="money-display">
+                    <span class="money-display">
                         Money: {{format(player.money)}} / {{format(database.constants.goal)}} (Max: {{maxPercentage}}%)
-                    </div>
+                    </span>
+                    <span v-if="database.apocalypses.getApocalypseLevel() >= 1" class="mana-display">
+                        Mana: {{format(player.spells.mana, 2, 0)}}
+                    </span>
                 </div>
                 <button @click="player.apocalypseLevel = 1">Cheat to Apocalypse 1 (Temporary)</button>
                 <button v-if="database.apocalypses.getApocalypseLevel() >= 1" @click="database.spells.convert()">
                     Convert Money to Mana<br>
-                    Gain {{format(database.spells.gainOnConversion())}} Mana
+                    Gain {{format(database.spells.decimalGain())}} Mana, rounded down.
                 </button>
             </div>
             <div class="nav-bar">

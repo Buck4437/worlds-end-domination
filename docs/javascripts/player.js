@@ -10,7 +10,14 @@ window.player = {
         spells: [
             null,
             {
-                activated: false
+                auto: false,
+                level: 1,
+                timer: 0
+            },
+            {
+                auto: false,
+                level: 1,
+                timer: 0
             }
         ]
     },

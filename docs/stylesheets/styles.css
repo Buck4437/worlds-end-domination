@@ -39,6 +39,23 @@ button.bought {
 	border-color: var(--color);
 }
 
+button.on, button.green {
+	border-color: var(--color-green);
+}
+
+button.off, button.red {
+	border-color: var(--color-red);
+}
+
+button.disabled {
+    border-color: var(--color);
+    cursor: default;
+}
+
+button.disabled:hover {
+    background-color: inherit;
+}
+
 /* Actual stuff */
 
 /* top bar display */
@@ -55,14 +72,14 @@ button.bought {
 .top-bar-layer-2 {
     margin-top: 16px;
     display: flex;
-    justify-content: space-between;
     align-items: center;
     flex-direction: row;
     flex-wrap: wrap;
 }
 
-.top-bar-layer-2 .money-display {
+.top-bar-layer-2 .money-display, .top-bar-layer-2 .mana-display {
     font-size: 1.5rem;
+    margin-right: 5rem;
 }
 
 /* Nav-bar */
@@ -73,8 +90,9 @@ button.bought {
 }
 
 .nav-bar-btn {
-    min-width: 120px;
-    min-height: 48px;
+    font-size: 1.2rem;
+    min-width: 10rem;
+    min-height: 3rem;
     margin-right: 8px;
 }
 
@@ -112,9 +130,9 @@ button.bought {
 }
 
 .building-text-con {
+    font-size: 1.2rem;
     display: flex;
     flex-direction: column;
-    font-size: 1.2rem;
 }
 
 .building-buy-btn, .building-max-all-btn {
@@ -135,6 +153,10 @@ button.bought {
 
 
 /* Upgrades */
+
+.upgrade-header {
+    font-size: 1.2rem;
+}
 
 .upg-list {
     display: flex;
@@ -166,6 +188,21 @@ button.bought {
     border: 2px solid var(--color);
 }
 
+/* Spells */
+
+.spell-con {
+    margin-bottom: 8px;
+}
+
+.spell-toggle-btn {
+    min-width: 5rem;
+    min-height: 2rem;
+}
+
+.spell-name {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
 
 /* Apocalypses tab */
 .apocalypse-info {

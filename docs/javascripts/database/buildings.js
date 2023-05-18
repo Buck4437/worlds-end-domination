@@ -146,7 +146,8 @@ database.buildings = {
                     .times(this.id === 3 ? database.upgrades.getUpgrade(6).apply() : 1)
                     .times(this.id === 4 ? database.upgrades.getUpgrade(8).apply() : 1)
                     .times(this.id === 4 ? database.upgrades.getUpgrade(9).apply() : 1)
-                    .times(apocalypseLevel >= 1 ? 2 : 1);
+                    .times(apocalypseLevel >= 1 ? 2 : 1)
+                    .times(database.spells.getSpell(1).apply());
                 return multiplier;
             },
             baseProduction() {

@@ -9,6 +9,9 @@ Vue.component("MainTab", {
     computed: {
         upgrades() {
             return this.database.upgrades.all();
+        },
+        spellsUnlocked() {
+            return this.database.apocalypses.getApocalypseLevel() >= 1;
         }
     },
     template: `
@@ -16,7 +19,7 @@ Vue.component("MainTab", {
         <div class="main-tab-wrapper">
             <div class="buildings-section">
                 <BuildingsDisplay/>
-                Upgrades:
+                <span class="upgrade-header">Upgrades:</span>
                 <div class="upg-list">
                     <UpgradeContainer v-for="upg in upgrades"
                                     :upgrade="upg" 
@@ -24,8 +27,7 @@ Vue.component("MainTab", {
                     </UpgradeContainer>
                 </div>
             </div>
-            <div class="spells-section">
-                Spells:
+            <div v-if="spellsUnlocked" class="spells-section">
                 <SpellsDisplay/>
             </div>
         </div>

@@ -13,6 +13,7 @@ const app = new Vue({
             // Format [Tabname, Apocalypse level required to unlock tab]
             const data = [
                 ["Main", -1],
+                ["Mana Shop", 1],
                 ["Apocalypses", 1],
                 ["Options", -1]
             ];
@@ -36,7 +37,7 @@ const app = new Vue({
             this.currentTab = tab;
         },
         toTabComponent(name) {
-            return `${capitalize(name.toLowerCase())}Tab`;
+            return `${name.split(" ").map(x => capitalize(x.toLowerCase())).join("")}Tab`;
         }
     },
     mounted() {
