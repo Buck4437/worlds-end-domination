@@ -38,7 +38,7 @@ database.spells = {
             },
             {
                 name: "Spell 3",
-                requiredApocalypseLevel: 1,
+                requiredApocalypseLevel: 2,
                 levelCap: 3,
                 getDuration: level => 30,
                 getDesc(level) {
@@ -61,7 +61,7 @@ database.spells = {
             },
             {
                 name: "Spell 4",
-                requiredApocalypseLevel: 1,
+                requiredApocalypseLevel: 2,
                 levelCap: 3,
                 getDuration(level) {
                     return 30 + level * 120;
@@ -88,7 +88,7 @@ database.spells = {
         ]
     },
     decimalGain() {
-        const base = Decimal.pow(Decimal.log10(player.maxMoney.div(100).add(1)) + 1, 3).sub(1);
+        const base = Decimal.pow(Decimal.log10(player.maxMoney.div(100).add(1)) + 1, 2).sub(1);
         const multi = new Decimal(1).times(database.spells.getSpell(2).apply());
         return base.times(multi);
     },

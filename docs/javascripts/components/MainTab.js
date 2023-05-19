@@ -15,11 +15,14 @@ Vue.component("MainTab", {
         }
     },
     template: `
-    <div>
+    <div class="main-tab">
         <div class="main-tab-wrapper">
             <div class="buildings-section">
                 <BuildingsDisplay/>
                 <span class="upgrade-header">Upgrades:</span>
+                <button @click="database.upgrades.buyAll()">
+                    Buy all upgrades
+                </button>
                 <div class="upg-list">
                     <UpgradeContainer v-for="upg in upgrades"
                                     :upgrade="upg" 

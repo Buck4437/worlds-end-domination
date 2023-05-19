@@ -29,7 +29,8 @@ window.player = {
                 level: 1,
                 timer: 0
             }
-        ]
+        ],
+        upgradeBits: 0
     },
 
     lastTick: Date.now()

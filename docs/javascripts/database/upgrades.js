@@ -172,6 +172,18 @@ database.upgrades = {
     hasUpgrade(n) {
         return (player.upgradeBits & (2 ** (n - 1))) !== 0; // eslint-disable-line no-bitwise
     },
+    totalPurchased() {
+        let count = 0;
+        for (let i = 1; i < this.data.length; i++) {
+            if (this.hasUpgrade(i)) {
+                count++;
+            }
+        }
+        return count;
+    },
+    buyAll(deductCurrency = true) {
+        this.all().map(x => x.buy(deductCurrency));
+    },
     all() {
         const upgrades = [];
         for (let i = 1; i < this.data.length; i++) {
@@ -191,9 +203,11 @@ database.upgrades = {
             isBuyable() {
                 return !database.upgrades.hasUpgrade(this.id) && player.money.gte(this.cost);
             },
-            buy() {
+            buy(deductCurrency = true) {
                 if (this.isBuyable()) {
-                    player.money = player.money.sub(this.cost);
+                    if (deductCurrency) {
+                        player.money = player.money.sub(this.cost);
+                    }
                     player.upgradeBits |= 2 ** (this.id - 1); // eslint-disable-line no-bitwise
                 }
             }

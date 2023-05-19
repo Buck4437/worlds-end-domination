@@ -5,10 +5,15 @@ database.apocalypses = {
             text: {
                 name: "(Placeholder)",
                 nerfs: [
-                    "2.5 => 1.5, 4 => 3, 8 => 6, 12.5 => 10 "
+                    "Workers 2 upgrade multiplier 2.5 -> 1.5",
+                    "Farmers 2 upgrade multiplier 4 -> 3",
+                    "Builders 2 upgrade multiplier 8 -> 6",
+                    "Merchants 2 upgrade multiplier 12.5 -> 10"
                 ],
                 buffs: [
-                    "Unlock BLOBMEGATHINK",
+                    "Unlock Spells",
+                    "Unlock Mana Shop",
+                    "Unlock Automation",
                     "x2 production to all buildings"
                 ]
             }
@@ -17,8 +22,14 @@ database.apocalypses = {
             level: 2,
             text: {
                 name: "2nd",
-                nerfs: "Placeholder 2",
-                buffs: "Unlock BLLLLLLLLLLLLLOB"
+                nerfs: [
+                    "Placeholder",
+                ],
+                buffs: [
+                    "Unlock Spell 3 and 4",
+                    "Unlock Upgrade 4 to 7?",
+                    "Coming soon",
+                ]
             }
         }
     ],

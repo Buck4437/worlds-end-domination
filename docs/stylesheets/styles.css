@@ -37,6 +37,7 @@ button.locked {
 button.bought {
     background-color: var(--color-yellow);
 	border-color: var(--color);
+    cursor: default;
 }
 
 button.on, button.green {
@@ -211,11 +212,8 @@ button.disabled:hover {
     padding-bottom: 16px;
 }
 
-.apocalypse-name, .apocalypse-nerf-desc, .apocalypse-info-subheading {
-    padding-bottom: 8px;
-}
-
 .apocalypse-name {
+    padding-bottom: 8px;
     font-size: 1.5rem;
     font-weight: bold;
 }

@@ -4,8 +4,22 @@ function gameloop() {
 
     if (dt < 0) return;
 
-    // Drain mana
-    // I should make it a fixed investment instead.
+    // Auto generate mana
+    if (database.manaShop.hasUpgrade(1) && player.spells.mana.lt(10)) {
+        player.spells.mana = Decimal.min(player.spells.mana.add(dt), 10);
+    }
+
+    if (database.manaShop.hasUpgrade(2) && player.spells.mana.lt(1000)) {
+        player.spells.mana = Decimal.min(player.spells.mana.add(dt * 50), 1000);
+    }
+
+    // Automation
+
+    if (database.manaShop.hasUpgrade(3)) {
+        database.upgrades.buyAll(deductCurrency = false);
+    }
+
+    // Activate auto spells
     for (const spell of database.spells.all()) {
         spell.tickTimer(dt);
         if (spell.getTimer() === 0) {
