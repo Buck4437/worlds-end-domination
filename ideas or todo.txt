@@ -2,6 +2,7 @@ todo:
 - toggle all for auto
 - change cost display based on mod
 - hotkeys
+- upgrade to remove the convert cooldown
 
 Suggestion by jazz:
 - Add 3rd spell for first reset

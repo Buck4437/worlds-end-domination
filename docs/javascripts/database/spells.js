@@ -112,8 +112,11 @@ database.spells = {
     gainOnConversion() {
         return this.decimalGain().floor();
     },
+    canConvert() {
+        return this.gainOnConversion().gt(0) && player.spells.convertCooldown <= 0;
+    },
     convert() {
-        if (this.gainOnConversion().lte(0)) return;
+        if (!this.canConvert()) return;
         const gain = this.gainOnConversion();
 
         database.player.reset();
@@ -125,6 +128,7 @@ database.spells = {
         }
 
         this.addMana(gain);
+        player.spells.convertCooldown = 1;
     },
     all() {
         const spells = [];

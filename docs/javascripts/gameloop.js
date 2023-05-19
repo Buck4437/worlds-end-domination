@@ -36,6 +36,9 @@ function gameloop() {
         }
     }
 
+    // Refresh player cooldowns
+    player.spells.convertCooldown = Math.max(player.spells.convertCooldown - dt, 0);
+
     for (const building of database.buildings.all()) {
         const production = building.production();
         const newMoney = database.player.getMoney().add(production.times(dt));

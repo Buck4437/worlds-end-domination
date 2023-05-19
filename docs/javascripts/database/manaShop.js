@@ -4,12 +4,12 @@ database.manaShop = {
         null,
         {
             name: "Upgrade 1",
-            getDesc: () => "Passively generate 5 mana per second, up to 100 manas",
+            getDesc: () => "Passively generate 5 Mana per second, up to 100 Mana",
             cost: new Decimal(500)
         },
         {
             name: "Upgrade 2",
-            getDesc: () => "Passively generate 500 mana per second, up to 10000 manas",
+            getDesc: () => "Passively generate 500 Mana per second, up to 10000 Mana",
             cost: new Decimal(5e4)
         },
         {
@@ -20,7 +20,8 @@ database.manaShop = {
         {
             name: "Upgrade 4",
             getDesc: () => "Start with 100 money when you exchange for mana.",
-            cost: new Decimal(1e2)
+            cost: new Decimal(1e2),
+            purchaseCallBack() { database.player.setMoney(Decimal.max(100, database.player.getMoney())); }
         },
         // Upgrade 5-8 effect not added yet
         // {
@@ -80,6 +81,7 @@ database.manaShop = {
                     player.spells.mana = player.spells.mana.sub(this.getCost());
                     player.spells.upgradeBits |= 2 ** (this.id - 1); // eslint-disable-line no-bitwise
                 }
+                upgrade.purchaseCallBack?.();
             },
             defaultEffect: upgrade.defaultEffect ?? null,
             effect() { return upgrade?.effect() ?? null; },
