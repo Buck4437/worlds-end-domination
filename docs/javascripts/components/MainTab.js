@@ -31,6 +31,7 @@ Vue.component("MainTab", {
                 </div>
             </div>
             <div v-if="spellsUnlocked" class="spells-section">
+                Btw mana conversion has a cooldown of 1 second, I'll add indicator later
                 <SpellsDisplay/>
             </div>
         </div>

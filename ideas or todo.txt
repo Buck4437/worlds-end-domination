@@ -1,3 +1,8 @@
+todo: 
+- toggle all for auto
+- change cost display based on mod
+- hotkeys
+
 Suggestion by jazz:
 - Add 3rd spell for first reset
 

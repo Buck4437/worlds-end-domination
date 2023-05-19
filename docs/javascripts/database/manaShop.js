@@ -17,28 +17,33 @@ database.manaShop = {
             getDesc: () => "Automatically unlock upgrades once they are affordable, for free",
             cost: new Decimal(1e6)
         },
-        // Upgrade 4-7 effect not added yet
+        {
+            name: "Upgrade 4",
+            getDesc: () => "Start with 100 money when you exchange for mana.",
+            cost: new Decimal(1e2)
+        },
+        // Upgrade 5-8 effect not added yet
         // {
-        //     name: "Upgrade 4",
+        //     name: "Upgrade 5",
         //     getDesc: () => 
         //         "Start with 1e3 money when you exchange for mana." +
         //         " Note: make the priority of auto buy buildings high - low",
         //     cost: new Decimal(1e3)
         // },
         // {
-        //     name: "Upgrade 5",
+        //     name: "Upgrade 6",
         //     getDesc: () => 
         //         "Start with 1e12 money when you exchange for mana.",
         //     cost: new Decimal(1e5)
         // },
         // {
-        //     name: "Upgrade 6",
+        //     name: "Upgrade 7",
         //     getDesc: () => 
         //         "Start with 1e40 money when you exchange for mana.",
         //     cost: new Decimal(1e8)
         // },
         // {
-        //     name: "Upgrade 7",
+        //     name: "Upgrade 8",
         //     getDesc: () => 
         //         "Multiply all buildings by x2 for each purchased building upgrades",
         //     cost: new Decimal(1e7),

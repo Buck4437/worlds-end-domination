@@ -24,16 +24,16 @@ database.spells = {
                 name: "Spell 2",
                 requiredApocalypseLevel: 1,
                 levelCap: 10,
-                getDuration: level => 5,
+                getDuration: level => 10,
                 getDesc(level) {
                     return `Multiply mana gain by x${toSci(this.effect(level))}`;
                 },
                 cost(level) {
-                    return Decimal.pow(10, level - 1).times(1000);
+                    return Decimal.pow(20, level - 1).times(200);
                 },
                 defaultEffect: new Decimal(1),
                 effect(level, timer) {
-                    return Decimal.pow(3, level);
+                    return Decimal.pow(5, level);
                 }
             },
             {
@@ -104,7 +104,8 @@ database.spells = {
         ]
     },
     decimalGain() {
-        const base = Decimal.pow(Decimal.log10(player.maxMoney.div(100).add(1)) + 1, 2.5).sub(1);
+        // ((log(money/10 + 1) + 1)^3 - 1) / 10
+        const base = Decimal.pow(Decimal.log10(player.maxMoney.div(10).add(1)) + 1, 3).sub(1).div(10);
         const multi = new Decimal(1).times(database.spells.getSpell(2).apply());
         return base.times(multi);
     },
@@ -118,6 +119,10 @@ database.spells = {
         database.player.reset();
         database.buildings.reset();
         database.upgrades.reset();
+
+        if (database.manaShop.hasUpgrade(4)) {
+            database.player.setMoney(new Decimal("100"));
+        }
 
         this.addMana(gain);
     },

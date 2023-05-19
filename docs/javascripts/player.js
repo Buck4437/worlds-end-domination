@@ -44,6 +44,7 @@ window.player = {
     apocalypseLevel: 0,
     spells: {
         mana: new Decimal(0),
+        convertCooldown: 0,
         spells: [
             null,
             {
