@@ -18,6 +18,16 @@ window.player = {
                 auto: false,
                 level: 1,
                 timer: 0
+            },
+            {
+                auto: false,
+                level: 1,
+                timer: 0
+            },
+            {
+                auto: false,
+                level: 1,
+                timer: 0
             }
         ]
     },

@@ -7,49 +7,88 @@ database.spells = {
             {
                 name: "Spell 1",
                 requiredApocalypseLevel: 1,
-                levelCap: 101,
+                levelCap: 10,
+                getDuration: level => 5,
                 getDesc(level) {
                     return `Multiply all buildings by x${toSci(this.effect(level))}`;
                 },
                 cost(level) {
-                    return Decimal.pow(10, level - 1).times(5);
+                    return Decimal.pow(10, level - 1);
                 },
                 defaultEffect: new Decimal(1),
-                effect(level) {
-                    return Decimal.pow(4, level);
+                effect(level, timer) {
+                    return Decimal.pow(3, level);
                 }
             },
             {
                 name: "Spell 2",
                 requiredApocalypseLevel: 1,
-                levelCap: 51,
+                levelCap: 5,
+                getDuration: level => 5,
                 getDesc(level) {
                     return `Multiply mana gain by x${toSci(this.effect(level))}`;
                 },
                 cost(level) {
-                    return Decimal.pow(10, level - 1).times(5);
+                    return Decimal.pow(100, level - 1).times(5);
                 },
                 defaultEffect: new Decimal(1),
-                effect(level) {
+                effect(level, timer) {
                     return Decimal.pow(2, level);
                 }
             },
-            // {
-            //     name: "Spell 3",
-            //     requiredApocalypseLevel: 1,
-            //     getDesc() {
-            //         return "Placeholder";
-            //     },
-            //     rate: 0.1,
-            //     defaultEffect: new Decimal(1),
-            //     effect(level) {
-            //         return new Decimal(10);
-            //     }
-            // }
+            {
+                name: "Spell 3",
+                requiredApocalypseLevel: 1,
+                levelCap: 3,
+                getDuration: level => 30,
+                getDesc(level) {
+                    return `Multiply all buildings by x${toSci(this.effect(level, 30))} in the first 10 seconds, 
+                        x${toSci(this.effect(level, 20))} for the remaining duration.`;
+                },
+                cost(level) {
+                    return Decimal.pow(1000, level - 1).times(100);
+                },
+                defaultEffect: new Decimal(1),
+                effect(level, remainingTime) {
+                    if (remainingTime > this.getDuration(level) - 10) {
+                        return Decimal.pow(10, level);
+                    }
+                    return Decimal.pow(0.25, level);
+                },
+                displayEffect: true,
+                effectPrefix: "x",
+                exclusiveWith: [4]
+            },
+            {
+                name: "Spell 4",
+                requiredApocalypseLevel: 1,
+                levelCap: 3,
+                getDuration(level) {
+                    return 30 + level * 120;
+                },
+                getDesc(level) {
+                    return `Multiply all buildings by x1~${toSci(this.effect(level, 30))},
+                        max out after ${this.getDuration(level) - 30} seconds.`;
+                },
+                cost(level) {
+                    return Decimal.pow(1000, level - 1).times(100);
+                },
+                defaultEffect: new Decimal(1),
+                effect(level, remainingTime) {
+                    // Effect increases exponentially (x10 every 120 seconds), until the last 30 seconds
+                    if (remainingTime <= 30) {
+                        return Decimal.pow(10, (this.getDuration(level) - 30) / 120);
+                    }
+                    return Decimal.pow(10, (this.getDuration(level) - remainingTime) / 120);
+                },
+                displayEffect: true,
+                effectPrefix: "x",
+                exclusiveWith: [3]
+            },
         ]
     },
     decimalGain() {
-        const base = Decimal.pow(player.maxMoney.div(100).add(1), 0.2).sub(1).times(15);
+        const base = Decimal.pow(Decimal.log10(player.maxMoney.div(100).add(1)) + 1, 3).sub(1);
         const multi = new Decimal(1).times(database.spells.getSpell(2).apply());
         return base.times(multi);
     },
@@ -85,11 +124,13 @@ database.spells = {
             name: spell.name,
             requiredApocalypseLevel: spell.requiredApocalypseLevel,
             levelCap: spell.levelCap,
+            getDuration() { return spell.getDuration(this.getLevel()); },
             getDesc() { return spell.getDesc(this.getLevel()); },
             getCost() { return spell.cost(this.getLevel()); },
-            getEffect() { return spell.effect(this.getLevel()); },
+            getEffect() { return spell.effect(this.getLevel(), this.getTimer()); },
             defaultEffect: spell.defaultEffect,
-            effectPrefix: spell.effectPrefix,
+            displayEffect: spell.displayEffect ?? false,
+            effectPrefix: spell.effectPrefix ?? null,
             apply() { return this.isActivated() ? this.getEffect() : this.defaultEffect; },
 
             getLevel: () => player.spells.spells[id].level,
@@ -100,17 +141,24 @@ database.spells = {
             isActivated() { return this.getTimer() > 0; },
             activate() {
                 if (this.isActivated()) return;
+                for (const exclusiveId of this.exclusiveWith) {
+                    if (database.spells.getSpell(exclusiveId).isActivated()) {
+                        return;
+                    }
+                }
                 const manaCost = this.getCost();
                 if (player.spells.mana.gte(manaCost)) {
                     player.spells.mana = player.spells.mana.sub(manaCost);
-                    player.spells.spells[id].timer = 5;
+                    player.spells.spells[id].timer = this.getDuration();
                 }
             },
 
             canBuff() { return !this.isActivated() && this.getLevel() < this.levelCap; },
             canNerf() { return !this.isActivated() && this.getLevel() > 1; },
             buff() { if (this.canBuff()) player.spells.spells[id].level++; },
-            nerf() { if (this.canNerf()) player.spells.spells[id].level--; }
+            nerf() { if (this.canNerf()) player.spells.spells[id].level--; },
+            
+            exclusiveWith: spell.exclusiveWith ?? []
         };
     },
 
