@@ -6,25 +6,29 @@ database.buildings = {
             name: "Workers",
             baseCost: new Decimal("2"),
             baseScaling: new Decimal("1.15"),
-            baseProduction: new Decimal("1")
+            baseProduction: new Decimal("1"),
+            autoCost: new Decimal("1e8")
         }, 
         {
             name: "Farmers",
             baseCost: new Decimal("1e3"),
             baseScaling: new Decimal("1.2"),
-            baseProduction: new Decimal("500")
+            baseProduction: new Decimal("500"),
+            autoCost: new Decimal("1e20")
         },
         {
             name: "Builders",
             baseCost: new Decimal("1e12"),
             baseScaling: new Decimal("1.25"),
-            baseProduction: new Decimal("1e12")
+            baseProduction: new Decimal("1e12"),
+            autoCost: new Decimal("1e50")
         },  
         {
             name: "Merchants",
             baseCost: new Decimal("1e40"),
             baseScaling: new Decimal("1.3"),
-            baseProduction: new Decimal("1e36")
+            baseProduction: new Decimal("1e36"),
+            autoCost: new Decimal("1e100")
         },  
         // Priests, Bishops and Monarchs and will be unlocked later in the game
         // {
@@ -61,9 +65,9 @@ database.buildings = {
             building.buyMax();
         }
     },
-    reset() {
+    reset(resetAuto) {
         for (const building of this.all()) {
-            building._resetBuilding();
+            building._resetBuilding(resetAuto);
         }
     },
     getBuilding(id) {
@@ -119,19 +123,19 @@ database.buildings = {
             },
             // Returns the number of buildings owned by the player.
             owned() {
-                return player.buildings[this.id];
+                return player.buildings[this.id].count;
             },
             // Returns the cost for the next building.
             cost() {
                 return this._costFor(this.owned());
             },
             isBuyable() {
-                return player.money.gte(this.cost());
+                return database.player.getMoney().gte(this.cost());
             },
             isBuyableToTen() {
                 const amount = 10 - this.owned() % 10;
                 const cost = this._totalCost(amount);
-                return player.money.gte(cost);
+                return database.player.getMoney().gte(cost);
             },
             multiplier() {
                 const apocalypseLevel = database.apocalypses.getApocalypseLevel();
@@ -148,8 +152,8 @@ database.buildings = {
                     .times(this.id === 4 ? database.upgrades.getUpgrade(9).apply() : 1)
                     .times(apocalypseLevel >= 1 ? 2 : 1)
                     .times(database.spells.getSpell(1).apply())
-                    .times(database.spells.getSpell(3).apply())
-                    .times(database.spells.getSpell(4).apply());
+                    .times(database.spells.getSpell(4).apply())
+                    .times(database.spells.getSpell(5).apply());
                 return multiplier;
             },
             baseProduction() {
@@ -164,16 +168,20 @@ database.buildings = {
             },
             // Adds building to the player directly, without cost checking.
             _addBuilding(count) {
-                player.buildings.splice(this.id, 1, this.owned() + count);
+                player.buildings[this.id].count += count;
             },
-            _resetBuilding() {
-                player.buildings.splice(this.id, 1, 0);
+            _resetBuilding(resetAuto = false) {
+                player.buildings[this.id].count = 0;
+                if (resetAuto) {
+                    player.buildings[this.id].isAuto = false;
+                    player.buildings[this.id].isAutoUnlocked = false;
+                }
             },
             // Purchase the next building, if affordable.
             buy() {
                 const cost = this.cost();
-                if (player.money.gte(cost)) {
-                    player.money = player.money.sub(cost);
+                if (database.player.getMoney().gte(cost)) {
+                    database.player.subMoney(cost);
                     this._addBuilding(1);
                 }
             },
@@ -187,7 +195,7 @@ database.buildings = {
             },
             // Purchase the maximum number of buildings affordable.
             buyMax() {
-                const money = player.money;
+                const money = database.player.getMoney();
                 if (money.lt(this.cost())) return;
                 const owned = this.owned();
                 // The +1 and ceil is for extra buffer in case of off-by-one error, since I don't want to tackle them.
@@ -205,9 +213,56 @@ database.buildings = {
                 }
                 // In the end, min and max should have the same value, so we can take either value.
                 const totalCost = this._totalCost(min);
-                player.money = player.money.sub(totalCost);
+                database.player.subMoney(totalCost);
                 this._addBuilding(min);
-            }
+            },
+
+            isAutoUnlocked() { return player.buildings[this.id].isAutoUnlocked; },
+            canUnlockAuto() { return database.player.getMoney().gte(this.getAutoCost()); },
+            unlockAuto() { 
+                if (this.canUnlockAuto()) {
+                    player.buildings[this.id].isAutoUnlocked = true;
+                    database.player.subMoney(this.getAutoCost());
+                } 
+            },
+            isAuto() { return player.buildings[this.id].isAuto; },
+            toggleAuto() { if (this.isAutoUnlocked()) player.buildings[this.id].isAuto = !this.isAuto(); },
+            getAutoCost() { return building.autoCost; }
         };
+    },
+    buyingModes: [
+        {
+            name: "Buy 1",
+            buyable(building) {
+                return building.isBuyable();
+            },
+            buy(building) {
+                building.buy();
+            }
+        },
+        {
+            name: "Buy to next 10",
+            buyable(building) {
+                return building.isBuyableToTen();
+            },
+            buy(building) {
+                building.buyToTen();
+            }
+        },
+        {
+            name: "Buy max",
+            buyable(building) {
+                return building.isBuyable();
+            },
+            buy(building) {
+                building.buyMax();
+            }
+        }
+    ],
+    currentMode() {
+        return this.buyingModes[player.settings.buildingBuyMode];
+    },
+    switchMode() {
+        player.settings.buildingBuyMode = (player.settings.buildingBuyMode + 1) % this.buyingModes.length;
     }
 };

@@ -5,18 +5,24 @@ function gameloop() {
     if (dt < 0) return;
 
     // Auto generate mana
-    if (database.manaShop.hasUpgrade(1) && player.spells.mana.lt(10)) {
-        player.spells.mana = Decimal.min(player.spells.mana.add(dt), 10);
+    if (database.manaShop.hasUpgrade(1) && database.spells.getMana().lt(100)) {
+        database.spells.setMana(Decimal.min(player.spells.mana.add(dt * 5), 100));
     }
 
-    if (database.manaShop.hasUpgrade(2) && player.spells.mana.lt(1000)) {
-        player.spells.mana = Decimal.min(player.spells.mana.add(dt * 50), 1000);
+    if (database.manaShop.hasUpgrade(2) && database.spells.getMana().lt(10000)) {
+        database.spells.setMana(Decimal.min(player.spells.mana.add(dt * 500), 10000));
     }
 
     // Automation
 
     if (database.manaShop.hasUpgrade(3)) {
         database.upgrades.buyAll(deductCurrency = false);
+    }
+
+    for (const building of database.buildings.all()) {
+        if (building.isAuto()) {
+            database.buildings.currentMode().buy(building);
+        }
     }
 
     // Activate auto spells
@@ -31,10 +37,10 @@ function gameloop() {
 
     for (const building of database.buildings.all()) {
         const production = building.production();
-        const newMoney = player.money.add(production.times(dt));
+        const newMoney = database.player.getMoney().add(production.times(dt));
 
         // Prevent player from getting more than the max amount of money.
-        player.money = Decimal.min(newMoney, database.constants.goal);
-        player.maxMoney = Decimal.max(player.money, player.maxMoney);
+        database.player.setMoney(Decimal.min(newMoney, database.constants.goal));
+        database.player.updateMaxMoney();
     }
 }

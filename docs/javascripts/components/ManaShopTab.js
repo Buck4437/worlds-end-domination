@@ -7,7 +7,6 @@ Vue.component("ManaShopTab", {
     },
     template: `
     <div class="mana-shop-tab">
-        Placeholder for mana shop (WIP, none of the effects are added yet)
         <div v-for="upgrade in database.manaShop.all()">
             <span>{{upgrade.name}}: {{upgrade.getDesc()}}</span><br>
             <button class="upg-btn"

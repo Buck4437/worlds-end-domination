@@ -17,16 +17,32 @@ database.spells = {
                 },
                 defaultEffect: new Decimal(1),
                 effect(level, timer) {
-                    return Decimal.pow(3, level);
+                    return Decimal.pow(4, level);
                 }
             },
             {
                 name: "Spell 2",
                 requiredApocalypseLevel: 1,
-                levelCap: 5,
+                levelCap: 10,
                 getDuration: level => 5,
                 getDesc(level) {
                     return `Multiply mana gain by x${toSci(this.effect(level))}`;
+                },
+                cost(level) {
+                    return Decimal.pow(10, level - 1).times(1000);
+                },
+                defaultEffect: new Decimal(1),
+                effect(level, timer) {
+                    return Decimal.pow(3, level);
+                }
+            },
+            {
+                name: "Spell 3",
+                requiredApocalypseLevel: 1,
+                levelCap: 5,
+                getDuration: level => 5,
+                getDesc(level) {
+                    return `Placeholder, for late game x${toSci(this.effect(level))} (does nothing yet)`;
                 },
                 cost(level) {
                     return Decimal.pow(100, level - 1).times(5);
@@ -37,7 +53,7 @@ database.spells = {
                 }
             },
             {
-                name: "Spell 3",
+                name: "Spell 4",
                 requiredApocalypseLevel: 2,
                 levelCap: 3,
                 getDuration: level => 30,
@@ -57,10 +73,10 @@ database.spells = {
                 },
                 displayEffect: true,
                 effectPrefix: "x",
-                exclusiveWith: [4]
+                exclusiveWith: [5]
             },
             {
-                name: "Spell 4",
+                name: "Spell 5",
                 requiredApocalypseLevel: 2,
                 levelCap: 3,
                 getDuration(level) {
@@ -83,12 +99,12 @@ database.spells = {
                 },
                 displayEffect: true,
                 effectPrefix: "x",
-                exclusiveWith: [3]
+                exclusiveWith: [4]
             },
         ]
     },
     decimalGain() {
-        const base = Decimal.pow(Decimal.log10(player.maxMoney.div(100).add(1)) + 1, 2).sub(1);
+        const base = Decimal.pow(Decimal.log10(player.maxMoney.div(100).add(1)) + 1, 2.5).sub(1);
         const multi = new Decimal(1).times(database.spells.getSpell(2).apply());
         return base.times(multi);
     },
@@ -103,7 +119,7 @@ database.spells = {
         database.buildings.reset();
         database.upgrades.reset();
 
-        player.spells.mana = player.spells.mana.add(gain);
+        this.addMana(gain);
     },
     all() {
         const spells = [];
@@ -114,6 +130,18 @@ database.spells = {
             }
         }
         return spells;
+    },
+    getMana() {
+        return player.spells.mana;
+    },
+    addMana(n) {
+        player.spells.mana = player.spells.mana.add(n);
+    },
+    subMana(n) {
+        player.spells.mana = player.spells.mana.sub(n);
+    },
+    setMana(n) {
+        player.spells.mana = new Decimal(n);
     },
     getSpell(id) {
         if (id <= 0 || id >= this._data.spells.length) return null;
@@ -147,8 +175,8 @@ database.spells = {
                     }
                 }
                 const manaCost = this.getCost();
-                if (player.spells.mana.gte(manaCost)) {
-                    player.spells.mana = player.spells.mana.sub(manaCost);
+                if (database.spells.getMana().gte(manaCost)) {
+                    database.spells.subMana(manaCost);
                     player.spells.spells[id].timer = this.getDuration();
                 }
             },

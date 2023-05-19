@@ -3,37 +3,7 @@ Vue.component("BuildingsDisplay", {
         return {
             player,
             database,
-            format: toSci,
-            mode: 0,
-            modes: [
-                {
-                    name: "Buy 1",
-                    buyable(building) {
-                        return building.isBuyable();
-                    },
-                    buy(building) {
-                        building.buy();
-                    }
-                },
-                {
-                    name: "Buy to next 10",
-                    buyable(building) {
-                        return building.isBuyableToTen();
-                    },
-                    buy(building) {
-                        building.buyToTen();
-                    }
-                },
-                {
-                    name: "Buy max",
-                    buyable(building) {
-                        return building.isBuyable();
-                    },
-                    buy(building) {
-                        building.buyMax();
-                    }
-                }
-            ]
+            format: toSci
         };
     },
     computed: {
@@ -43,19 +13,19 @@ Vue.component("BuildingsDisplay", {
         upgrades() {
             return this.database.upgrades.all();
         },
-        currentMode() {
-            return this.modes[this.mode];
+        mode() {
+            return database.buildings.currentMode();
         }
     },
     methods: {
         switchMode() {
-            this.mode = (this.mode + 1) % this.modes.length;
+            database.buildings.switchMode();
         },
         buy(building) {
-            this.currentMode.buy(building);
+            this.mode.buy(building);
         },
         buyable(building) {
-            return this.currentMode.buyable(building);
+            return this.mode.buyable(building);
         }
     },
     template: `
@@ -73,18 +43,27 @@ Vue.component("BuildingsDisplay", {
                     </div>
                 </div>
                 <div class="building-buy-btn-con">
+                    <button v-show="building.isAutoUnlocked()"
+                            class="building-auto-btn"
+                            :class="{
+                                'on': building.isAuto(),      
+                                'off': !building.isAuto()
+                            }"
+                            @click="building.toggleAuto()">
+                            Auto: {{building.isAuto() ? "On" : "Off"}}
+                    </button>
                     <button class="building-buy-btn"
                             :class="{
                                 'locked': !buyable(building),      
                                 'buyable': buyable(building)
                             }"
                             @click="buy(building)">
-                            {{currentMode.name}}
+                            {{mode.name}}
                     </button>
                 </div>
             </div>
             <div class="building-util-btn-con">
-                <button class="building-mode-btn" @click="switchMode()">Mode: {{currentMode.name}}</button>
+                <button class="building-mode-btn" @click="switchMode()">Mode: {{mode.name}}</button>
                 <button class="building-max-all-btn" @click="database.buildings.maxAll()">Max All</button>
             </div>
         </div>

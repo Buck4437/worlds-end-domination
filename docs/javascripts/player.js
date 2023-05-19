@@ -1,7 +1,44 @@
 window.player = {
     money: new Decimal(0),
     maxMoney: new Decimal(0),
-    buildings: [null, 0, 0, 0, 0, 0, 0, 0],
+    buildings: [
+        null,
+        {
+            count: 0,
+            isAutoUnlocked: false,
+            auto: false
+        },
+        {
+            count: 0,
+            isAutoUnlocked: false,
+            auto: false
+        },
+        {
+            count: 0,
+            isAutoUnlocked: false,
+            auto: false
+        },
+        {
+            count: 0,
+            isAutoUnlocked: false,
+            auto: false
+        },
+        {
+            count: 0,
+            isAutoUnlocked: false,
+            auto: false
+        },
+        {
+            count: 0,
+            isAutoUnlocked: false,
+            auto: false
+        },
+        {
+            count: 0,
+            isAutoUnlocked: false,
+            auto: false
+        }
+    ],
     upgradeBits: 0,
 
     apocalypseLevel: 0,
@@ -28,10 +65,18 @@ window.player = {
                 auto: false,
                 level: 1,
                 timer: 0
+            },
+            {
+                auto: false,
+                level: 1,
+                timer: 0
             }
         ],
         upgradeBits: 0
     },
-
+    
+    settings: {
+        buildingBuyMode: 0
+    },
     lastTick: Date.now()
 };

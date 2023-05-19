@@ -43,7 +43,7 @@ database.upgrades = {
             effectPrefix: "×",
             _data: {
                 multiA0: 2.5,
-                multiA1: 1.5
+                multiA1: 1.6
             }
         },
         {
@@ -201,12 +201,12 @@ database.upgrades = {
             cost: upgrade.cost,
             type: upgrade.type,
             isBuyable() {
-                return !database.upgrades.hasUpgrade(this.id) && player.money.gte(this.cost);
+                return !database.upgrades.hasUpgrade(this.id) && database.player.getMoney().gte(this.cost);
             },
             buy(deductCurrency = true) {
                 if (this.isBuyable()) {
                     if (deductCurrency) {
-                        player.money = player.money.sub(this.cost);
+                        database.player.subMoney(this.cost);
                     }
                     player.upgradeBits |= 2 ** (this.id - 1); // eslint-disable-line no-bitwise
                 }

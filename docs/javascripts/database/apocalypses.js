@@ -5,7 +5,7 @@ database.apocalypses = {
             text: {
                 name: "(Placeholder)",
                 nerfs: [
-                    "Workers 2 upgrade multiplier 2.5 -> 1.5",
+                    "Workers 2 upgrade multiplier 2.5 -> 1.6",
                     "Farmers 2 upgrade multiplier 4 -> 3",
                     "Builders 2 upgrade multiplier 8 -> 6",
                     "Merchants 2 upgrade multiplier 12.5 -> 10"
@@ -21,12 +21,12 @@ database.apocalypses = {
         {
             level: 2,
             text: {
-                name: "2nd",
+                name: "(Placeholder 2)",
                 nerfs: [
-                    "Placeholder",
+                    "To be determined",
                 ],
                 buffs: [
-                    "Unlock Spell 3 and 4",
+                    "Unlock Spell 4-5",
                     "Unlock Upgrade 4 to 7?",
                     "Coming soon",
                 ]
@@ -41,7 +41,7 @@ database.apocalypses = {
             const confirmed = confirm("Do you want to proceed?");
             if (confirmed) {
                 database.player.reset();
-                database.buildings.reset();
+                database.buildings.reset(resetAuto = true);
                 database.upgrades.reset();
                 player.apocalypseLevel += 1;
             }
