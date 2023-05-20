@@ -13,7 +13,7 @@ database.spells = {
                     return `Multiply all buildings by x${toSci(this.effect(level))}`;
                 },
                 cost(level) {
-                    return Decimal.pow(10, level - 1);
+                    return Decimal.pow(5, level - 1);
                 },
                 defaultEffect: new Decimal(1),
                 effect(level, timer) {

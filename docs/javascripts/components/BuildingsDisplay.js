@@ -12,20 +12,11 @@ Vue.component("BuildingsDisplay", {
         },
         upgrades() {
             return this.database.upgrades.all();
-        },
-        mode() {
-            return database.buildings.currentMode();
         }
     },
     methods: {
         switchMode() {
             database.buildings.switchMode();
-        },
-        buy(building) {
-            this.mode.buy(building);
-        },
-        buyable(building) {
-            return this.mode.buyable(building);
         }
     },
     template: `
@@ -54,16 +45,16 @@ Vue.component("BuildingsDisplay", {
                     </button>
                     <button class="building-buy-btn"
                             :class="{
-                                'locked': !buyable(building),      
-                                'buyable': buyable(building)
+                                'locked': !building.isBuyable(),      
+                                'buyable': building.isBuyable()
                             }"
-                            @click="buy(building)">
-                            {{mode.name}}
+                            @click="building.buy()">
+                            {{database.buildings.modeName()}}
                     </button>
                 </div>
             </div>
             <div class="building-util-btn-con">
-                <button class="building-mode-btn" @click="switchMode()">Mode: {{mode.name}}</button>
+                <button class="building-mode-btn" @click="switchMode()">Mode: {{database.buildings.modeName()}}</button>
                 <button class="building-max-all-btn" @click="database.buildings.maxAll()">Max All</button>
             </div>
         </div>

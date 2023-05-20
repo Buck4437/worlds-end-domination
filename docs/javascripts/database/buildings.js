@@ -14,21 +14,21 @@ database.buildings = {
             baseCost: new Decimal("1e3"),
             baseScaling: new Decimal("1.2"),
             baseProduction: new Decimal("500"),
-            autoCost: new Decimal("1e20")
+            autoCost: new Decimal("1e12")
         },
         {
             name: "Builders",
             baseCost: new Decimal("1e12"),
             baseScaling: new Decimal("1.25"),
             baseProduction: new Decimal("1e12"),
-            autoCost: new Decimal("1e50")
+            autoCost: new Decimal("1e30")
         },  
         {
             name: "Merchants",
             baseCost: new Decimal("1e40"),
             baseScaling: new Decimal("1.3"),
             baseProduction: new Decimal("1e36"),
-            autoCost: new Decimal("1e100")
+            autoCost: new Decimal("1e60")
         },  
         // Priests, Bishops and Monarchs and will be unlocked later in the game
         // {
@@ -62,7 +62,7 @@ database.buildings = {
     },
     maxAll() {
         for (const building of this.all()) {
-            building.buyMax();
+            building._buyMax();
         }
     },
     reset(resetAuto) {
@@ -125,18 +125,6 @@ database.buildings = {
             owned() {
                 return player.buildings[this.id].count;
             },
-            // Returns the cost for the next building.
-            cost() {
-                return this._costFor(this.owned());
-            },
-            isBuyable() {
-                return database.player.getMoney().gte(this.cost());
-            },
-            isBuyableToTen() {
-                const amount = 10 - this.owned() % 10;
-                const cost = this._totalCost(amount);
-                return database.player.getMoney().gte(cost);
-            },
             multiplier() {
                 const apocalypseLevel = database.apocalypses.getApocalypseLevel();
                 const multiplier = new Decimal(1)
@@ -177,26 +165,41 @@ database.buildings = {
                     player.buildings[this.id].isAutoUnlocked = false;
                 }
             },
-            // Purchase the next building, if affordable.
-            buy() {
-                const cost = this.cost();
-                if (database.player.getMoney().gte(cost)) {
-                    database.player.subMoney(cost);
-                    this._addBuilding(1);
+
+            cost() {
+                switch (database.buildings.currentMode()) {
+                    case database.constants.buyingMode.BUY1: return this._costForOne();
+                    case database.constants.buyingMode.BUY10: return this._costForTen();
+                    case database.constants.buyingMode.BUYMAX: return this._costForMax();
                 }
+                return null;
             },
-            buyToTen() {
-                if (this.isBuyableToTen()) {
-                    const amount = 10 - this.owned() % 10;
-                    for (let i = 0; i < amount; i++) {
-                        this.buy();
-                    }   
+            _costForOne() { return this._costFor(this.owned()); },
+            _costForTen() { return this._totalCost(10 - this.owned() % 10); },
+            _costForMax() { 
+                const maxAffordable = this.maxAffordableAmount();
+                if (maxAffordable <= 0) {
+                    return this._costForOne();
                 }
+                return this._totalCost(this.maxAffordableAmount()); 
             },
-            // Purchase the maximum number of buildings affordable.
-            buyMax() {
+
+            isBuyable() {
+                switch (database.buildings.currentMode()) {
+                    case database.constants.buyingMode.BUY1:
+                    case database.constants.buyingMode.BUYMAX: 
+                        return this._isBuyableToOne();
+                    case database.constants.buyingMode.BUY10: 
+                        return this._isBuyableToTen();
+                }
+                return false;
+            },
+            _isBuyableToOne() { return database.player.getMoney().gte(this._costForOne()); },
+            _isBuyableToTen() { return database.player.getMoney().gte(this._costForTen()); },
+            // Return the maximum number of buildings affordable.
+            maxAffordableAmount() {
                 const money = database.player.getMoney();
-                if (money.lt(this.cost())) return;
+                if (!this._isBuyableToOne()) return 0;
                 const owned = this.owned();
                 // The +1 and ceil is for extra buffer in case of off-by-one error, since I don't want to tackle them.
                 // The reason for using +1 is that, the first worker is free and does not increase the scaling.
@@ -212,9 +215,44 @@ database.buildings = {
                     }
                 }
                 // In the end, min and max should have the same value, so we can take either value.
-                const totalCost = this._totalCost(min);
+                return min;
+            },
+            // Purchase buildings based on mode, if affordable.
+            buy() {
+                switch (database.buildings.currentMode()) {
+                    case database.constants.buyingMode.BUY1:
+                        this._buyOne();
+                        break;
+                    case database.constants.buyingMode.BUY10:
+                        this._buyToTen();
+                        break;
+                    case database.constants.buyingMode.BUYMAX:
+                        this._buyMax();
+                        break;
+                }
+            },
+            _buyOne() {
+                const cost = this.cost();
+                if (this._isBuyableToOne()) {
+                    database.player.subMoney(cost);
+                    this._addBuilding(1);
+                }
+            },
+            _buyToTen() {
+                if (this._isBuyableToTen()) {
+                    const amount = 10 - this.owned() % 10;
+                    for (let i = 0; i < amount; i++) {
+                        this._buyOne();
+                    }   
+                }
+            },
+            // Purchase the maximum number of buildings affordable.
+            _buyMax() {
+                const maxAffordable = this.maxAffordableAmount();
+                if (maxAffordable <= 0) return;
+                const totalCost = this._costForMax();
                 database.player.subMoney(totalCost);
-                this._addBuilding(min);
+                this._addBuilding(maxAffordable);
             },
 
             isAutoUnlocked() { return player.buildings[this.id].isAutoUnlocked; },
@@ -231,36 +269,20 @@ database.buildings = {
         };
     },
     buyingModes: [
-        {
-            name: "Buy 1",
-            buyable(building) {
-                return building.isBuyable();
-            },
-            buy(building) {
-                building.buy();
-            }
-        },
-        {
-            name: "Buy to next 10",
-            buyable(building) {
-                return building.isBuyableToTen();
-            },
-            buy(building) {
-                building.buyToTen();
-            }
-        },
-        {
-            name: "Buy max",
-            buyable(building) {
-                return building.isBuyable();
-            },
-            buy(building) {
-                building.buyMax();
-            }
-        }
+        database.constants.buyingMode.BUY1, 
+        database.constants.buyingMode.BUY10,
+        database.constants.buyingMode.BUYMAX
     ],
     currentMode() {
         return this.buyingModes[player.settings.buildingBuyMode];
+    },
+    modeName() {
+        switch (database.buildings.currentMode()) {
+            case database.constants.buyingMode.BUY1: return "Buy 1";
+            case database.constants.buyingMode.BUY10: return "Buy to next 10";
+            case database.constants.buyingMode.BUYMAX: return "Buy max";
+        }
+        return null;
     },
     switchMode() {
         player.settings.buildingBuyMode = (player.settings.buildingBuyMode + 1) % this.buyingModes.length;

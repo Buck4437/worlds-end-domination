@@ -22,7 +22,7 @@ function gameloop() {
     // Autobuy buildings: The priority is from high to low.
     for (const building of database.buildings.all().reverse()) {
         if (building.isAuto()) {
-            database.buildings.currentMode().buy(building);
+            building.buy();
         }
     }
 
