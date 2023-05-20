@@ -14,7 +14,7 @@ database.buildings = {
             baseCost: new Decimal("1e3"),
             baseScaling: new Decimal("1.2"),
             baseProduction: new Decimal("500"),
-            autoCost: new Decimal("1e12")
+            autoCost: new Decimal("1e13")
         },
         {
             name: "Builders",
@@ -28,7 +28,7 @@ database.buildings = {
             baseCost: new Decimal("1e40"),
             baseScaling: new Decimal("1.3"),
             baseProduction: new Decimal("1e36"),
-            autoCost: new Decimal("1e60")
+            autoCost: new Decimal("1e80")
         },  
         // Priests, Bishops and Monarchs and will be unlocked later in the game
         // {
@@ -232,7 +232,7 @@ database.buildings = {
                 }
             },
             _buyOne() {
-                const cost = this.cost();
+                const cost = this._costForOne();
                 if (this._isBuyableToOne()) {
                     database.player.subMoney(cost);
                     this._addBuilding(1);

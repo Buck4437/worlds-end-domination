@@ -10,7 +10,7 @@ database.spells = {
             {
                 name: "Spell 1",
                 requiredApocalypseLevel: 1,
-                levelCap: 10,
+                levelCap: 15,
                 getDuration: level => 5,
                 getDesc(level) {
                     return `Multiply all buildings by x${toSci(this.effect(level))}`;
@@ -20,39 +20,45 @@ database.spells = {
                 },
                 defaultEffect: new Decimal(1),
                 effect(level, timer) {
-                    return Decimal.pow(4, level);
+                    const base = Decimal.pow(6, level);
+                    return base.pow(database.spells.getSpell(3).apply());
                 }
             },
             {
                 name: "Spell 2",
                 requiredApocalypseLevel: 1,
-                levelCap: 10,
+                levelCap: 5,
                 getDuration: level => 10,
                 getDesc(level) {
                     return `Multiply mana gain by x${toSci(this.effect(level))}`;
                 },
                 cost(level) {
-                    return Decimal.pow(20, level - 1).times(200);
+                    return Decimal.pow(50, level - 1).times(1000);
                 },
                 defaultEffect: new Decimal(1),
                 effect(level, timer) {
-                    return Decimal.pow(5, level);
+                    const base = Decimal.pow(5, level);
+                    return base.pow(database.spells.getSpell(3).apply());
                 }
             },
             {
                 name: "Spell 3",
                 requiredApocalypseLevel: 1,
-                levelCap: 5,
-                getDuration: level => 5,
+                levelCap: 6,
+                getDuration: level => 7.5,
                 getDesc(level) {
-                    return `Placeholder, for late game x${toSci(this.effect(level))} (does nothing yet)`;
+                    return `Spell 1 and Spell 2 multiplier ^${toSci(this.effect(level))}`;
                 },
                 cost(level) {
-                    return Decimal.pow(100, level - 1).times(5);
+                    return Decimal.pow(1e3, level - 1).times(1e6);
                 },
                 defaultEffect: new Decimal(1),
                 effect(level, timer) {
-                    return Decimal.pow(2, level);
+                    // 1.4 => 1.5 => 1.7 => 2.1 => 2.9 => 4.2
+                    if (level < 6) {
+                        return Decimal.add(1.3, 0.1 * 2 ** (level - 1));
+                    }
+                    return new Decimal(4.2);
                 }
             },
             {
@@ -109,8 +115,12 @@ database.spells = {
     decimalGain() {
         // ((log(money/10 + 1) + 1)^3 - 1) / 10
         const base = Decimal.pow(Decimal.log10(player.maxMoney.div(10).add(1)) + 1, 3).sub(1).div(10);
+
+        // Extra bonus after 1e180: (log(money/1e180 + 1)/10)^2 + 1
+        const extra = Decimal.pow(Decimal.log10(player.maxMoney.div(1e180).add(1)) / 10, 2).add(1);
+
         const multi = new Decimal(1).times(database.spells.getSpell(2).apply());
-        return base.times(multi);
+        return base.times(extra).times(multi);
     },
     gainOnConversion() {
         return this.decimalGain().floor();

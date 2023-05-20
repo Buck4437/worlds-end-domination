@@ -75,7 +75,7 @@ database.upgrades = {
             effectPrefix: "×",
             _data: {
                 multiA0: 4,
-                multiA1: 3
+                multiA1: 2.75
             }
         },
         {
@@ -107,7 +107,7 @@ database.upgrades = {
             effectPrefix: "×",
             _data: {
                 multiA0: 8,
-                multiA1: 6
+                multiA1: 6.5
             }
         },
         {
@@ -139,7 +139,7 @@ database.upgrades = {
             effectPrefix: "×",
             _data: {
                 multiA0: 12.5,
-                multiA1: 10
+                multiA1: 10.5
             }
         },
         {

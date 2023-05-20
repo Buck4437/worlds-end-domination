@@ -5,8 +5,8 @@ function gameloop() {
     if (dt < 0) return;
 
     // Auto generate mana
-    if (database.manaShop.hasUpgrade(1) && database.spells.getMana().lt(100)) {
-        database.spells.setMana(Decimal.min(player.spells.mana.add(dt * 5), 100));
+    if (database.manaShop.hasUpgrade(1) && database.spells.getMana().lt(500)) {
+        database.spells.setMana(Decimal.min(player.spells.mana.add(dt * 5), 500));
     }
 
     if (database.manaShop.hasUpgrade(2) && database.spells.getMana().lt(10000)) {

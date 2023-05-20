@@ -5,10 +5,10 @@ database.apocalypses = {
             text: {
                 name: "(Placeholder)",
                 nerfs: [
-                    "Workers 2 upgrade multiplier 2.5 -> 1.6",
-                    "Farmers 2 upgrade multiplier 4 -> 3",
-                    "Builders 2 upgrade multiplier 8 -> 6",
-                    "Merchants 2 upgrade multiplier 12.5 -> 10"
+                    "Workers 2 upgrade multiplier x2.5 -> x1.6",
+                    "Farmers 2 upgrade multiplier x4 -> x2.75",
+                    "Builders 2 upgrade multiplier x8 -> x6.5",
+                    "Merchants 2 upgrade multiplier x12.5 -> x10.5"
                 ],
                 buffs: [
                     "Unlock Spells",

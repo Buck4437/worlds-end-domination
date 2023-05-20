@@ -4,18 +4,18 @@ database.manaShop = {
         null,
         {
             name: "Upgrade 1",
-            getDesc: () => "Passively generate 5 Mana per second, up to 100 Mana",
+            getDesc: () => "Passively generate 5 Mana per second, up to 500 Mana",
             cost: new Decimal(500)
         },
         {
             name: "Upgrade 2",
             getDesc: () => "Passively generate 500 Mana per second, up to 10000 Mana",
-            cost: new Decimal(5e4)
+            cost: new Decimal(1e4)
         },
         {
             name: "Upgrade 3",
             getDesc: () => "Automatically unlock upgrades once they are affordable, for free",
-            cost: new Decimal(1e6)
+            cost: new Decimal(1e7)
         },
         {
             name: "Upgrade 4",

@@ -26,7 +26,6 @@
                     </span>
                 </div>
                 <button @click="player.apocalypseLevel = 1">Cheat to Apocalypse 1 (Temporary)</button>
-                <button @click="player.apocalypseLevel = 1; player.spells.mana=player.spells.mana.add(10)">Cheat (Temporary)</button>
                 <button v-if="database.apocalypses.getApocalypseLevel() >= 1" @click="database.spells.convert()">
                     Convert Money to Mana<br>
                     Gain {{format(database.spells.decimalGain())}} Mana, rounded down.
