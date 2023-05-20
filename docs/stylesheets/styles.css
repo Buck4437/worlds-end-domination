@@ -62,7 +62,7 @@ button.disabled:hover {
 /* top bar display */
 
 .top-bar {
-    margin: 32px 0;
+    margin-bottom: 32px;
 }
 
 .apocalypse-btn {

@@ -16,7 +16,8 @@ const app = new Vue({
                 ["Automation", 1],
                 ["Mana Shop", 1],
                 ["Apocalypses", 1],
-                ["Options", -1]
+                ["Options", -1],
+                ["About", -1]
             ];
             const tabList = [];
             const apocalypseLevel = database.apocalypses.getApocalypseLevel();
@@ -39,10 +40,35 @@ const app = new Vue({
         },
         toTabComponent(name) {
             return `${name.split(" ").map(x => capitalize(x.toLowerCase())).join("")}Tab`;
+        },
+        mountHotkeys() {
+            document.addEventListener("keydown", event => {
+                switch (event.code) {
+                    case "Digit1":
+                        database.buildings.getBuilding(1).buy();
+                        break;
+                    case "Digit2":
+                        database.buildings.getBuilding(2).buy();
+                        break;
+                    case "Digit3":
+                        database.buildings.getBuilding(3).buy();
+                        break;
+                    case "Digit4":
+                        database.buildings.getBuilding(4).buy();
+                        break;
+                    case "KeyA":
+                        database.buildings.maxAll();
+                        break;
+                    case "KeyM":
+                        database.spells.convert();
+                        break;
+                }
+            });
         }
     },
     mounted() {
         this.switchTab(this.tabs[0]);
+        this.mountHotkeys();
         setInterval(gameloop, 25);
     }
 });

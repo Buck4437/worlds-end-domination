@@ -1,6 +1,9 @@
 // Cost is measured in mana / second
 // Level ranges from 1 - 100
 database.spells = {
+    unlocked() {
+        return database.apocalypses.getApocalypseLevel() >= 1;
+    },
     _data: {
         spells: [
             null,
@@ -113,7 +116,7 @@ database.spells = {
         return this.decimalGain().floor();
     },
     canConvert() {
-        return this.gainOnConversion().gt(0) && player.spells.convertCooldown <= 0;
+        return this.unlocked() && this.gainOnConversion().gt(0) && player.spells.convertCooldown <= 0;
     },
     convert() {
         if (!this.canConvert()) return;
