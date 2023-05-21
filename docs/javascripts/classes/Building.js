@@ -50,20 +50,20 @@ Building.prototype._totalCost = function(count) {
 Building.prototype.multiplier = function() {
     const apocalypseLevel = database.apocalypses.getApocalypseLevel();
     const multiplier = new Decimal(1)
-        .times(database.upgrades.getUpgrade(1).apply())
-        .times(database.upgrades.getUpgrade(3).apply())
-        .times(database.upgrades.getUpgrade(5).apply())
-        .times(database.upgrades.getUpgrade(7).apply())
-        .times(database.upgrades.getUpgrade(10).apply())
-        .times(this.id === 1 ? database.upgrades.getUpgrade(2).apply() : 1)
-        .times(this.id === 2 ? database.upgrades.getUpgrade(4).apply() : 1)
-        .times(this.id === 3 ? database.upgrades.getUpgrade(6).apply() : 1)
-        .times(this.id === 4 ? database.upgrades.getUpgrade(8).apply() : 1)
-        .times(this.id === 4 ? database.upgrades.getUpgrade(9).apply() : 1)
+        .times(database.upgrades.getUpgrade(1).appliedEffect())
+        .times(database.upgrades.getUpgrade(3).appliedEffect())
+        .times(database.upgrades.getUpgrade(5).appliedEffect())
+        .times(database.upgrades.getUpgrade(7).appliedEffect())
+        .times(database.upgrades.getUpgrade(10).appliedEffect())
+        .times(this.id === 1 ? database.upgrades.getUpgrade(2).appliedEffect() : 1)
+        .times(this.id === 2 ? database.upgrades.getUpgrade(4).appliedEffect() : 1)
+        .times(this.id === 3 ? database.upgrades.getUpgrade(6).appliedEffect() : 1)
+        .times(this.id === 4 ? database.upgrades.getUpgrade(8).appliedEffect() : 1)
+        .times(this.id === 4 ? database.upgrades.getUpgrade(9).appliedEffect() : 1)
         .times(apocalypseLevel >= 1 ? 2 : 1)
-        .times(database.spells.getSpell(1).apply())
-        .times(database.spells.getSpell(4).apply())
-        .times(database.spells.getSpell(5).apply());
+        .times(database.spells.getSpell(1).appliedEffect())
+        .times(database.spells.getSpell(4).appliedEffect())
+        .times(database.spells.getSpell(5).appliedEffect());
     return multiplier;
 };
 

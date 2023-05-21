@@ -8,7 +8,7 @@ Vue.component("MainTab", {
     },
     computed: {
         upgrades() {
-            return this.database.upgrades.all();
+            return this.database.upgrades.all;
         },
         spellsUnlocked() {
             return this.database.apocalypses.getApocalypseLevel() >= 1;

@@ -8,7 +8,7 @@ Vue.component("BuildingsDisplay", {
     },
     computed: {
         buildings() {
-            return this.database.buildings.all();
+            return this.database.buildings.all;
         },
         upgrades() {
             return this.database.upgrades.all();

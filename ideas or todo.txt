@@ -1,7 +1,8 @@
+refactor:
+- switch to "Building" and "Buildings"
+
 todo: 
 - toggle all for auto
-- change cost display based on mod
-- hotkeys
 - upgrade to remove the convert cooldown
 
 Suggestion by jazz:

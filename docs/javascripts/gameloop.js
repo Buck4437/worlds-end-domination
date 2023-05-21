@@ -20,7 +20,7 @@ function gameloop() {
     }
 
     // Autobuy buildings: The priority is from high to low.
-    for (const building of database.buildings.all().reverse()) {
+    for (const building of [...database.buildings.all].reverse()) {
         if (building.isAuto()) {
             building.buy();
         }
@@ -39,7 +39,7 @@ function gameloop() {
     // Refresh player cooldowns
     player.spells.convertCooldown = Math.max(player.spells.convertCooldown - dt, 0);
 
-    for (const building of database.buildings.all()) {
+    for (const building of database.buildings.all) {
         const production = building.production();
         const newMoney = database.player.getMoney().add(production.times(dt));
 

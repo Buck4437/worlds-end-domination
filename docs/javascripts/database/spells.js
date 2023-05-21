@@ -21,7 +21,7 @@ database.spells = {
                 defaultEffect: new Decimal(1),
                 effect(level, timer) {
                     const base = Decimal.pow(6, level);
-                    return base.pow(database.spells.getSpell(3).apply());
+                    return base.pow(database.spells.getSpell(3).appliedEffect());
                 }
             },
             {
@@ -38,7 +38,7 @@ database.spells = {
                 defaultEffect: new Decimal(1),
                 effect(level, timer) {
                     const base = Decimal.pow(5, level);
-                    return base.pow(database.spells.getSpell(3).apply());
+                    return base.pow(database.spells.getSpell(3).appliedEffect());
                 }
             },
             {
@@ -119,7 +119,7 @@ database.spells = {
         // Extra bonus after 1e180: (log(money/1e180 + 1)/10)^2 + 1
         const extra = Decimal.pow(Decimal.log10(player.maxMoney.div(1e180).add(1)) / 10, 2).add(1);
 
-        const multi = new Decimal(1).times(database.spells.getSpell(2).apply());
+        const multi = new Decimal(1).times(database.spells.getSpell(2).appliedEffect());
         return base.times(extra).times(multi);
     },
     gainOnConversion() {
@@ -181,7 +181,7 @@ database.spells = {
             defaultEffect: spell.defaultEffect,
             displayEffect: spell.displayEffect ?? false,
             effectPrefix: spell.effectPrefix ?? null,
-            apply() { return this.isActivated() ? this.getEffect() : this.defaultEffect; },
+            appliedEffect() { return this.isActivated() ? this.getEffect() : this.defaultEffect; },
 
             getLevel: () => player.spells.spells[id].level,
             getTimer: () => player.spells.spells[id].timer,

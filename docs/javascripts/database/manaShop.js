@@ -87,7 +87,7 @@ database.manaShop = {
             effect() { return upgrade?.effect() ?? null; },
             displayEffect: upgrade.displayEffect ?? false,
             effectPrefix: upgrade.displayEffect ?? null,
-            apply() { return this.isActivated() ? this.getEffect() : this.defaultEffect; },
+            appliedEffect() { return this.isActivated() ? this.getEffect() : this.defaultEffect; },
         };
 
         return upgradeObject;

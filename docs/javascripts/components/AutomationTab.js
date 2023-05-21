@@ -7,7 +7,7 @@ Vue.component("AutomationTab", {
     },
     template: `
     <div class="automation-tab">
-        <div v-for="building in database.buildings.all()">
+        <div v-for="building in database.buildings.all">
             <button class="automation-unlock-btn"
                     :class="{
                         'bought': building.isAutoUnlocked(),
