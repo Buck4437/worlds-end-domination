@@ -8,10 +8,10 @@ Vue.component("MainTab", {
     },
     computed: {
         upgrades() {
-            return this.database.upgrades.all;
+            return database.upgrades.all;
         },
         spellsUnlocked() {
-            return this.database.apocalypses.getApocalypseLevel() >= 1;
+            return database.apocalypses.getApocalypseLevel() >= 1;
         }
     },
     template: `
@@ -21,7 +21,7 @@ Vue.component("MainTab", {
                 <BuildingsDisplay/>
                 <div class="upgrades-section-con">
                     <div class="upgrades-header">Building Upgrades</div>
-                    <button class="upg-buy-all-btn" @click="database.upgrades.buyAll()">
+                    <button v-if="spellsUnlocked" class="upg-buy-all-btn" @click="database.upgrades.buyAll()">
                         Buy all upgrades
                     </button>
                     <div class="upg-list">

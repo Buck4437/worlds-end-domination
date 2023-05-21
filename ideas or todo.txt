@@ -2,8 +2,12 @@ refactor:
 - spells 
 
 todo: 
+- Add hotkeys for tab navigation
+- Display current tab
+- Saving
 - toggle all for auto
 - upgrade to remove the convert cooldown
+- Don't use big list to display apocalypses, use another nav bar (e.g. vert) 
 
 Suggestions by minghinshi:
 - Add stats for tracking time needed to complete each apocalypse
