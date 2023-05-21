@@ -1,4 +1,4 @@
-Vue.component("UpgradeContainer", {
+Vue.component("UpgradeButton", {
     props: {
         upgrade: Object
     },
@@ -9,13 +9,6 @@ Vue.component("UpgradeContainer", {
         };
     },
     template: `
-    <div class="upg-con">
-        <div class="upg-txt-con">
-            <span>{{upgrade.name}}: {{upgrade.getDesc()}}</span>
-            <span v-if="upgrade.type === database.constants.upgradeType.EFFECT">
-                Currently: {{upgrade.effectPrefix}}{{format(upgrade.effect())}}
-            </span>
-        </div>
         <button class="upg-btn"
                 :class="{
                     'bought': database.upgrades.hasUpgrade(upgrade.id),
@@ -23,7 +16,9 @@ Vue.component("UpgradeContainer", {
                     'buyable': !database.upgrades.hasUpgrade(upgrade.id) && upgrade.isBuyable()
                 }"
                 @click="upgrade.buy()">
+            <div class="upgrade-name">{{upgrade.name}}</div>
+            <span class="upgrade-desc">{{upgrade.getDesc()}}</span>
+            Currently: {{upgrade.effectPrefix}}{{format(upgrade.effect())}}<br>
             Cost: {{format(upgrade.cost)}} Money
-        </button>
-    </div>`
+        </button>`
 });

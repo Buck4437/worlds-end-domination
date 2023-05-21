@@ -6,7 +6,7 @@ Vue.component("AutomationTab", {
         };
     },
     template: `
-    <div class="automation-tab">
+    <div class="automation-tab tab">
         <div v-for="building in database.buildings.all">
             <button class="automation-unlock-btn"
                     :class="{

@@ -25,12 +25,10 @@ Vue.component("BuildingsDisplay", {
             <div v-for="building in buildings" class="building">
                 <div class="building-text-con">
                     <div>
-                        {{building.name}}: {{building.owned()}}
-                        (×{{format(building.multiplier())}})
-                        (Total: + {{format(building.production())}}/s)
+                        <span class="building-name">{{building.name}}</span>: {{building.owned()}}
                     </div>
                     <div>
-                        Cost: {{format(building.cost())}} Money
+                        Base: {{format(building.baseProduction())}} => {{format(building.production())}}/s
                     </div>
                 </div>
                 <div class="building-buy-btn-con">
@@ -49,7 +47,7 @@ Vue.component("BuildingsDisplay", {
                                 'buyable': building.isBuyable()
                             }"
                             @click="building.buy()">
-                            {{database.buildings.modeName()}}
+                            Cost: {{format(building.cost())}} Money
                     </button>
                 </div>
             </div>

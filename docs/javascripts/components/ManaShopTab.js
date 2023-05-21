@@ -6,7 +6,7 @@ Vue.component("ManaShopTab", {
         };
     },
     template: `
-    <div class="mana-shop-tab">
+    <div class="mana-shop-tab tab">
         <div v-for="upgrade in database.manaShop.all()">
             <span>{{upgrade.name}}: {{upgrade.getDesc()}}</span><br>
             <button class="upg-btn"

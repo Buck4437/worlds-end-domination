@@ -15,19 +15,20 @@ Vue.component("MainTab", {
         }
     },
     template: `
-    <div class="main-tab">
+    <div class="main-tab tab">
         <div class="main-tab-wrapper">
             <div class="buildings-section">
                 <BuildingsDisplay/>
-                <span class="upgrade-header">Upgrades:</span>
-                <button @click="database.upgrades.buyAll()">
-                    Buy all upgrades
-                </button>
-                <div class="upg-list">
-                    <UpgradeContainer v-for="upg in upgrades"
-                                    :upgrade="upg" 
-                                    :key="upg.id">
-                    </UpgradeContainer>
+                <div class="upgrades-section-con">
+                    <div class="upgrades-header">Building Upgrades</div>
+                    <button class="upg-buy-all-btn" @click="database.upgrades.buyAll()">
+                        Buy all upgrades
+                    </button>
+                    <div class="upg-list">
+                        <UpgradeButton v-for="upg in upgrades"
+                                        :upgrade="upg" 
+                                        :key="upg.id"/>
+                    </div>
                 </div>
             </div>
             <div v-if="spellsUnlocked" class="spells-section">

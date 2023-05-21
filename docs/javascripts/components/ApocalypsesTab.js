@@ -11,21 +11,17 @@ Vue.component("ApocalypsesTab", {
         }
     },
     template: `
-    <div>
+    <div class="tab">
         <div v-for="apocalypse in apocalypsesList" class="apocalypse-info">
             <span class="apocalypse-name">Apocalypse {{apocalypse.level}}: {{apocalypse.text.name}}</span>
-            <i class="apocalypse-info-subheading">Destructions</i>
-            <ul>
-                <li v-for="nerf in apocalypse.text.nerfs">
-                    <i class="apocalypse-nerf-desc">{{nerf}}</i>
-                </li>
-            </ul>
-            <i class="apocalypse-info-subheading">Revelations</i>
-            <ul>
-                <li v-for="buff in apocalypse.text.buffs">
-                    <i class="apocalypse-buff-desc">{{buff}}</i>
-                </li>
-            </ul>
+            <span class="apocalypse-info-subheading">Destructions</span>
+            <div v-for="nerf in apocalypse.text.nerfs" class="apocalypse-desc">
+                {{nerf}}
+            </div>
+            <span class="apocalypse-info-subheading">Revelations</span>
+            <div v-for="buff in apocalypse.text.buffs" class="apocalypse-desc">
+                {{buff}}
+            </div>
         </div>
     </div>`
 });
