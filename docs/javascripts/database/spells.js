@@ -207,6 +207,16 @@ database.spells = {
             canNerf() { return !this.isActivated() && this.getLevel() > 1; },
             buff() { if (this.canBuff()) player.spells.spells[id].level++; },
             nerf() { if (this.canNerf()) player.spells.spells[id].level--; },
+            buffMax() { 
+                if (this.canBuff()) {
+                    player.spells.spells[id].level = Math.min(this.levelCap, player.spells.spells[id].level + 5);
+                } 
+            },
+            nerfMax() { 
+                if (this.canNerf()) {
+                    player.spells.spells[id].level = Math.max(1, player.spells.spells[id].level - 5);
+                } 
+            },
             
             exclusiveWith: spell.exclusiveWith ?? []
         };

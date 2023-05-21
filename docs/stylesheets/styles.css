@@ -58,6 +58,10 @@ button.disabled:hover {
     background-color: inherit;
 }
 
+.invisible {
+    visibility: hidden;
+}
+
 /* Actual stuff */
 
 /* top bar display */
@@ -190,11 +194,11 @@ button.disabled:hover {
     flex-wrap: wrap;
 }
 
-.upgrades-section-con .upgrade-name {
+.upgrades-section-con .upg-name {
     font-size: 1.2rem;
 }
 
-.upgrades-section-con .upgrade-desc {
+.upgrades-section-con .upg-desc {
     font-style: italic;
 }
 
@@ -212,11 +216,73 @@ button.disabled:hover {
 
 .spell-con {
     margin-bottom: 8px;
+    border: 2px solid var(--color);
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
 }
 
-.spell-toggle-btn {
-    min-width: 5rem;
+.spell-text-display {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.spell-info-con {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    flex-grow: 1;
+    border-right: 2px solid var(--color);
+}
+
+.spell-property-con {
+    min-width: 10rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.spell-buttons {
+    border-top: 2px solid var(--color);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.spell-use-button-con {
+    display: flex;
+    flex-direction: row;
+    padding: 4px;
+    justify-content: space-around;
+    flex-grow: 1;
+}
+
+.spell-toggle-btn, .spell-activate-btn {
+    width: 50%;
     min-height: 2rem;
+    margin: 0 4px;
+}
+
+.spell-level-adjust {
+    padding: 4px;
+    border-left: 2px solid var(--color);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+}
+
+.spell-level {
+    min-width: 5rem;
+}
+
+.spell-level-adjust button {
+    margin: 0 4px;
+    min-height: 2rem;
+    flex-grow: 1;
 }
 
 .spell-name {
@@ -234,6 +300,29 @@ button.disabled:hover {
     min-width: 30rem;
     min-height: 5rem;
     margin-bottom: 8px;
+}
+
+/* Mana Shop tab */
+
+.mana-shop-tab .upg-con {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.mana-shop-tab .upg-btn {
+    width: 15rem;
+    height: 11rem;
+    padding: 8px;
+    margin: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.mana-shop-tab .upg-name {
+    font-size: 1.2rem;
 }
 
 /* Apocalypses tab */

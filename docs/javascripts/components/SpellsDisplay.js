@@ -14,45 +14,73 @@ Vue.component("SpellsDisplay", {
     template: `
     <div>
         <div v-for="spell in spells" class="spell-con">
-            <button class="spell-toggle-btn" @click="spell.toggleAuto()"
-                    :class="{
-                                'on': spell.isAuto(),
-                                'off': !spell.isAuto(),
+            <div class="spell-text-display">
+                <div class="spell-info-con">
+                    <span class="spell-name">{{spell.name}}</span>
+                    <span class="spell-desc" v-html="spell.getDesc()"></span>
+                    <span v-if="spell.exclusiveWith.length != 0"  class="spell-exclusive">
+                        Exclusive with: 
+                        {{spell.exclusiveWith.map(x => database.spells.getSpell(x).name).join(", ")}}
+                    </span>
+                </div>
+                <div class="spell-property-con">
+                    <span>Duration: {{format(spell.getDuration())}}s</span>
+                    <span>
+                        Cost: {{format(spell.getCost(), 2, 0)}} Mana
+                    </span>
+                    <span>Timer: {{format(spell.getTimer())}}s</span>
+                    <span v-if="spell.displayEffect">
+                        Current: {{spell.effectPrefix}}{{format(spell.appliedEffect())}}
+                    </span>
+                </div>
+            </div>
+            <div class="spell-buttons">
+                <div class="spell-use-button-con">
+                    <button class="spell-toggle-btn" @click="spell.toggleAuto()"
+                            :class="{
+                                        'on': spell.isAuto(),
+                                        'off': !spell.isAuto(),
+                                    }">
+                        {{spell.isAuto() ? "Auto On" : "Auto Off"}}
+                    </button>
+                    <button class="spell-activate-btn" @click="spell.activate()">
+                        Activate
+                    </button>
+                </div>
+                <div class="spell-level-adjust">
+                    <button class="spell-buff-btn" @click="spell.nerfMax()"
+                            :class="{
+                                'red': spell.canNerf(),
+                                'disabled': !spell.canNerf(),
                             }">
-                {{spell.isAuto() ? "Auto On" : "Auto Off"}}
-            </button>
-            <button class="spell-activate-btn" @click="spell.activate()">
-                Activate
-            </button>
-            <button class="spell-buff-btn" @click="spell.buff()"
-                    :class="{
-                        'green': spell.canBuff(),
-                        'disabled': !spell.canBuff(),
-                    }">
-                +
-            </button>
-            <button class="spell-nerf-btn" @click="spell.nerf()"
-                    :class="{
-                        'red': spell.canNerf(),
-                        'disabled': !spell.canNerf(),
-                    }">
-                -
-            </button>
-            <br>
-            <span class="spell-name">{{spell.name}}:</span>
-            <span class="spell-desc" v-html="spell.getDesc()"></span><br>
-            <span v-if="spell.exclusiveWith.length != 0"  class="spell-cost">
-                Exclusive with: 
-                {{spell.exclusiveWith.map(x => database.spells.getSpell(x).name).join(", ")}}<br>
-            </span>
-            <span class="spell-cost">Duration: {{format(spell.getDuration())}}s</span><br>
-            <span class="spell-cost">
-                Cost: {{format(spell.getCost(), 2, 0)}} Mana
-            </span><br>
-            <span class="spell-cost">Timer: {{format(spell.getTimer())}}s</span><br>
-            <span v-if="spell.displayEffect" class="spell-cost">
-                Current: {{spell.effectPrefix}}{{format(spell.apply())}}
-            </span><br>
+                        -5
+                    </button>
+                    <button class="spell-nerf-btn" @click="spell.nerf()"
+                            :class="{
+                                'red': spell.canNerf(),
+                                'disabled': !spell.canNerf(),
+                            }">
+                        -
+                    </button>
+                    
+                    <span class="spell-level">Level {{spell.getLevel()}}</span>
+
+                    <button class="spell-buff-btn" @click="spell.buff()"
+                            :class="{
+                                'green': spell.canBuff(),
+                                'disabled': !spell.canBuff(),
+                            }">
+                        +
+                    </button>
+                    <button class="spell-buff-btn" @click="spell.buffMax()"
+                            :class="{
+                                'green': spell.canBuff(),
+                                'disabled': !spell.canBuff(),
+                            }">
+                        +5
+                    </button>
+                </div>
+            </div>
         </div>
     </div>`
 });

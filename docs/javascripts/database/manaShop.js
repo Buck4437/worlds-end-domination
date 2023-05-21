@@ -3,22 +3,22 @@ database.manaShop = {
     _data: [
         null,
         {
-            name: "Upgrade 1",
+            name: "Mana Rift I",
             getDesc: () => "Passively generate 5 Mana per second, up to 500 Mana",
             cost: new Decimal(500)
         },
         {
-            name: "Upgrade 2",
+            name: "Mana Rift II",
             getDesc: () => "Passively generate 500 Mana per second, up to 10000 Mana",
             cost: new Decimal(1e4)
         },
         {
-            name: "Upgrade 3",
+            name: "Auto Upgrade",
             getDesc: () => "Automatically unlock upgrades once they are affordable, for free",
-            cost: new Decimal(1e7)
+            cost: new Decimal(1e6)
         },
         {
-            name: "Upgrade 4",
+            name: "Money Box I",
             getDesc: () => "Start with 100 money when you exchange for mana.",
             cost: new Decimal(1e2),
             purchaseCallBack() { database.player.setMoney(Decimal.max(100, database.player.getMoney())); }

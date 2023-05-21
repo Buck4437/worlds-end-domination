@@ -16,8 +16,8 @@ Vue.component("UpgradeButton", {
                     'buyable': !database.upgrades.hasUpgrade(upgrade.id) && upgrade.isBuyable()
                 }"
                 @click="upgrade.buy()">
-            <div class="upgrade-name">{{upgrade.name}}</div>
-            <span class="upgrade-desc">{{upgrade.getDesc()}}</span>
+            <div class="upg-name">{{upgrade.name}}</div>
+            <span class="upg-desc">{{upgrade.getDesc()}}</span>
             Currently: {{upgrade.effectPrefix}}{{format(upgrade.effect())}}<br>
             Cost: {{format(upgrade.cost)}} Money
         </button>`
