@@ -17,19 +17,15 @@
                         ...
                     </button>
                 </div>
-                <div class="top-bar-layer-2">
+                <div class="top-bar-layer-2 top-bar-layer">
                     <span class="money-display">
                         Money: {{format(player.money)}} / {{format(database.constants.goal)}} (Max: {{maxPercentage}}%)
                     </span>
                     <span v-if="database.apocalypses.getApocalypseLevel() >= 1" class="mana-display">
-                        Mana: {{format(player.spells.mana, 2, 0)}}
+                        Mana: {{format(player.spells.mana, 2, 0, 100)}}
                     </span>
                 </div>
-                <button @click="player.apocalypseLevel = 1">Cheat to Apocalypse 1 (Temporary)</button>
-                <button v-if="database.apocalypses.getApocalypseLevel() >= 1" @click="database.spells.convert()">
-                    Convert Money to Mana<br>
-                    Gain {{format(database.spells.decimalGain())}} Mana, rounded down.
-                </button>
+                <top-bar-buttons></top-bar-buttons>
             </div>
             <div class="nav-bar">
                 <button v-for="tab in tabs" class="nav-bar-btn" @click="switchTab(tab)">{{tab}}</button> 
@@ -60,6 +56,8 @@
         <script src="javascripts/utils.js"></script>
 
         <script src="javascripts/components/ProgressBar.js"></script>
+        
+        <script src="javascripts/components/TopBarButtons.js"></script>
         <script src="javascripts/components/MainTab.js"></script>
         <script src="javascripts/components/BuildingsDisplay.js"></script>
         <script src="javascripts/components/UpgradeButton.js"></script>

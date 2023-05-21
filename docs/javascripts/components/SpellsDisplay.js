@@ -47,8 +47,12 @@ Vue.component("SpellsDisplay", {
                                     }">
                         {{spell.isAuto() ? "Auto On" : "Auto Off"}}
                     </button>
-                    <button class="spell-activate-btn" @click="spell.activate()">
-                        Activate
+                    <button class="spell-activate-btn" @click="spell.activate()"
+                            :class="{
+                                        'green': spell.canActivate(),
+                                        'disabled': !spell.canActivate(),
+                                    }">
+                                    Activate
                     </button>
                 </div>
                 <div class="spell-level-adjust">
@@ -87,7 +91,7 @@ Vue.component("SpellsDisplay", {
             </div>
             <ProgressBar class="spell-progress-bar"
                         :backgroundColor="backgroundColour"
-                        :colour="progressBarColour"
+                        :color="progressBarColour"
                         :percentage="spell.getTimer() / spell.getDuration() * 100"/>
         </div>
     </div>`

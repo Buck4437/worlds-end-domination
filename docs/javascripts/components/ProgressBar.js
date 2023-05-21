@@ -2,13 +2,13 @@ Vue.component("ProgressBar", {
     props: {
         percentage: Number,
         backgroundColor: String,
-        colour: String
+        color: String
     },
     computed: {
         barStyle() {
             return {
                 "width": `${this.percentage}%`,
-                "background-color": this.colour
+                "background-color": this.color
             };
         },
         conStyle() {

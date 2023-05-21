@@ -25,5 +25,6 @@ Vue.component("AboutTab", {
         Building 1-4: 1-4<br>
         Max All: A<br>
         Convert Money to Mana: M<br>
+        mana conversion has a cooldown of 1 second.
     </div>`
 });

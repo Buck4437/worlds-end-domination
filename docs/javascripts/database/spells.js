@@ -128,6 +128,9 @@ database.spells = {
     canConvert() {
         return this.unlocked() && this.gainOnConversion().gt(0) && player.spells.convertCooldown <= 0;
     },
+    cooldown() {
+        return 1;
+    },
     convert() {
         if (!this.canConvert()) return;
         const gain = this.gainOnConversion();
@@ -141,7 +144,7 @@ database.spells = {
         }
 
         this.addMana(gain);
-        player.spells.convertCooldown = 1;
+        player.spells.convertCooldown = this.cooldown();
     },
     all() {
         const spells = [];
@@ -188,21 +191,24 @@ database.spells = {
             tickTimer: dt => player.spells.spells[id].timer = Math.max(0, player.spells.spells[id].timer - dt),
             isAuto: () => player.spells.spells[id].auto,
             toggleAuto: () => player.spells.spells[id].auto = !player.spells.spells[id].auto,
-            isActivated() { return this.getTimer() > 0; },
-            activate() {
-                if (this.isActivated()) return;
+            canActivate() {
+                if (this.isActivated() || database.spells.getMana().lt(this.getCost())) {
+                    return false;
+                }
                 for (const exclusiveId of this.exclusiveWith) {
                     if (database.spells.getSpell(exclusiveId).isActivated()) {
-                        return;
+                        return false;
                     }
                 }
-                const manaCost = this.getCost();
-                if (database.spells.getMana().gte(manaCost)) {
-                    database.spells.subMana(manaCost);
+                return true;
+            },
+            isActivated() { return this.getTimer() > 0; },
+            activate() {
+                if (this.canActivate()) {
+                    database.spells.subMana(this.getCost());
                     player.spells.spells[id].timer = this.getDuration();
                 }
             },
-
             canBuff() { return !this.isActivated() && this.getLevel() < this.levelCap; },
             canNerf() { return !this.isActivated() && this.getLevel() > 1; },
             buff() { if (this.canBuff()) player.spells.spells[id].level++; },
