@@ -215,8 +215,8 @@ button.disabled:hover {
 /* Spells */
 
 .spell-con {
-    margin-bottom: 8px;
-    border: 2px solid var(--color);
+    margin-bottom: 16px;
+    border: 2px solid var(--color-mana);
     border-radius: 6px;
     display: flex;
     flex-direction: column;
@@ -234,18 +234,21 @@ button.disabled:hover {
     flex-direction: column;
     justify-content: space-around;
     flex-grow: 1;
-    border-right: 2px solid var(--color);
+    border-right: 2px solid var(--color-mana);
 }
 
 .spell-property-con {
-    min-width: 10rem;
+    min-width: 11rem;
+    padding: 4px;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+    text-align: start;
 }
 
 .spell-buttons {
-    border-top: 2px solid var(--color);
+    border-top: 2px solid var(--color-mana);
+    border-bottom: 2px solid var(--color-mana);
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -267,7 +270,7 @@ button.disabled:hover {
 
 .spell-level-adjust {
     padding: 4px;
-    border-left: 2px solid var(--color);
+    border-left: 2px solid var(--color-mana);
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -288,6 +291,13 @@ button.disabled:hover {
 .spell-name {
     font-size: 1.2rem;
     font-weight: bold;
+}
+
+.spell-progress-bar {
+    width: calc(100% - 4px);
+    height: 4px;
+    margin: 2px;
+    border-radius: 2px;
 }
 
 /* Automation tab */

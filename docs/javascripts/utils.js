@@ -58,3 +58,8 @@ function copyText(text) {
     }
     document.body.removeChild(el);
 }
+
+// Misc
+function getCssVariable(name) {
+    return getComputedStyle(document.body).getPropertyValue(name);
+}

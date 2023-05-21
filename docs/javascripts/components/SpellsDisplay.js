@@ -9,6 +9,12 @@ Vue.component("SpellsDisplay", {
     computed: {
         spells() {
             return this.database.spells.all();
+        },
+        progressBarColour() {
+            return getCssVariable("--progress-mana");
+        },
+        backgroundColour() {
+            return getCssVariable("--progress-background");
         }
     },
     template: `
@@ -18,18 +24,16 @@ Vue.component("SpellsDisplay", {
                 <div class="spell-info-con">
                     <span class="spell-name">{{spell.name}}</span>
                     <span class="spell-desc" v-html="spell.getDesc()"></span>
-                    <span v-if="spell.exclusiveWith.length != 0"  class="spell-exclusive">
+                    <span :class="{'invisible': spell.exclusiveWith.length <= 0}" class="spell-exclusive">
                         Exclusive with: 
                         {{spell.exclusiveWith.map(x => database.spells.getSpell(x).name).join(", ")}}
                     </span>
                 </div>
                 <div class="spell-property-con">
+                    <span>Cost: {{format(spell.getCost(), 2, 0)}} Mana</span>
                     <span>Duration: {{format(spell.getDuration())}}s</span>
-                    <span>
-                        Cost: {{format(spell.getCost(), 2, 0)}} Mana
-                    </span>
                     <span>Timer: {{format(spell.getTimer())}}s</span>
-                    <span v-if="spell.displayEffect">
+                    <span :class="{'invisible': !spell.displayEffect}">
                         Current: {{spell.effectPrefix}}{{format(spell.appliedEffect())}}
                     </span>
                 </div>
@@ -81,6 +85,10 @@ Vue.component("SpellsDisplay", {
                     </button>
                 </div>
             </div>
+            <ProgressBar class="spell-progress-bar"
+                        :backgroundColor="backgroundColour"
+                        :colour="progressBarColour"
+                        :percentage="spell.getTimer() / spell.getDuration() * 100"/>
         </div>
     </div>`
 });

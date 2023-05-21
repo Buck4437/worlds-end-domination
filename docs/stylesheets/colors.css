@@ -8,6 +8,11 @@
 	--tooltip: #ffffff;
 	--modal: #00000080;
 	--disabled: #4f595750;
+
+    --progress-mana: #086bbc;
+    --progress-background: #a8adac;
+
+    --color-mana: #1395ff;
 	--color-red: #ff1507;
 	--color-green: #00ce00;
 	--color-yellow: #ffff00;
