@@ -47,7 +47,7 @@ database.spells = {
                 levelCap: 6,
                 getDuration: level => 7.5,
                 getDesc(level) {
-                    return `Money Multiplication and Arcane Amplification multiplier ^${toSci(this.effect(level))}`;
+                    return `Money Multiplication and Ethereal Expansion multiplier ^${toSci(this.effect(level))}`;
                 },
                 cost(level) {
                     return Decimal.pow(1e3, level - 1).times(1e6);
