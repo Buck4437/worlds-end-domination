@@ -8,7 +8,7 @@ database.spells = {
         spells: [
             null,
             {
-                name: "Spell 1",
+                name: "Money Multiplication",
                 requiredApocalypseLevel: 1,
                 levelCap: 15,
                 getDuration: level => 5,
@@ -25,7 +25,7 @@ database.spells = {
                 }
             },
             {
-                name: "Spell 2",
+                name: "Ethereal Expansion",
                 requiredApocalypseLevel: 1,
                 levelCap: 5,
                 getDuration: level => 10,
@@ -42,12 +42,12 @@ database.spells = {
                 }
             },
             {
-                name: "Spell 3",
+                name: "Arcane Amplification",
                 requiredApocalypseLevel: 1,
                 levelCap: 6,
                 getDuration: level => 7.5,
                 getDesc(level) {
-                    return `Spell 1 and Spell 2 multiplier ^${toSci(this.effect(level))}`;
+                    return `Money Multiplication and Arcane Amplification multiplier ^${toSci(this.effect(level))}`;
                 },
                 cost(level) {
                     return Decimal.pow(1e3, level - 1).times(1e6);
@@ -226,6 +226,5 @@ database.spells = {
             
             exclusiveWith: spell.exclusiveWith ?? []
         };
-    },
-
+    }
 };

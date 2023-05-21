@@ -1,61 +1,18 @@
 refactor:
-- switch to "Building" and "Buildings"
+- spells 
 
 todo: 
 - toggle all for auto
 - upgrade to remove the convert cooldown
 
-Suggestion by jazz:
-- Add 3rd spell for first reset
-
 Suggestions by minghinshi:
 - Add stats for tracking time needed to complete each apocalypse
 
 todo: Max buy next 10 
-
-todo: show base production of those buildings [Via hover tooltip]
 todo: reorganize utils file
 
 Later nerf:
 Change to all multi to always 1.5x => 10?????
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Section 1: Possibly a new prestige layer
-1st Seal (Conquer)
-2nd Seal (War)
-3rd Seal (Famine)
-4th Seal (Death)
-5th ????
-6th Seal: Sun, Moon, Stars, Terrain
-7th Seal: Firestorm ===> 7 Trumpets
 
 Oh yeah credits:
 - Jazz

@@ -3,7 +3,7 @@ database.apocalypses = {
         {
             level: 1,
             text: {
-                name: "(Placeholder)",
+                name: "Domination",
                 nerfs: [
                     "Workers 2 upgrade multiplier x2.5 -> x1.6",
                     "Farmers 2 upgrade multiplier x4 -> x2.75",
