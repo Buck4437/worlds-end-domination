@@ -108,19 +108,6 @@ database.buildings = {
                 // Other buildings
                 return Decimal.sumGeometricSeries(count, priceStart, scaling, owned);
             },
-            // Returns the cost if the player has owned n buildings.
-            _costFor(n) {
-                const baseCost = this._baseCost();
-                const scaling = this._scaling();
-                if (this.id === 1) {
-                    // Includes 1 free worker in the calculations
-                    if (n === 0) {
-                        return new Decimal(0);
-                    }
-                    return baseCost.times(scaling.pow(n - 1));
-                }
-                return baseCost.times(scaling.pow(n));
-            },
             // Returns the number of buildings owned by the player.
             owned() {
                 return player.buildings[this.id].count;
@@ -174,7 +161,7 @@ database.buildings = {
                 }
                 return null;
             },
-            _costForOne() { return this._costFor(this.owned()); },
+            _costForOne() { return this._totalCost(1); },
             _costForTen() { return this._totalCost(10 - this.owned() % 10); },
             _costForMax() { 
                 const maxAffordable = this.maxAffordableAmount();
