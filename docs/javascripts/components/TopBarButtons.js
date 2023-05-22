@@ -26,7 +26,7 @@ Vue.component("TopBarButtons", {
             };
         }
     },
-    method: {
+    methods: {
         convert() {
             database.spells.convert();
         }
