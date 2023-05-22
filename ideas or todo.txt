@@ -12,11 +12,14 @@ todo:
 - Don't use big list to display apocalypses, use another nav bar (e.g. vert) 
 
 minghinshi said:
+*****change autobuy behaviour to have their own mode 
 open worker 2 after buying worker 1
 delete "max" 
 unlock mana after worker 2 
 warning when pressing prestige
-change autobuy behaviour to have their own mode 
+Remove progress bar for spell ?!?!?!?!?!?!? dold
+Later reset can bank mana to generate more mana (Called Mana Bank)
+change lv while spell activate
 
 idea:
 - Instead of capping mana, make some spells hv adverse impact on mana

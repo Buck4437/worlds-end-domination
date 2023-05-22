@@ -9,7 +9,7 @@ database.manaShop = {
         },
         {
             name: "Mana Rift II",
-            getDesc: () => "Passively generate 500 Mana per second, up to 10000 Mana",
+            getDesc: () => "Passively generate 100 Mana per second, up to 10000 Mana",
             cost: new Decimal(1e4)
         },
         {

@@ -6,11 +6,13 @@ function gameloop() {
 
     // Auto generate mana
     if (database.manaShop.hasUpgrade(1) && database.spells.getMana().lt(500)) {
-        database.spells.setMana(Decimal.min(player.spells.mana.add(dt * 5), 500));
+        const rate = Decimal.times(database.spells.getSpell(2).appliedEffect(), 5).times(dt);
+        database.spells.setMana(Decimal.min(player.spells.mana.add(rate), 500));
     }
 
     if (database.manaShop.hasUpgrade(2) && database.spells.getMana().lt(10000)) {
-        database.spells.setMana(Decimal.min(player.spells.mana.add(dt * 500), 10000));
+        const rate = Decimal.times(database.spells.getSpell(2).appliedEffect(), 100).times(dt);
+        database.spells.setMana(Decimal.min(player.spells.mana.add(rate), 10000));
     }
 
     // Automation

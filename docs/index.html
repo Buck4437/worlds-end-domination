@@ -22,7 +22,7 @@
                         Money: {{format(player.money)}} / {{format(database.constants.goal)}} (Max: {{maxPercentage}}%)
                     </span>
                     <span v-if="database.apocalypses.getApocalypseLevel() >= 1" class="mana-display">
-                        Mana: {{format(player.spells.mana)}}
+                        Mana: {{format(player.spells.mana, 2, 0, 1e6)}}
                     </span>
                 </div>
                 <top-bar-buttons></top-bar-buttons>
