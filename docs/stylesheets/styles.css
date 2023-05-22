@@ -166,6 +166,11 @@ button.disabled:hover {
     margin-right: 8px;
 }
 
+.buildings-section.pre-apocalypse {
+    width: 75%;
+    margin: 0 8px;
+}
+
 .spells-section {
     width: 45%;
     margin-left: 8px;
@@ -230,7 +235,7 @@ button.disabled:hover {
 
 .upgrades-section-con .upg-list {
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     flex-direction: row;
     flex-wrap: wrap;
 }
@@ -251,6 +256,7 @@ button.disabled:hover {
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
+    align-items: center;
 }
 
 /* Spells */
@@ -369,6 +375,7 @@ button.disabled:hover {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+    align-items: center;
 }
 
 .mana-shop-tab .upg-name {

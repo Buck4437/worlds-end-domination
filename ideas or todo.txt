@@ -2,12 +2,24 @@ refactor:
 - spells 
 
 todo: 
+- tooltip
+  -- Hide base and multiplier
 - Add hotkeys for tab navigation
 - Display current tab
 - Saving
 - toggle all for auto
 - upgrade to remove the convert cooldown
 - Don't use big list to display apocalypses, use another nav bar (e.g. vert) 
+
+minghinshi said:
+open worker 2 after buying worker 1
+delete "max" 
+unlock mana after worker 2 
+warning when pressing prestige
+change autobuy behaviour to have their own mode 
+
+idea:
+- Instead of capping mana, make some spells hv adverse impact on mana
 
 Suggestions by minghinshi:
 - Add stats for tracking time needed to complete each apocalypse

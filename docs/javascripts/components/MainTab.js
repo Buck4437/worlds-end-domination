@@ -8,7 +8,11 @@ Vue.component("MainTab", {
     },
     computed: {
         upgrades() {
-            return database.upgrades.all;
+            const upgs = database.upgrades.all;
+            if (this.spellsUnlocked) {
+                return upgs;
+            }
+            return upgs.filter(x => x.id === 1 || database.upgrades.hasUpgrade(x.id - 1));
         },
         spellsUnlocked() {
             return database.apocalypses.getApocalypseLevel() >= 1;
@@ -17,7 +21,7 @@ Vue.component("MainTab", {
     template: `
     <div class="main-tab tab">
         <div class="main-tab-wrapper">
-            <div class="buildings-section">
+            <div class="buildings-section" :class="{'pre-apocalypse': !spellsUnlocked}">
                 <BuildingsDisplay/>
                 <div class="upgrades-section-con">
                     <div class="upgrades-header">Building Upgrades</div>

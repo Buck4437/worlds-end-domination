@@ -26,13 +26,18 @@ Vue.component("TopBarButtons", {
             };
         }
     },
+    method: {
+        convert() {
+            database.spells.convert();
+        }
+    },
     template: `
     <div class="top-bar-layer-3 top-bar-layer">
         <button v-if= "database.apocalypses.getApocalypseLevel() == 0"
                 @click="player.apocalypseLevel = 1">Cheat to Apocalypse 1 (Temporary)</button>
         <button v-if="database.apocalypses.getApocalypseLevel() >= 1"
                 class="mana-convert-btn"
-                @click="database.spells.convert()"
+                @click="convert"
                 :class="manaClass">
             <span>Convert Money to Mana</span>
             <span>Gain <span class="gain" v-html="formattedManaGain"></span> Mana.</span>
