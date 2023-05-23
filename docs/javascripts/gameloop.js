@@ -43,10 +43,10 @@ function gameloop() {
 
     for (const building of database.buildings.all) {
         const production = building.production();
-        const newMoney = database.player.getMoney().add(production.times(dt));
+        const newMoney = database.money.get().add(production.times(dt));
 
         // Prevent player from getting more than the max amount of money.
-        database.player.setMoney(Decimal.min(newMoney, database.constants.goal));
+        database.money.set(Decimal.min(newMoney, database.constants.goal));
         database.stats.updateMaxMoney();
     }
 }

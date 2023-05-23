@@ -1,17 +1,17 @@
-database.player = {
-    resetMoney() {
+database.money = {
+    reset() {
         player.money = new Decimal(0);
     },
-    getMoney() {
+    get() {
         return player.money;
     },
-    addMoney(n) {
+    add(n) {
         player.money = player.money.add(n);
     },
-    subMoney(n) {
+    sub(n) {
         player.money = player.money.sub(n);
     },
-    setMoney(n) {
+    set(n) {
         player.money = new Decimal(n);
     }
 };

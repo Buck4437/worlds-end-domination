@@ -1,9 +1,3 @@
-bug fix:
-reset mana when apocalypse
-autobuyer use max 
-player use different max moeny for tracking purposes
-=> auto buyer no longer sub money and use max in your apocalypse
-
 refactor:
 - spells 
 

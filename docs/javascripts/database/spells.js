@@ -143,13 +143,13 @@ database.spells = {
         if (!this.canConvert()) return;
         const gain = this.gainOnConversion();
 
-        database.player.resetMoney();
+        database.money.reset();
         database.buildings.reset();
         database.upgrades.reset();
         database.stats.manaReset();
 
         if (database.manaShop.hasUpgrade(4)) {
-            database.player.setMoney(new Decimal("100"));
+            database.money.set(new Decimal("100"));
         }
 
         this.addMana(gain);

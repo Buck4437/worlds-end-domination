@@ -40,7 +40,7 @@ database.apocalypses = {
         if (this.canApocalypse()) {
             const confirmed = confirm("Do you want to proceed?");
             if (confirmed) {
-                database.player.resetMoney();
+                database.money.reset();
                 database.buildings.reset(resetAuto = true);
                 database.upgrades.reset();
                 database.spells.reset();

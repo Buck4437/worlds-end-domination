@@ -6,24 +6,24 @@ class Upgrade {
         this.cost = config.cost;
         this.effectPrefix = config.effectPrefix;
         this.defaultEffect = config.defaultEffect;
-        this.effect = function () {
+        this.effect = function() {
             return config.effect();
         };
-        this.getDesc = function () {
+        this.getDesc = function() {
             return config.getDesc();
         };
     }
 
     // Check if an upgrade can be purchased.
     isBuyable() {
-        return !database.upgrades.hasUpgrade(this.id) && database.player.getMoney().gte(this.cost);
+        return !database.upgrades.hasUpgrade(this.id) && database.money.get().gte(this.cost);
     }
 
     // Purchase an upgrade, if affordable.
     buy(deductCurrency = true) {
         if (this.isBuyable()) {
             if (deductCurrency) {
-                database.player.subMoney(this.cost);
+                database.money.sub(this.cost);
             }
             player.upgradeBits |= 2 ** (this.id - 1); // eslint-disable-line no-bitwise
         }

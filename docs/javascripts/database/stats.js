@@ -7,7 +7,7 @@ database.stats = {
         player.stats.maxMoney.thisApocalypse = new Decimal(0);
     },
     updateMaxMoney() {
-        const money = database.player.getMoney();
+        const money = database.money.get();
         player.stats.maxMoney.thisReset = Decimal.max(money, player.stats.maxMoney.thisReset);
         player.stats.maxMoney.thisApocalypse = Decimal.max(money, player.stats.maxMoney.thisApocalypse);
     },

@@ -142,17 +142,17 @@ class Building {
 
     // Check if the player can afford 1 building.
     _isBuyableToOne() {
-        return database.player.getMoney().gte(this._costForOne());
+        return database.money.get().gte(this._costForOne());
     }
 
     // Check if the player can afford nearest 10 buildings.
     _isBuyableToTen() {
-        return database.player.getMoney().gte(this._costForTen());
+        return database.money.get().gte(this._costForTen());
     }
 
     // Return the maximum number of buildings affordable, using binary search.
     maxAffordableAmount() {
-        const money = database.player.getMoney();
+        const money = database.money.get();
         if (!this._isBuyableToOne())
             return 0;
         const owned = this.owned();
@@ -193,7 +193,7 @@ class Building {
     _buyOne() {
         const cost = this._costForOne();
         if (this._isBuyableToOne()) {
-            database.player.subMoney(cost);
+            database.money.sub(cost);
             this._addBuilding(1);
         }
     }
@@ -214,7 +214,7 @@ class Building {
         if (maxAffordable <= 0)
             return;
         const totalCost = this._costForMax();
-        database.player.subMoney(totalCost);
+        database.money.sub(totalCost);
         this._addBuilding(maxAffordable);
     }
 
