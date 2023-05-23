@@ -1,6 +1,5 @@
 window.player = {
     money: new Decimal(0),
-    maxMoney: new Decimal(0),
     buildings: [
         null,
         {
@@ -76,6 +75,13 @@ window.player = {
         upgradeBits: 0
     },
     
+    stats: {
+        maxMoney: {
+            thisApocalypse: new Decimal(0),
+            thisReset: new Decimal(0),
+        }
+    },
+
     settings: {
         buildingBuyMode: 0
     },

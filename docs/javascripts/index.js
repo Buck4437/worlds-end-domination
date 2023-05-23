@@ -29,8 +29,8 @@ const app = new Vue({
             return tabList;
         },
         maxPercentage() {
-            const percent = 
-                Decimal.log10(this.player.maxMoney.add(1)) / Decimal.log10(this.database.constants.goal) * 100;
+            const percent = Decimal.log10(database.stats.maxMoneyThisApocalypse().add(1)) / 
+                            Decimal.log10(this.database.constants.goal) * 100;
             return this.format(percent);
         }
     },

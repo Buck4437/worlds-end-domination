@@ -1,7 +1,6 @@
 database.player = {
-    reset() {
+    resetMoney() {
         player.money = new Decimal(0);
-        player.maxMoney = new Decimal(0);
     },
     getMoney() {
         return player.money;
@@ -14,8 +13,5 @@ database.player = {
     },
     setMoney(n) {
         player.money = new Decimal(n);
-    },
-    updateMaxMoney() {
-        player.maxMoney = Decimal.max(this.getMoney(), player.maxMoney);
     }
 };

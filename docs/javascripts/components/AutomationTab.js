@@ -16,7 +16,7 @@ Vue.component("AutomationTab", {
                     }"
                     @click="building.unlockAuto()">
                 Unlock autobuy for {{building.name.toLowerCase()}}<br>
-                Cost: {{format(building.getAutoCost())}} Money
+                Reach {{format(building.getAutoCost())}} Money
             </button>
         </div>
     </div>`

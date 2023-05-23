@@ -34,15 +34,18 @@ database.apocalypses = {
         }
     ],
     canApocalypse() {
-        return player.maxMoney.gte(database.constants.goal);
+        return database.stats.maxMoneyThisApocalypse().gte(database.constants.goal);
     },
     performApocalypse() {
         if (this.canApocalypse()) {
             const confirmed = confirm("Do you want to proceed?");
             if (confirmed) {
-                database.player.reset();
+                database.player.resetMoney();
                 database.buildings.reset(resetAuto = true);
                 database.upgrades.reset();
+                database.spells.reset();
+                database.manaShop.reset();
+                database.stats.apocalypseReset();
                 player.apocalypseLevel += 1;
             }
         }

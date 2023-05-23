@@ -2,6 +2,7 @@ bug fix:
 reset mana when apocalypse
 autobuyer use max 
 player use different max moeny for tracking purposes
+=> auto buyer no longer sub money and use max in your apocalypse
 
 refactor:
 - spells 
@@ -18,9 +19,8 @@ todo:
 
 minghinshi said:
 *****change autobuy behaviour to have their own mode 
-open worker 2 after buying worker 1
+******unlock mana after worker 2 
 delete "max" 
-unlock mana after worker 2 
 warning when pressing prestige
 Remove progress bar for spell ?!?!?!?!?!?!? dold
 Later reset can bank mana to generate more mana (Called Mana Bank)

@@ -230,14 +230,13 @@ class Building {
 
     // Check if the player can afford autobuy.
     canUnlockAuto() {
-        return database.player.getMoney().gte(this.getAutoCost());
+        return database.stats.maxMoneyThisApocalypse().gte(this.getAutoCost());
     }
 
     // Unlock autobuy, if affordable.
     unlockAuto() {
         if (this.canUnlockAuto()) {
             player.buildings[this.id].isAutoUnlocked = true;
-            database.player.subMoney(this.getAutoCost());
         }
     }
 

@@ -4,6 +4,13 @@ database.spells = {
     unlocked() {
         return database.apocalypses.getApocalypseLevel() >= 1;
     },
+    reset() {
+        this.setMana(new Decimal(0));
+        player.spells.convertCooldown = 0;
+        for (const spell of this.all()) {
+            spell.reset();
+        }
+    },
     _data: {
         spells: [
             null,
@@ -113,11 +120,12 @@ database.spells = {
         ]
     },
     decimalGain() {
+        const money = database.stats.maxMoneyThisReset();
         // ((log(money/10 + 1) + 1)^3 - 1) / 10
-        const base = Decimal.pow(Decimal.log10(player.maxMoney.div(10).add(1)) + 1, 3).sub(1).div(10);
+        const base = Decimal.pow(Decimal.log10(money.div(10).add(1)) + 1, 3).sub(1).div(10);
 
         // Extra bonus after 1e180: (log(money/1e180 + 1)/10)^2 + 1
-        const extra = Decimal.pow(Decimal.log10(player.maxMoney.div(1e180).add(1)) / 10, 2).add(1);
+        const extra = Decimal.pow(Decimal.log10(money.div(1e180).add(1)) / 10, 2).add(1);
 
         const multi = new Decimal(1).times(database.spells.getSpell(2).appliedEffect());
         return base.times(extra).times(multi);
@@ -135,9 +143,10 @@ database.spells = {
         if (!this.canConvert()) return;
         const gain = this.gainOnConversion();
 
-        database.player.reset();
+        database.player.resetMoney();
         database.buildings.reset();
         database.upgrades.reset();
+        database.stats.manaReset();
 
         if (database.manaShop.hasUpgrade(4)) {
             database.player.setMoney(new Decimal("100"));
@@ -224,7 +233,13 @@ database.spells = {
                 } 
             },
             
-            exclusiveWith: spell.exclusiveWith ?? []
+            exclusiveWith: spell.exclusiveWith ?? [],
+            reset() {
+                const spellObj = player.spells.spells[id];
+                spellObj.level = 1;
+                spellObj.auto = false;
+                spellObj.timer = 0;
+            }
         };
     }
 };

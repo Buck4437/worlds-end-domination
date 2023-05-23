@@ -47,6 +47,6 @@ function gameloop() {
 
         // Prevent player from getting more than the max amount of money.
         database.player.setMoney(Decimal.min(newMoney, database.constants.goal));
-        database.player.updateMaxMoney();
+        database.stats.updateMaxMoney();
     }
 }
