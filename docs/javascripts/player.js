@@ -7,34 +7,7 @@ window.player = {
     spells: {
         mana: new Decimal(0),
         convertCooldown: 0,
-        spells: [
-            null,
-            {
-                auto: false,
-                level: 1,
-                timer: 0
-            },
-            {
-                auto: false,
-                level: 1,
-                timer: 0
-            },
-            {
-                auto: false,
-                level: 1,
-                timer: 0
-            },
-            {
-                auto: false,
-                level: 1,
-                timer: 0
-            },
-            {
-                auto: false,
-                level: 1,
-                timer: 0
-            }
-        ],
+        spells: [null],
         upgradeBits: 0
     },
     
@@ -57,6 +30,15 @@ window.player = {
         player.buildings.push({
             count: 0,
             isAutoUnlocked: false,
+            auto: false,
+            autoMode: 0
+        });
+    }
+
+    for (let i = 0; i < database.spells.all.length; i++) {
+        player.spells.spells.push({
+            level: 1,
+            timer: 0,
             auto: false
         });
     }

@@ -18,6 +18,7 @@ Later reset can bank mana to generate more mana (Called Mana Bank)
 change lv while spell activate
 
 refactor:
+- autobuy
 - spells 
 
 idea:

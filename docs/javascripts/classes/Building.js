@@ -129,8 +129,11 @@ class Building {
     }
 
     // Check if the player can purchase any building under the selected mode.
-    isBuyable() {
-        switch (database.buildings.currentMode()) {
+    // mode (optional): Specify the mode to check if the building is buyable.
+    isBuyable(mode = null) {
+        const buyingMode = mode ?? database.buildings.currentMode();
+
+        switch (buyingMode) {
             case database.constants.buyingMode.BUY1:
             case database.constants.buyingMode.BUYMAX:
                 return this._isBuyableToOne();
@@ -175,8 +178,11 @@ class Building {
     }
 
     // Purchase buildings based on mode, if affordable.
-    buy() {
-        switch (database.buildings.currentMode()) {
+    // mode (optional): Specify the mode to purchase the building.
+    buy(mode = null) {
+        const buyingMode = mode ?? database.buildings.currentMode();
+
+        switch (buyingMode) {
             case database.constants.buyingMode.BUY1:
                 this._buyOne();
                 break;
@@ -250,5 +256,17 @@ class Building {
         if (this.isAutoUnlocked()) {
             player.buildings[this.id].isAuto = !this.isAuto();
         }
+    }
+
+    // Get the current mode of autobuy.
+    getAutoMode() {
+        const id = player.buildings[this.id].autoMode;
+        return database.buildings.buyingModes[id];
+    }
+
+    // Switch mode of autobuy.
+    switchAutoMode() {
+        player.buildings[this.id].autoMode++;
+        player.buildings[this.id].autoMode %= database.buildings.buyingModes.length;
     }
 }

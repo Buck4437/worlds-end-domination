@@ -350,13 +350,48 @@ button.disabled:hover {
 .automation-tab {
     display: flex;
     flex-direction: column;
+    align-items: center;
 }
 
-.automation-unlock-btn {
-    min-width: 30rem;
-    min-height: 5rem;
-    margin-bottom: 8px;
+.automation-module {
+    width: max(min(50%, 50rem), 30rem);
+    height: 7rem;
+    margin-bottom: 12px;
 }
+
+.automation-unlock-btn, .automation-autobuy-con {
+    width: 100%;
+    height: 100%;
+}
+
+.automation-autobuy-con {
+    box-sizing: border-box;
+    border: 2px solid var(--color);
+    border-radius: 4px;
+    padding: 8px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.automation-autobuy-title {
+    font-size: 1.2rem;
+}
+
+.automation-autobuy-btn-con {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.automation-autobuy-btn-con button {
+    min-width: 13rem;
+    height: 2.3rem;
+}
+
 
 /* Mana Shop tab */
 
@@ -401,4 +436,3 @@ button.disabled:hover {
 .apocalypse-desc {
     margin-bottom: 6px;
 }
-
