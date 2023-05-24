@@ -1,27 +1,32 @@
 Vue.component("ApocalypsesTab", {
     data() {
         return {
-            apocalypses: database.apocalypses,
-            format: toSci
+            apocalypseLevel: 0,
+            interval: null
         };
     },
     computed: {
         apocalypsesList() {
-            return this.apocalypses.all().filter(x => this.apocalypses.getApocalypseLevel() >= x.level);
+            return database.apocalypses.all().filter(x => this.apocalypseLevel >= x.level);
         }
+    },
+    methods: {
+        update() {
+            this.apocalypseLevel = database.apocalypses.getApocalypseLevel();
+        }
+    },
+    mounted() {
+        this.interval = setInterval(() => {
+            this.update();
+        }, 50);
+    },
+    beforeDestroyed() {
+        clearInterval(this.interval);
     },
     template: `
     <div class="tab">
-        <div v-for="apocalypse in apocalypsesList" class="apocalypse-info">
-            <span class="apocalypse-name">Apocalypse {{apocalypse.level}}: {{apocalypse.text.name}}</span>
-            <span class="apocalypse-info-subheading">Destructions</span>
-            <div v-for="nerf in apocalypse.text.nerfs" class="apocalypse-desc">
-                {{nerf}}
-            </div>
-            <span class="apocalypse-info-subheading">Revelations</span>
-            <div v-for="buff in apocalypse.text.buffs" class="apocalypse-desc">
-                {{buff}}
-            </div>
-        </div>
+        <ApocalypseDisplay v-for="apocalypse in apocalypsesList"
+                           :apocalypse="apocalypse"
+                           :key="apocalypse.level"/>
     </div>`
 });

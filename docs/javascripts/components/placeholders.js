@@ -5,6 +5,10 @@ Vue.component("OptionsTab", {
             format: toSci
         };
     },
+    methods: {
+        // Placeholder
+        update() {}
+    },
     template: `
     <div>
         Placeholder 1
@@ -17,6 +21,10 @@ Vue.component("AboutTab", {
             database,
             format: toSci
         };
+    },
+    methods: {
+        // Placeholder
+        update() {}
     },
     template: `
     <div>

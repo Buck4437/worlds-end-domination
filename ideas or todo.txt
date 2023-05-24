@@ -1,12 +1,14 @@
 update() refactor progress:
-Apocalypses Tab: not done
+Apocalypses Tab: done
 Automation Tab: done
 Main Tab: not done
+- Building Display
+- Upgrade Button
+- Spell Display
 Mana Shop Tab: done
-placeholders: not done
 Combine all setInterval: not done
 
-refactor mana shop upgrades to use objects as well
+refactor mana shop upgrades and apocalypses to use objects as well
 
 todo: 
 - Change unfolding structure
