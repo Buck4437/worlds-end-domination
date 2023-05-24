@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title>Pain</title>
+
+        <link rel="stylesheet" href="stylesheets/core.css">
+        <link rel="stylesheet" href="stylesheets/colors.css">
+        <link rel="stylesheet" href="stylesheets/styles.css">
+        <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@400&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <div id="app">
+            value of b: {{money}}
+        </div>
+
+        <script src="javascripts/libraries/vue.js"></script>
+        <script>
+            var player = {
+                money: 1
+            }
+
+            const MoneyOrganizer = {
+                getMoney() {
+                    return player.money;
+                }
+            }
+
+            const app = new Vue({
+                el: "#app",
+                data: {
+                    money: 0
+                },
+                methods: {
+                    update() {
+                        this.money = MoneyOrganizer.getMoney();
+                    }
+                }
+            });
+        </script>
+    </body>
+</html>
