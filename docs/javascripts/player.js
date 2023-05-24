@@ -1,43 +1,6 @@
 window.player = {
     money: new Decimal(0),
-    buildings: [
-        null,
-        {
-            count: 0,
-            isAutoUnlocked: false,
-            auto: false
-        },
-        {
-            count: 0,
-            isAutoUnlocked: false,
-            auto: false
-        },
-        {
-            count: 0,
-            isAutoUnlocked: false,
-            auto: false
-        },
-        {
-            count: 0,
-            isAutoUnlocked: false,
-            auto: false
-        },
-        {
-            count: 0,
-            isAutoUnlocked: false,
-            auto: false
-        },
-        {
-            count: 0,
-            isAutoUnlocked: false,
-            auto: false
-        },
-        {
-            count: 0,
-            isAutoUnlocked: false,
-            auto: false
-        }
-    ],
+    buildings: [null],
     upgradeBits: 0,
 
     apocalypseLevel: 0,
@@ -87,3 +50,14 @@ window.player = {
     },
     lastTick: Date.now()
 };
+
+// Initialize player object
+(function() {
+    for (let i = 0; i < database.buildings.all.length; i++) {
+        player.buildings.push({
+            count: 0,
+            isAutoUnlocked: false,
+            auto: false
+        });
+    }
+}());

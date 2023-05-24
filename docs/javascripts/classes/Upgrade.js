@@ -34,7 +34,3 @@ class Upgrade {
         return database.upgrades.hasUpgrade(this.id) ? this.effect() : this.defaultEffect;
     }
 }
-
-
-
-

@@ -7,8 +7,8 @@ Vue.component("SpellsDisplay", {
         };
     },
     computed: {
-        spells() {
-            return this.database.spells.all();
+        unlockedSpells() {
+            return this.database.spells.all.filter(spell => spell.isUnlocked());
         },
         progressBarColour() {
             return getCssVariable("--progress-mana");
@@ -19,7 +19,7 @@ Vue.component("SpellsDisplay", {
     },
     template: `
     <div>
-        <div v-for="spell in spells" class="spell-con">
+        <div v-for="spell in unlockedSpells" class="spell-con">
             <div class="spell-text-display">
                 <div class="spell-info-con">
                     <span class="spell-name">{{spell.name}}</span>

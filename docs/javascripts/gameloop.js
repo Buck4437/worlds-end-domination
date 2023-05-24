@@ -29,7 +29,7 @@ function gameloop() {
     }
 
     // Activate auto spells
-    for (const spell of database.spells.all()) {
+    for (const spell of database.spells.all) {
         spell.tickTimer(dt);
         if (spell.getTimer() === 0) {
             if (spell.isAuto()) {

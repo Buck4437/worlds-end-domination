@@ -7,7 +7,7 @@ database.spells = {
     reset() {
         this.setMana(new Decimal(0));
         player.spells.convertCooldown = 0;
-        for (const spell of this.all()) {
+        for (const spell of this.all) {
             spell.reset();
         }
     },
@@ -18,15 +18,15 @@ database.spells = {
                 name: "Money Multiplication",
                 requiredApocalypseLevel: 1,
                 levelCap: 15,
-                getDuration: level => 5,
-                getDesc(level) {
-                    return `Multiply all buildings by x${toSci(this.effect(level))}`;
+                _durationFunction: level => 5,
+                _descFunction(level) {
+                    return `Multiply all buildings by x${toSci(this._effectFunction(level))}`;
                 },
-                cost(level) {
+                _costFunction(level) {
                     return Decimal.pow(5, level - 1);
                 },
                 defaultEffect: new Decimal(1),
-                effect(level, timer) {
+                _effectFunction(level, remainingTime) {
                     const base = Decimal.pow(6, level);
                     return base.pow(database.spells.getSpell(3).appliedEffect());
                 }
@@ -35,15 +35,15 @@ database.spells = {
                 name: "Ethereal Expansion",
                 requiredApocalypseLevel: 1,
                 levelCap: 5,
-                getDuration: level => 10,
-                getDesc(level) {
-                    return `Multiply mana gain by x${toSci(this.effect(level))}`;
+                _durationFunction: level => 10,
+                _descFunction(level) {
+                    return `Multiply mana gain by x${toSci(this._effectFunction(level))}`;
                 },
-                cost(level) {
+                _costFunction(level) {
                     return Decimal.pow(50, level - 1).times(1000);
                 },
                 defaultEffect: new Decimal(1),
-                effect(level, timer) {
+                _effectFunction(level, remainingTime) {
                     const base = Decimal.pow(5, level);
                     return base.pow(database.spells.getSpell(3).appliedEffect());
                 }
@@ -52,15 +52,16 @@ database.spells = {
                 name: "Arcane Amplification",
                 requiredApocalypseLevel: 1,
                 levelCap: 6,
-                getDuration: level => 7.5,
-                getDesc(level) {
-                    return `Money Multiplication and Ethereal Expansion multiplier ^${toSci(this.effect(level))}`;
+                _durationFunction: level => 7.5,
+                _descFunction(level) {
+                    return `Money Multiplication and Ethereal Expansion multiplier` + 
+                    ` ^${toSci(this._effectFunction(level))}`;
                 },
-                cost(level) {
+                _costFunction(level) {
                     return Decimal.pow(1e3, level - 1).times(1e6);
                 },
                 defaultEffect: new Decimal(1),
-                effect(level, timer) {
+                _effectFunction(level, remainingTime) {
                     // 1.4 => 1.5 => 1.7 => 2.1 => 2.9 => 4.2
                     if (level < 6) {
                         return Decimal.add(1.3, 0.1 * 2 ** (level - 1));
@@ -72,16 +73,17 @@ database.spells = {
                 name: "Spell 4",
                 requiredApocalypseLevel: 2,
                 levelCap: 3,
-                getDuration: level => 30,
-                getDesc(level) {
-                    return `Multiply all buildings by x${toSci(this.effect(level, 30))} in the first 10 seconds, 
-                        x${toSci(this.effect(level, 20))} for the remaining duration.`;
+                _durationFunction: level => 30,
+                _descFunction(level) {
+                    return `Multiply all buildings by x${toSci(this._effectFunction(level, 30))}
+                        in the first 10 seconds, 
+                        x${toSci(this._effectFunction(level, 20))} for the remaining duration.`;
                 },
-                cost(level) {
+                _costFunction(level) {
                     return Decimal.pow(1000, level - 1).times(100);
                 },
                 defaultEffect: new Decimal(1),
-                effect(level, remainingTime) {
+                _effectFunction(level, remainingTime) {
                     if (remainingTime > this.getDuration(level) - 10) {
                         return Decimal.pow(10, level);
                     }
@@ -95,23 +97,23 @@ database.spells = {
                 name: "Spell 5",
                 requiredApocalypseLevel: 2,
                 levelCap: 3,
-                getDuration(level) {
+                _durationFunction(level) {
                     return 30 + level * 120;
                 },
-                getDesc(level) {
-                    return `Multiply all buildings by x1~${toSci(this.effect(level, 30))},
-                        max out after ${this.getDuration(level) - 30} seconds.`;
+                _descFunction(level) {
+                    return `Multiply all buildings by x1~${toSci(this._effectFunction(level, 30))},
+                        max out after ${this._durationFunction(level) - 30} seconds.`;
                 },
-                cost(level) {
+                _costFunction(level) {
                     return Decimal.pow(1000, level - 1).times(100);
                 },
                 defaultEffect: new Decimal(1),
-                effect(level, remainingTime) {
+                _effectFunction(level, remainingTime) {
                     // Effect increases exponentially (x10 every 120 seconds), until the last 30 seconds
                     if (remainingTime <= 30) {
-                        return Decimal.pow(10, (this.getDuration(level) - 30) / 120);
+                        return Decimal.pow(10, (this._durationFunction(level) - 30) / 120);
                     }
-                    return Decimal.pow(10, (this.getDuration(level) - remainingTime) / 120);
+                    return Decimal.pow(10, (this._durationFunction(level) - remainingTime) / 120);
                 },
                 displayEffect: true,
                 effectPrefix: "x",
@@ -155,16 +157,7 @@ database.spells = {
         this.addMana(gain);
         player.spells.convertCooldown = this.cooldown();
     },
-    all() {
-        const spells = [];
-        for (let i = 1; i < this._data.spells.length; i++) {
-            const spell = this.getSpell(i);
-            if (database.apocalypses.getApocalypseLevel() >= spell.requiredApocalypseLevel) {
-                spells.push(spell);
-            }
-        }
-        return spells;
-    },
+    all: [],
     getMana() {
         return player.spells.mana;
     },
@@ -179,67 +172,15 @@ database.spells = {
     },
     getSpell(id) {
         if (id <= 0 || id >= this._data.spells.length) return null;
-        const spell = this._data.spells[id];
-        
-        return {
-            id,
-            name: spell.name,
-            requiredApocalypseLevel: spell.requiredApocalypseLevel,
-            levelCap: spell.levelCap,
-            getDuration() { return spell.getDuration(this.getLevel()); },
-            getDesc() { return spell.getDesc(this.getLevel()); },
-            getCost() { return spell.cost(this.getLevel()); },
-            getEffect() { return spell.effect(this.getLevel(), this.getTimer()); },
-            defaultEffect: spell.defaultEffect,
-            displayEffect: spell.displayEffect ?? false,
-            effectPrefix: spell.effectPrefix ?? null,
-            appliedEffect() { return this.isActivated() ? this.getEffect() : this.defaultEffect; },
-
-            getLevel: () => player.spells.spells[id].level,
-            getTimer: () => player.spells.spells[id].timer,
-            tickTimer: dt => player.spells.spells[id].timer = Math.max(0, player.spells.spells[id].timer - dt),
-            isAuto: () => player.spells.spells[id].auto,
-            toggleAuto: () => player.spells.spells[id].auto = !player.spells.spells[id].auto,
-            canActivate() {
-                if (this.isActivated() || database.spells.getMana().lt(this.getCost())) {
-                    return false;
-                }
-                for (const exclusiveId of this.exclusiveWith) {
-                    if (database.spells.getSpell(exclusiveId).isActivated()) {
-                        return false;
-                    }
-                }
-                return true;
-            },
-            isActivated() { return this.getTimer() > 0; },
-            activate() {
-                if (this.canActivate()) {
-                    database.spells.subMana(this.getCost());
-                    player.spells.spells[id].timer = this.getDuration();
-                }
-            },
-            canBuff() { return !this.isActivated() && this.getLevel() < this.levelCap; },
-            canNerf() { return !this.isActivated() && this.getLevel() > 1; },
-            buff() { if (this.canBuff()) player.spells.spells[id].level++; },
-            nerf() { if (this.canNerf()) player.spells.spells[id].level--; },
-            buffMax() { 
-                if (this.canBuff()) {
-                    player.spells.spells[id].level = Math.min(this.levelCap, player.spells.spells[id].level + 5);
-                } 
-            },
-            nerfMax() { 
-                if (this.canNerf()) {
-                    player.spells.spells[id].level = Math.max(1, player.spells.spells[id].level - 5);
-                } 
-            },
-            
-            exclusiveWith: spell.exclusiveWith ?? [],
-            reset() {
-                const spellObj = player.spells.spells[id];
-                spellObj.level = 1;
-                spellObj.auto = false;
-                spellObj.timer = 0;
-            }
-        };
+        return this.all[id - 1];
     }
 };
+
+// Populate spells list
+(function() {
+    for (let i = 1; i < database.spells._data.spells.length; i++) {
+        database.spells.all.push(
+            new Spell(id = i, config = database.spells._data.spells[i])
+        );
+    }
+}());

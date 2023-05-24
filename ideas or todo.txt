@@ -1,6 +1,3 @@
-refactor:
-- spells 
-
 todo: 
 - tooltip
   -- Hide base and multiplier
@@ -20,8 +17,11 @@ Remove progress bar for spell ?!?!?!?!?!?!? dold
 Later reset can bank mana to generate more mana (Called Mana Bank)
 change lv while spell activate
 
+refactor:
+- spells 
+
 idea:
-- Instead of capping mana, make some spells hv adverse impact on mana
+- Instead of capping spell count, make some spells hv adverse impact on mana
 
 Suggestions by minghinshi:
 - Add stats for tracking time needed to complete each apocalypse
