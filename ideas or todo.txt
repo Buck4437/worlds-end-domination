@@ -1,4 +1,16 @@
+update() refactor progress:
+Apocalypses Tab: not done
+Automation Tab: done
+Main Tab: not done
+Mana Shop Tab: done
+placeholders: not done
+Combine all setInterval: not done
+
+refactor mana shop upgrades to use objects as well
+
 todo: 
+- Change unfolding structure
+
 - tooltip
   -- Hide base and multiplier
 - Add hotkeys for tab navigation
@@ -9,7 +21,6 @@ todo:
 - Don't use big list to display apocalypses, use another nav bar (e.g. vert) 
 
 minghinshi said:
-*****change autobuy behaviour to have their own mode 
 ******unlock mana after worker 2 
 delete "max" 
 warning when pressing prestige

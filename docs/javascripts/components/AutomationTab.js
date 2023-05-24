@@ -1,9 +1,6 @@
 Vue.component("AutomationTab", {
     data() {
         return {
-            database,
-            format: toSci,
-            update: true,
             interval: null
         };
     },
@@ -14,7 +11,9 @@ Vue.component("AutomationTab", {
     },
     mounted() {
         this.interval = setInterval(() => {
-            this.update = !this.update;
+            for (const child of this.$refs.building) {
+                child.update();
+            }
         }, 50);
     },
     beforeDestroyed() {
@@ -23,9 +22,8 @@ Vue.component("AutomationTab", {
     template: `
     <div class="automation-tab tab">
         <AutobuyerDisplay v-for="building in buildings" 
-                          class="automation-module"
                           :building="building"
-                          :updater="update"
-                          :key="building.id"/>
+                          :key="building.id"
+                          ref="building"/>
     </div>`
 });
