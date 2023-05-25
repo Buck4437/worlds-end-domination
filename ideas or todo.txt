@@ -1,13 +1,19 @@
 update() refactor progress:
 Apocalypses Tab: done
 Automation Tab: done
-Main Tab: not done
+Main Tab: done
 - Building Display ok
 - Upgrade Button ok
 - Spell Display ok
 Mana Shop Tab: done
-Top bar etc
+Top bar etc: done
 Combine all setInterval: not done
+
+
+    mounted() {
+        this.update();
+    },
+maybe add this to all components to populate it
 
 refactor mana shop upgrades and apocalypses to use objects as well
 

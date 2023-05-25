@@ -14,7 +14,7 @@
             <div class="top-bar">
                 <div v-if="database.apocalypses.canApocalypse()" class="top-bar-layer-1">
                     <button class="apocalypse-btn" @click="database.apocalypses.performApocalypse()">
-                        ...
+                        Unleash Apocalypse
                     </button>
                 </div>
                 <div class="top-bar-layer-2 top-bar-layer">
@@ -25,7 +25,7 @@
                         Mana: {{format(player.spells.mana, 2, 0, 1e6)}}
                     </span>
                 </div>
-                <top-bar-buttons></top-bar-buttons>
+                <top-bar-buttons ref="buttons"></top-bar-buttons>
             </div>
             <div class="nav-bar">
                 <button v-for="tab in tabs" class="nav-bar-btn" @click="switchTab(tab)">{{tab}}</button> 
@@ -34,6 +34,7 @@
             <component v-for="tab in tabs"
                        v-show="currentTab == tab"
                        :is="toTabComponent(tab)"
+                       :ref="tab"
                        :key="tab"></component>
         </div>
 

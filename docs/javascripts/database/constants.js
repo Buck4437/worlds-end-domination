@@ -9,5 +9,5 @@ database.constants = {
     upgradeType: {
         EFFECT: 0,
         UNLOCK: 1
-    }    
+    }
 };

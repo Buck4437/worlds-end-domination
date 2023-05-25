@@ -1,9 +1,4 @@
 Vue.component("MainTab", {
-    data() {
-        return {
-            interval: null,
-        };
-    },
     computed: {
         spellsUnlocked() {
             return database.apocalypses.getApocalypseLevel() >= 1;
@@ -17,15 +12,6 @@ Vue.component("MainTab", {
                 this.$refs.spell.update();
             }
         },
-    },
-    mounted() {
-        this.update();
-        this.interval = setInterval(() => {
-            this.update();
-        }, 25);
-    },
-    beforeDestroyed() {
-        clearInterval(this.interval);
     },
     template: `
     <div class="main-tab tab">

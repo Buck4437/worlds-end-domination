@@ -1,41 +1,51 @@
 Vue.component("TopBarButtons", {
     data() {
         return {
-            database,
-            player,
             format: toSci,
-            getCssVariable
+            getCssVariable,
+            apocalypseLevel: 0,
+            onManaCooldown: true,
+            decimalManaGain: new Decimal(0)
         };
     },
     computed: {
         formattedManaGain() {
-            if (database.spells.decimalGain().lt(100)) {
-                const intgral = database.spells.gainOnConversion().toString();
-                const decimal = Math.floor(database.spells.decimalGain().toNumber() % 1 * 10);
+            const gain = this.decimalManaGain;
+            if (gain.lt(100)) {
+                const intgral = gain.floor().toString();
+                const decimal = Math.floor(gain.toNumber() % 1 * 10);
                 return `
-    <span class="mana-gain-integral">${intgral}</span><span class="grey-out mana-gain-decimal">.${decimal}</span>`;
+<span class="mana-gain-integral">${intgral}</span><span class="grey-out mana-gain-decimal">.${decimal}</span>`;
             }
-            return `<span class="mana-gain-integral">${this.format(database.spells.gainOnConversion(), 2, 0)}</span>`;
+            return `<span class="mana-gain-integral">${this.format(gain.floor(), 2, 0)}</span>`;
         },
         manaCooldown() {
             return player.spells.convertCooldown / database.spells.cooldown() * 100;
         },
         manaClass() {
             return {
-                "disabled": !database.spells.canConvert()
+                "disabled": this.onManaCooldown
             };
         }
     },
     methods: {
+        update() {
+            this.apocalypseLevel = database.apocalypses.getApocalypseLevel();
+            this.decimalManaGain = database.spells.decimalGain();
+            this.onManaCooldown = !database.spells.canConvert();
+        },
         convert() {
             database.spells.convert();
+        },
+        cheatLevel() {
+            player.apocalypseLevel = 1;
         }
     },
     template: `
     <div class="top-bar-layer-3 top-bar-layer">
-        <button v-if= "database.apocalypses.getApocalypseLevel() == 0"
-                @click="player.apocalypseLevel = 1">Cheat to Apocalypse 1 (Temporary)</button>
-        <button v-if="database.apocalypses.getApocalypseLevel() >= 1"
+        <button v-if= "apocalypseLevel == 0"
+                @click="cheatLevel">Cheat to Apocalypse 1 (Temporary)</button>
+        <button v-if="apocalypseLevel >= 1"
                 class="mana-convert-btn"
                 @click="convert"
                 :class="manaClass">

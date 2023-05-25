@@ -1,27 +1,15 @@
 Vue.component("AutomationTab", {
-    data() {
-        return {
-            interval: null
-        };
-    },
     computed: {
         buildings() {
             return database.buildings.all;
         }
     },
-    mounted() {
-        for (const child of this.$refs.building) {
-            child.update();
-        }
-        
-        this.interval = setInterval(() => {
+    methods: {
+        update() {
             for (const child of this.$refs.building) {
                 child.update();
             }
-        }, 50);
-    },
-    beforeDestroyed() {
-        clearInterval(this.interval);
+        }
     },
     template: `
     <div class="automation-tab tab">

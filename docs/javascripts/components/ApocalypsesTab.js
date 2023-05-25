@@ -2,7 +2,6 @@ Vue.component("ApocalypsesTab", {
     data() {
         return {
             apocalypseLevel: 0,
-            interval: null
         };
     },
     computed: {
@@ -14,15 +13,6 @@ Vue.component("ApocalypsesTab", {
         update() {
             this.apocalypseLevel = database.apocalypses.getApocalypseLevel();
         }
-    },
-    mounted() {
-        this.update();
-        this.interval = setInterval(() => {
-            this.update();
-        }, 50);
-    },
-    beforeDestroyed() {
-        clearInterval(this.interval);
     },
     template: `
     <div class="tab">

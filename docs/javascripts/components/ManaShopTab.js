@@ -1,23 +1,15 @@
 Vue.component("ManaShopTab", {
-    data() {
-        return {
-            interval: null
-        };
-    },
     computed: {
         upgrades() {
             return database.manaShop.all();
         }
     },
-    mounted() {
-        this.interval = setInterval(() => {
+    methods: {
+        update() {
             for (const child of this.$refs.upgrade) {
                 child.update();
             }
-        }, 50);
-    },
-    beforeDestroyed() {
-        clearInterval(this.interval);
+        }
     },
     template: `
     <div class="mana-shop-tab tab">

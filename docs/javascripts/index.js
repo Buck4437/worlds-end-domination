@@ -37,6 +37,7 @@ const app = new Vue({
     methods: {
         switchTab(tab) {
             this.currentTab = tab;
+            this.update();
         },
         toTabComponent(name) {
             return `${name.split(" ").map(x => capitalize(x.toLowerCase())).join("")}Tab`;
@@ -64,11 +65,20 @@ const app = new Vue({
                         break;
                 }
             });
+        },
+        update() {
+            this.$refs.buttons.update();
+            this.$refs[this.currentTab][0].update();
         }
     },
     mounted() {
         this.switchTab(this.tabs[0]);
         this.mountHotkeys();
+
+        this.update();
+        setInterval(() => {
+            this.update();
+        }, 25);
         setInterval(gameloop, 25);
     }
 });
