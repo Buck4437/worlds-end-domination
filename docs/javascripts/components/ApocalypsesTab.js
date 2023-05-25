@@ -16,6 +16,7 @@ Vue.component("ApocalypsesTab", {
         }
     },
     mounted() {
+        this.update();
         this.interval = setInterval(() => {
             this.update();
         }, 50);

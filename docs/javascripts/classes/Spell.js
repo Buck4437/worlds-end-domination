@@ -100,13 +100,13 @@ class Spell {
         if (this.canNerf()) player.spells.spells[this.id].level--; 
     }
 
-    buffMax() { 
+    buff5() { 
         if (this.canBuff()) {
             player.spells.spells[this.id].level = Math.min(this.levelCap, player.spells.spells[this.id].level + 5);
         } 
     }
 
-    nerfMax() { 
+    nerf5() { 
         if (this.canNerf()) {
             player.spells.spells[this.id].level = Math.max(1, player.spells.spells[this.id].level - 5);
         } 

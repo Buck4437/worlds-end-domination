@@ -1,59 +1,49 @@
 Vue.component("BuildingsDisplay", {
     data() {
         return {
-            player,
-            database,
-            format: toSci
+            modeName: "",
+            interval: null
         };
     },
     computed: {
         buildings() {
-            return this.database.buildings.all;
-        },
-        upgrades() {
-            return this.database.upgrades.all();
+            return database.buildings.all;
         }
     },
     methods: {
+        update() {
+            this.modeName = database.buildings.modeName();
+
+            for (const child of this.$refs.building) {
+                child.update();
+            }
+        },
         switchMode() {
             database.buildings.switchMode();
+        },
+        maxAll() {
+            database.buildings.maxAll();
         }
+    },
+    mounted() {
+        this.update();
+        this.interval = setInterval(() => {
+            this.update();
+        }, 50);
+    },
+    beforeDestroyed() {
+        clearInterval(this.interval);
     },
     template: `
     <div>
         <div class="building-con">
-            <div v-for="building in buildings" class="building">
-                <div class="building-text-con">
-                    <div>
-                        <span class="building-name">{{building.name}}</span>: {{building.owned()}}
-                    </div>
-                    <div>
-                        Base: {{format(building.baseProduction())}} => {{format(building.production())}}/s
-                    </div>
-                </div>
-                <div class="building-buy-btn-con">
-                    <button v-show="building.isAutoUnlocked()"
-                            class="building-auto-btn"
-                            :class="{
-                                'on': building.isAuto(),      
-                                'off': !building.isAuto()
-                            }"
-                            @click="building.toggleAuto()">
-                            Auto: {{building.isAuto() ? "On" : "Off"}}
-                    </button>
-                    <button class="building-buy-btn"
-                            :class="{
-                                'locked': !building.isBuyable(),      
-                                'buyable': building.isBuyable()
-                            }"
-                            @click="building.buy()">
-                            Cost: {{format(building.cost())}} Money
-                    </button>
-                </div>
-            </div>
+            <BuildingDisplay v-for="building in buildings"
+                             :building="building"
+                             :key="building.id"
+                             ref="building"/>
             <div class="building-util-btn-con">
-                <button class="building-mode-btn" @click="switchMode()">Mode: {{database.buildings.modeName()}}</button>
-                <button class="building-max-all-btn" @click="database.buildings.maxAll()">Max All</button>
+                <button class="building-mode-btn" @click="switchMode()">Mode: {{modeName}}</button>
+                <button class="building-max-all-btn" @click="maxAll()">Max All</button>
             </div>
         </div>
     </div>`

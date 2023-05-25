@@ -10,6 +10,10 @@ Vue.component("AutomationTab", {
         }
     },
     mounted() {
+        for (const child of this.$refs.building) {
+            child.update();
+        }
+        
         this.interval = setInterval(() => {
             for (const child of this.$refs.building) {
                 child.update();

@@ -1,9 +1,8 @@
 Vue.component("MainTab", {
     data() {
         return {
-            player,
             database,
-            format: toSci
+            interval: null,
         };
     },
     computed: {
@@ -18,6 +17,22 @@ Vue.component("MainTab", {
             return database.apocalypses.getApocalypseLevel() >= 1;
         }
     },
+    methods: {
+        update() {
+            for (const child of this.$refs.upgrade) {
+                child.update();
+            }
+        },
+    },
+    mounted() {
+        this.update();
+        this.interval = setInterval(() => {
+            this.update();
+        }, 50);
+    },
+    beforeDestroyed() {
+        clearInterval(this.interval);
+    },
     template: `
     <div class="main-tab tab">
         <div class="main-tab-wrapper">
@@ -31,7 +46,8 @@ Vue.component("MainTab", {
                     <div class="upg-list">
                         <UpgradeButton v-for="upg in upgrades"
                                         :upgrade="upg" 
-                                        :key="upg.id"/>
+                                        :key="upg.id"
+                                        ref="upgrade"/>
                     </div>
                 </div>
             </div>
