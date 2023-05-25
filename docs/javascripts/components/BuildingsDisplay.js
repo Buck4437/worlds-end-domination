@@ -1,8 +1,7 @@
 Vue.component("BuildingsDisplay", {
     data() {
         return {
-            modeName: "",
-            interval: null
+            modeName: ""
         };
     },
     computed: {
@@ -25,26 +24,15 @@ Vue.component("BuildingsDisplay", {
             database.buildings.maxAll();
         }
     },
-    mounted() {
-        this.update();
-        this.interval = setInterval(() => {
-            this.update();
-        }, 50);
-    },
-    beforeDestroyed() {
-        clearInterval(this.interval);
-    },
     template: `
-    <div>
-        <div class="building-con">
-            <BuildingDisplay v-for="building in buildings"
-                             :building="building"
-                             :key="building.id"
-                             ref="building"/>
-            <div class="building-util-btn-con">
-                <button class="building-mode-btn" @click="switchMode()">Mode: {{modeName}}</button>
-                <button class="building-max-all-btn" @click="maxAll()">Max All</button>
-            </div>
+    <div class="building-con">
+        <BuildingDisplay v-for="building in buildings"
+                         :building="building"
+                         :key="building.id"
+                         ref="building"/>
+        <div class="building-util-btn-con">
+            <button class="building-mode-btn" @click="switchMode()">Mode: {{modeName}}</button>
+            <button class="building-max-all-btn" @click="maxAll()">Max All</button>
         </div>
     </div>`
 });
