@@ -21,6 +21,9 @@ Vue.component("UpgradesDisplay", {
             database.upgrades.buyAll();
         }
     },
+    mounted() {
+        this.update();
+    },
     template: `
     <div class="upgrades-section-con">
         <div class="upgrades-header">Building Upgrades</div>

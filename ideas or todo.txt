@@ -1,22 +1,6 @@
-update() refactor progress:
-Apocalypses Tab: done
-Automation Tab: done
-Main Tab: done
-- Building Display ok
-- Upgrade Button ok
-- Spell Display ok
-Mana Shop Tab: done
-Top bar etc: done
-Combine all setInterval: not done
 
-
-    mounted() {
-        this.update();
-    },
-maybe add this to all components to populate it
 
 refactor mana shop upgrades and apocalypses to use objects as well
-
 maybe we can make upgrade reusable as well, idk
 
 todo: 
@@ -25,9 +9,8 @@ todo:
 - tooltip
   -- Hide base and multiplier
 - Add hotkeys for tab navigation
-- Display current tab
+- Display current tab via buttons
 - Saving
-- toggle all for auto
 - upgrade to remove the convert cooldown
 - Don't use big list to display apocalypses, use another nav bar (e.g. vert) 
 
