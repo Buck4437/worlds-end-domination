@@ -171,6 +171,11 @@ button.disabled:hover {
     margin: 0 8px;
 }
 
+.buildings-section.pre-apocalypse .building-con {
+    width: 75%;
+    margin: auto;
+}
+
 .spells-section {
     width: 45%;
     margin-left: 8px;
