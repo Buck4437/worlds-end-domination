@@ -72,6 +72,26 @@ const app = new Vue({
         mountHotkeys() {
             document.addEventListener("keydown", event => {
                 switch (event.code) {
+                    case "ArrowLeft": {
+                        for (let i = 0; i < this.tabs.length; i++) {
+                            if (this.tabs[i].name === this.currentTab) {
+                                const tabIndex = (i + this.tabs.length - 1) % this.tabs.length;
+                                this.currentTab = this.tabs[tabIndex].name;
+                                break;
+                            }
+                        }
+                        break;
+                    }
+                    case "ArrowRight": {
+                        for (let i = 0; i < this.tabs.length; i++) {
+                            if (this.tabs[i].name === this.currentTab) {
+                                const tabIndex = (i + 1) % this.tabs.length;
+                                this.currentTab = this.tabs[tabIndex].name;
+                                break;
+                            }
+                        }
+                        break;
+                    }
                     case "Digit1":
                         database.buildings.getBuilding(1).buy();
                         break;

@@ -31,11 +31,11 @@
                 <button v-for="tab in tabs" 
                         class="nav-bar-btn" 
                         @click="switchTab(tab.name)" 
-                        :class="tab.class">{{tab.name}}</button> 
+                        :class="[tab.class, {'selected': currentTab === tab.name}]">{{tab.name}}</button> 
             </div>
             
             <component v-for="tab in tabs"
-                       v-show="currentTab == tab.name"
+                       v-show="currentTab === tab.name"
                        :is="toTabComponent(tab.name)"
                        :ref="tab.name"
                        :key="tab.name"></component>

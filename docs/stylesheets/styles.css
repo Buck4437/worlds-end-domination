@@ -143,6 +143,12 @@ button.disabled:hover {
     min-width: 10rem;
     min-height: 3rem;
     margin-right: 8px;
+    transition: 0s;
+}
+
+.nav-bar-btn.selected {
+    background-color: var(--color);
+    color: var(--background);
 }
 
 .nav-bar-btn.main-tab-btn {
@@ -151,7 +157,7 @@ button.disabled:hover {
     border-color: var(--color-money);
 }
 
-.nav-bar-btn.main-tab-btn:hover {
+.nav-bar-btn.main-tab-btn:hover, .nav-bar-btn.main-tab-btn.selected {
     background-color: var(--color-money);
 }
 
@@ -161,7 +167,7 @@ button.disabled:hover {
     border-color: var(--color-automation);
 }
 
-.nav-bar-btn.automation-tab-btn:hover {
+.nav-bar-btn.automation-tab-btn:hover, .nav-bar-btn.automation-tab-btn.selected {
     color: var(--background);
     background-color: var(--color-automation);
 }
@@ -172,7 +178,7 @@ button.disabled:hover {
     border-color: var(--color-apocalypse);
 }
 
-.nav-bar-btn.apocalypse-tab-btn:hover {
+.nav-bar-btn.apocalypse-tab-btn:hover, .nav-bar-btn.apocalypse-tab-btn.selected {
     color: var(--background);
     background-color: var(--color-apocalypse);
 }
@@ -183,7 +189,7 @@ button.disabled:hover {
     border-color: var(--color-mana);
 }
 
-.nav-bar-btn.mana-tab-btn:hover {
+.nav-bar-btn.mana-tab-btn:hover, .nav-bar-btn.mana-tab-btn.selected {
     color: var(--background);
     background-color: var(--color-mana);
 }

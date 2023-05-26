@@ -8,8 +8,6 @@ todo:
 
 - tooltip
   -- Hide base and multiplier
-- Add hotkeys for tab navigation
-- Display current tab via buttons
 - Saving
 - upgrade to remove the convert cooldown
 - Don't use big list to display apocalypses, use another nav bar (e.g. vert) 
