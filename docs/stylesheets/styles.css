@@ -20,11 +20,11 @@ button {
     border: 2px solid var(--color);
     border-radius: 4px 4px;
     cursor: pointer;
+	transition: background-color 0.2s;
 }
 
 button:hover {
 	background-color: var(--hover);
-	transition-duration: background-color 0.3s;
 }
 
 button.buyable {
@@ -144,6 +144,50 @@ button.disabled:hover {
     min-height: 3rem;
     margin-right: 8px;
 }
+
+.nav-bar-btn.main-tab-btn {
+    color: var(--color);
+    background-color: var(--color-money-background);
+    border-color: var(--color-money);
+}
+
+.nav-bar-btn.main-tab-btn:hover {
+    background-color: var(--color-money);
+}
+
+.nav-bar-btn.automation-tab-btn {
+    color: var(--color);
+    background-color: var(--color-automation-background);
+    border-color: var(--color-automation);
+}
+
+.nav-bar-btn.automation-tab-btn:hover {
+    color: var(--background);
+    background-color: var(--color-automation);
+}
+
+.nav-bar-btn.apocalypse-tab-btn {
+    color: var(--color);
+    background-color: var(--color-apocalypse-background);
+    border-color: var(--color-apocalypse);
+}
+
+.nav-bar-btn.apocalypse-tab-btn:hover {
+    color: var(--background);
+    background-color: var(--color-apocalypse);
+}
+
+.nav-bar-btn.mana-tab-btn {
+    color: var(--color);
+    background-color: var(--color-mana-background);
+    border-color: var(--color-mana);
+}
+
+.nav-bar-btn.mana-tab-btn:hover {
+    color: var(--background);
+    background-color: var(--color-mana);
+}
+
 
 /* Tabs */
 .tab {

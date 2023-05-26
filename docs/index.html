@@ -28,14 +28,17 @@
                 <top-bar-buttons ref="buttons"></top-bar-buttons>
             </div>
             <div class="nav-bar">
-                <button v-for="tab in tabs" class="nav-bar-btn" @click="switchTab(tab)">{{tab}}</button> 
+                <button v-for="tab in tabs" 
+                        class="nav-bar-btn" 
+                        @click="switchTab(tab.name)" 
+                        :class="tab.class">{{tab.name}}</button> 
             </div>
             
             <component v-for="tab in tabs"
-                       v-show="currentTab == tab"
-                       :is="toTabComponent(tab)"
-                       :ref="tab"
-                       :key="tab"></component>
+                       v-show="currentTab == tab.name"
+                       :is="toTabComponent(tab.name)"
+                       :ref="tab.name"
+                       :key="tab.name"></component>
         </div>
 
         <script src="javascripts/libraries/break_infinity.min.js"></script>

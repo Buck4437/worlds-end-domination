@@ -16,17 +16,41 @@ const app = new Vue({
 
             // Format [Tabname, Threshold to unlock tab]
             const data = [
-                ["Main", () => true],
-                ["Automation", () => apocalypseLevel >= 1 || database.buildings.getBuilding(3).owned() > 0],
-                ["Mana Shop", () => apocalypseLevel >= 1],
-                ["Apocalypses", () => apocalypseLevel >= 1],
-                ["Options", () => true],
-                ["About", () => true]
+                {
+                    name: "Main",
+                    shown: () => true,
+                    class: "main-tab-btn"
+                },
+                {
+                    name: "Automation",
+                    shown: () => apocalypseLevel >= 1 || database.buildings.getBuilding(3).owned() > 0,
+                    class: "automation-tab-btn"
+                },
+                {
+                    name: "Mana Shop",
+                    shown: () => apocalypseLevel >= 1,
+                    class: "mana-tab-btn"
+                },
+                {
+                    name: "Apocalypses",
+                    shown: () => apocalypseLevel >= 1,
+                    class: "apocalypse-tab-btn"
+                },
+                {
+                    name: "Options",
+                    shown: () => true,
+                    class: null
+                },
+                {
+                    name: "About",
+                    shown: () => true,
+                    class: null
+                }
             ];
             const tabList = [];
             for (const item of data) {
-                if (item[1]() === true) {
-                    tabList.push(item[0]);
+                if (item.shown() === true) {
+                    tabList.push(item);
                 }
             }
             return tabList;
@@ -78,7 +102,7 @@ const app = new Vue({
         }
     },
     mounted() {
-        this.switchTab(this.tabs[0]);
+        this.switchTab(this.tabs[0].name);
         this.mountHotkeys();
 
         this.update();

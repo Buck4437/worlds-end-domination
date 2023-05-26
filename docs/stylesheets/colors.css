@@ -12,10 +12,19 @@
     --progress-mana: #086bbc;
     --progress-background: #a8adac;
 
-    --color-mana: #1395ff;
 	--color-red: #ff1507;
 	--color-green: #00ce00;
 	--color-yellow: #ffff00;
+
+    --color-money: #ecc100;
+    --color-money-background: #efde93;
+    --color-automation: #757575;
+    --color-automation-background: #d7d7d7;
+    --color-apocalypse: #c80a00;
+    --color-apocalypse-background: #dda09c;
+    --color-mana: #1395ff;
+    --color-mana-background: #a9d8ff;
+
 	--tooltip-background: #323232;
 }
 
