@@ -32,8 +32,9 @@ const app = new Vue({
                     class: "mana-tab-btn"
                 },
                 {
-                    name: "Apocalypses",
-                    shown: () => apocalypseLevel >= 1,
+                    name: "Apocalypse",
+                    shown: () => apocalypseLevel >= 1 || 
+                        database.stats.maxMoneyThisApocalypse().gte(database.constants.goal),
                     class: "apocalypse-tab-btn"
                 },
                 {

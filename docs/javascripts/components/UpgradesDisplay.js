@@ -1,11 +1,7 @@
 Vue.component("UpgradesDisplay", {
     computed: {
         upgrades() {
-            const upgs = database.upgrades.all;
-            if (this.spellsUnlocked) {
-                return upgs;
-            }
-            return upgs.filter(x => x.id === 1 || database.upgrades.hasUpgrade(x.id - 1));
+            return database.upgrades.all;
         },
         spellsUnlocked() {
             return database.apocalypses.getApocalypseLevel() >= 1;
