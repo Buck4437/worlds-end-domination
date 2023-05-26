@@ -4,32 +4,35 @@ const app = new Vue({
     data: {
         player,
         database,
+        money: new Decimal(0),
+        maxMoney: new Decimal(0),
         format: toSci,
         currentTab: "",
         version: "v0.0.0"
     },
     computed: {
         tabs() {
-            // Format [Tabname, Apocalypse level required to unlock tab]
+            const apocalypseLevel = database.apocalypses.getApocalypseLevel();
+
+            // Format [Tabname, Threshold to unlock tab]
             const data = [
-                ["Main", -1],
-                ["Automation", 1],
-                ["Mana Shop", 1],
-                ["Apocalypses", 1],
-                ["Options", -1],
-                ["About", -1]
+                ["Main", () => true],
+                ["Automation", () => apocalypseLevel >= 1 || database.buildings.getBuilding(3).owned() > 0],
+                ["Mana Shop", () => apocalypseLevel >= 1],
+                ["Apocalypses", () => apocalypseLevel >= 1],
+                ["Options", () => true],
+                ["About", () => true]
             ];
             const tabList = [];
-            const apocalypseLevel = database.apocalypses.getApocalypseLevel();
             for (const item of data) {
-                if (apocalypseLevel >= item[1]) {
+                if (item[1]() === true) {
                     tabList.push(item[0]);
                 }
             }
             return tabList;
         },
         maxPercentage() {
-            const percent = Decimal.log10(database.stats.maxMoneyThisApocalypse().add(1)) / 
+            const percent = Decimal.log10(this.maxMoney.add(1)) / 
                             Decimal.log10(this.database.constants.goal) * 100;
             return this.format(percent);
         }
@@ -67,6 +70,9 @@ const app = new Vue({
             });
         },
         update() {
+            this.money = database.money.get();
+            this.maxMoney = database.stats.maxMoneyThisApocalypse();
+
             this.$refs.buttons.update();
             this.$refs[this.currentTab][0].update();
         }

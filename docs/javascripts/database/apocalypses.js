@@ -13,7 +13,7 @@ database.apocalypses = {
                 buffs: [
                     "Unlock Spells",
                     "Unlock Mana Shop",
-                    "Unlock Automation",
+                    "Automation cost is lower",
                     "x2 production to all buildings"
                 ]
             }

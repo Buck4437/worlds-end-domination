@@ -231,7 +231,11 @@ class Building {
 
     // Check the cost needed to unlock autobuy.
     getAutoCost() {
-        return this._autoCost;
+        const lv = database.apocalypses.getApocalypseLevel();
+        if (lv >= 1) {
+            return this._autoCost.a1;
+        }
+        return this._autoCost.a0;
     }
 
     // Check if the player can afford autobuy.

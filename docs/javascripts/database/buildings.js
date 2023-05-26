@@ -7,28 +7,40 @@ database.buildings = {
             baseCost: new Decimal("2"),
             baseScaling: new Decimal("1.15"),
             baseProduction: new Decimal("1"),
-            autoCost: new Decimal("1e8")
+            autoCost: {
+                a0: new Decimal("1e12"),
+                a1: new Decimal("1e8"),
+            }
         }, 
         {
             name: "Farmers",
             baseCost: new Decimal("1e3"),
             baseScaling: new Decimal("1.2"),
             baseProduction: new Decimal("500"),
-            autoCost: new Decimal("1e13")
+            autoCost: {
+                a0: new Decimal("1e40"),
+                a1: new Decimal("1e13")
+            }
         },
         {
             name: "Builders",
             baseCost: new Decimal("1e12"),
             baseScaling: new Decimal("1.25"),
             baseProduction: new Decimal("1e12"),
-            autoCost: new Decimal("1e30")
+            autoCost: {
+                a0: new Decimal("1e100"),
+                a1: new Decimal("1e30")
+            }
         },  
         {
             name: "Merchants",
             baseCost: new Decimal("1e40"),
             baseScaling: new Decimal("1.3"),
             baseProduction: new Decimal("1e36"),
-            autoCost: new Decimal("1e80")
+            autoCost: {
+                a0: new Decimal("1e320"),
+                a1: new Decimal("1e80")
+            }
         },  
         // Priests, Bishops and Monarchs and will be unlocked later in the game
         // {
