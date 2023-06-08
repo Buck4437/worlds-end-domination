@@ -28,7 +28,7 @@ const app = new Vue({
                 },
                 {
                     name: "Mana Shop",
-                    shown: () => apocalypseLevel >= 1,
+                    shown: () => player.display.spells,
                     class: "mana-tab-btn"
                 },
                 {

@@ -10,6 +10,10 @@ window.player = {
         spells: [null],
         upgradeBits: 0
     },
+
+    display: {
+        spells: false
+    },
     
     stats: {
         maxMoney: {

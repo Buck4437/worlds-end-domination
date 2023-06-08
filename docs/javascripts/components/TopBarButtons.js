@@ -4,6 +4,7 @@ Vue.component("TopBarButtons", {
             format: toSci,
             getCssVariable,
             apocalypseLevel: 0,
+            unlockedManaConvert: false,
             onManaCooldown: true,
             decimalManaGain: new Decimal(0)
         };
@@ -31,6 +32,7 @@ Vue.component("TopBarButtons", {
     methods: {
         update() {
             this.apocalypseLevel = database.apocalypses.getApocalypseLevel();
+            this.unlockedManaConvert = database.spells.unlocked();
             this.decimalManaGain = database.spells.decimalGain();
             this.onManaCooldown = !database.spells.canConvert();
         },
@@ -49,12 +51,17 @@ Vue.component("TopBarButtons", {
                 class="mana-convert-btn"
                 @click="convert"
                 :class="manaClass">
-            <span>Convert Money to Mana</span>
-            <span>Gain <span class="gain" v-html="formattedManaGain"></span> Mana.</span>
-            <progress-bar class="mana-cooldown-bar"
-                :percentage="manaCooldown"
-                :color="getCssVariable('--color-mana')"
-                :background-color="getCssVariable('--progress-background')"></progress-bar>
+            <template v-if="this.unlockedManaConvert">
+                <span>Convert Money to Mana</span>
+                <span>Gain <span class="gain" v-html="formattedManaGain"></span> Mana.</span>
+                <progress-bar class="mana-cooldown-bar"
+                    :percentage="manaCooldown"
+                    :color="getCssVariable('--color-mana')"
+                    :background-color="getCssVariable('--progress-background')"></progress-bar>
+            </template>
+            <template v-else>
+                Reach 1e8 Money this apocalypse
+            </template>
         </button>
     </div>`
 });

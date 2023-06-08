@@ -1,7 +1,7 @@
 Vue.component("MainTab", {
     computed: {
-        spellsUnlocked() {
-            return database.apocalypses.getApocalypseLevel() >= 1;
+        showSpells() {
+            return player.display.spells;
         },
         showUpgrades() {
             return this.spellsUnlocked || database.buildings.getBuilding(2).owned() > 0;
@@ -11,7 +11,7 @@ Vue.component("MainTab", {
         update() {
             this.$refs.building.update();
             this.$refs.upgrade?.update();
-            if (this.spellsUnlocked) {
+            if (this.showSpells) {
                 this.$refs.spell.update();
             }
         },
@@ -19,11 +19,11 @@ Vue.component("MainTab", {
     template: `
     <div class="main-tab tab">
         <div class="main-tab-wrapper">
-            <div class="buildings-section" :class="{'pre-apocalypse': !spellsUnlocked}">
+            <div class="buildings-section" :class="{'pre-apocalypse': !showSpells}">
                 <BuildingsDisplay ref="building"/>
                 <UpgradesDisplay v-if="showUpgrades" ref="upgrade"/>
             </div>
-            <div v-if="spellsUnlocked" class="spells-section">
+            <div v-if="showSpells" class="spells-section">
                 <SpellsDisplay ref="spell"/>
             </div>
         </div>

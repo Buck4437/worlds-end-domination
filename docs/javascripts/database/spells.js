@@ -2,7 +2,7 @@
 // Level ranges from 1 - 100
 database.spells = {
     unlocked() {
-        return database.apocalypses.getApocalypseLevel() >= 1;
+        return database.apocalypses.getApocalypseLevel() >= 1 && database.stats.maxMoneyThisApocalypse().gte("1e8");
     },
     reset() {
         this.setMana(new Decimal(0));
@@ -150,7 +150,7 @@ database.spells = {
         database.upgrades.reset();
         database.stats.manaReset();
 
-        if (database.manaShop.hasUpgrade(4)) {
+        if (database.manaShop.hasUpgrade(5)) {
             database.money.set(new Decimal("100"));
         }
 

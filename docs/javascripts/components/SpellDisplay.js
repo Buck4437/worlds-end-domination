@@ -12,6 +12,7 @@ Vue.component("SpellDisplay", {
             appliedEffect: new Decimal(0),
             isAuto: false,
             canActivate: false,
+            buffingUnlocked: false,
             canBuff: false,
             canNerf: false,
             format: toSci
@@ -38,6 +39,7 @@ Vue.component("SpellDisplay", {
 
             this.isAuto = spell.isAuto();
             this.canActivate = spell.canActivate();
+            this.buffingUnlocked = spell.isBuffUnlocked();
             this.canBuff = spell.canBuff();
             this.canNerf = spell.canNerf();
         },
@@ -82,7 +84,7 @@ Vue.component("SpellDisplay", {
                                 Activate
                 </button>
             </div>
-            <div class="spell-level-adjust">
+            <div class="spell-level-adjust" :class="{'invisible': !buffingUnlocked}">
                 <button class="spell-buff-btn" @click="spell.nerf5()"
                         :class="{
                             'red': canNerf,

@@ -83,13 +83,17 @@ class Spell {
             player.spells.spells[this.id].timer = this.getDuration();
         }
     }
+
+    isBuffUnlocked() {
+        return database.manaShop.hasUpgrade(1);
+    }
     
     canBuff() {
-        return !this.isActivated() && this.getLevel() < this.levelCap;
+        return this.isBuffUnlocked() && !this.isActivated() && this.getLevel() < this.levelCap;
     }
 
     canNerf() {
-        return !this.isActivated() && this.getLevel() > 1;
+        return this.isBuffUnlocked() && !this.isActivated() && this.getLevel() > 1;
     }
 
     buff() { 

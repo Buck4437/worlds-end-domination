@@ -5,19 +5,19 @@ function gameloop() {
     if (dt < 0) return;
 
     // Auto generate mana
-    if (database.manaShop.hasUpgrade(1) && database.spells.getMana().lt(500)) {
+    if (database.manaShop.hasUpgrade(2) && database.spells.getMana().lt(500)) {
         const rate = Decimal.times(database.spells.getSpell(2).appliedEffect(), 5).times(dt);
         database.spells.setMana(Decimal.min(player.spells.mana.add(rate), 500));
     }
 
-    if (database.manaShop.hasUpgrade(2) && database.spells.getMana().lt(10000)) {
+    if (database.manaShop.hasUpgrade(3) && database.spells.getMana().lt(10000)) {
         const rate = Decimal.times(database.spells.getSpell(2).appliedEffect(), 100).times(dt);
         database.spells.setMana(Decimal.min(player.spells.mana.add(rate), 10000));
     }
 
     // Automation
 
-    if (database.manaShop.hasUpgrade(3)) {
+    if (database.manaShop.hasUpgrade(4)) {
         database.upgrades.buyAll(deductCurrency = false);
     }
 
@@ -48,5 +48,13 @@ function gameloop() {
         // Prevent player from getting more than the max amount of money.
         database.money.set(Decimal.min(newMoney, database.constants.goal));
         database.stats.updateMaxMoney();
+    }
+
+    // Update display unlocks
+
+    if (!player.display.spells) {
+        if (database.apocalypses.getApocalypseLevel() >= 1 && player.spells.mana.gte(1)) {
+            player.display.spells = true;
+        }
     }
 }

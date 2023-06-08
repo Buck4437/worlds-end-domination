@@ -357,6 +357,7 @@ button.disabled:hover {
 }
 
 .spell-use-button-con {
+    border-right: 2px solid var(--color-mana);
     display: flex;
     flex-direction: row;
     padding: 4px;
@@ -372,7 +373,6 @@ button.disabled:hover {
 
 .spell-level-adjust {
     padding: 4px;
-    border-left: 2px solid var(--color-mana);
     display: flex;
     flex-direction: row;
     justify-content: center;

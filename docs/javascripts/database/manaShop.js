@@ -3,6 +3,11 @@ database.manaShop = {
     _data: [
         null,
         {
+            name: "Mana Surge",
+            getDesc: () => "You can increase the level of spells",
+            cost: new Decimal(150)
+        },
+        {
             name: "Mana Rift I",
             getDesc: () => "Passively generate 5 Mana per second, up to 500 Mana",
             cost: new Decimal(500)

@@ -38,7 +38,11 @@ database.apocalypses = {
     },
     performApocalypse() {
         if (this.canApocalypse()) {
-            const confirmed = confirm("Do you want to proceed?");
+            const confirmed = confirm(
+                `You are about to enter Apocalypse ${database.apocalypses.getApocalypseLevel() + 1}.\n` +
+                `Performing an apocalypse will permanently change your game.\n` +
+                `Do you want to proceed?`
+            );
             if (confirmed) {
                 database.money.reset();
                 database.buildings.reset(resetAuto = true);
