@@ -25,7 +25,7 @@ database.manaShop = {
         {
             name: "Money Box I",
             getDesc: () => "Start with 100 money when you exchange for mana.",
-            cost: new Decimal(1e2),
+            cost: new Decimal(300),
             purchaseCallBack() { database.money.set(Decimal.max(100, database.money.get())); }
         },
         // Upgrade 5-8 effect not added yet

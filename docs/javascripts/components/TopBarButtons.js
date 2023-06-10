@@ -60,7 +60,7 @@ Vue.component("TopBarButtons", {
                     :background-color="getCssVariable('--progress-background')"></progress-bar>
             </template>
             <template v-else>
-                Reach 1e8 Money this apocalypse
+                Reach 1e8 Money
             </template>
         </button>
     </div>`

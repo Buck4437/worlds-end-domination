@@ -4,6 +4,7 @@ class Spell {
         this.id = id;
         this.name = config.name;
         this.requiredApocalypseLevel = config.requiredApocalypseLevel;
+        this.requiredMoney = config.requiredMoney ?? new Decimal(0);
         this.levelCap = config.levelCap;
         this._durationFunction = config._durationFunction;
         this._descFunction = config._descFunction;
@@ -15,8 +16,13 @@ class Spell {
         this.exclusiveWith = config.exclusiveWith ?? [];
     }
 
-    isUnlocked() {
+    isVisible() {
         return database.apocalypses.getApocalypseLevel() >= this.requiredApocalypseLevel;
+    }
+
+    isUnlocked() {
+        return database.apocalypses.getApocalypseLevel() >= this.requiredApocalypseLevel && 
+        database.stats.maxMoneyThisApocalypse().gte(this.requiredMoney);
     }
 
     getLevel() {

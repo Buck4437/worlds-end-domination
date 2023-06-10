@@ -1,7 +1,7 @@
 Vue.component("SpellsDisplay", {
     computed: {
-        unlockedSpells() {
-            return database.spells.all.filter(spell => spell.isUnlocked());
+        visibleSpells() {
+            return database.spells.all.filter(spell => spell.isVisible());
         }
     },
     methods: {
@@ -13,7 +13,7 @@ Vue.component("SpellsDisplay", {
     },
     template: `
     <div>
-        <SpellDisplay v-for="spell in unlockedSpells"
+        <SpellDisplay v-for="spell in visibleSpells"
                       :spell="spell"
                       :key="spell.id"
                       ref="spell"/>

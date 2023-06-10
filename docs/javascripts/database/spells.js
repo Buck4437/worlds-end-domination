@@ -34,6 +34,7 @@ database.spells = {
             {
                 name: "Ethereal Expansion",
                 requiredApocalypseLevel: 1,
+                requiredMoney: new Decimal("1e13"),
                 levelCap: 5,
                 _durationFunction: level => 10,
                 _descFunction(level) {
@@ -51,6 +52,7 @@ database.spells = {
             {
                 name: "Arcane Amplification",
                 requiredApocalypseLevel: 1,
+                requiredMoney: new Decimal("1e30"),
                 levelCap: 6,
                 _durationFunction: level => 7.5,
                 _descFunction(level) {

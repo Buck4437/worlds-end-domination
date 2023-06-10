@@ -323,6 +323,8 @@ button.disabled:hover {
     display: flex;
     flex-direction: column;
     padding: 0;
+
+    min-height: 4rem;
 }
 
 .spell-text-display {
@@ -399,6 +401,10 @@ button.disabled:hover {
     height: 4px;
     margin: 2px;
     border-radius: 2px;
+}
+
+.spell-money-requirement {
+    margin: auto;
 }
 
 /* Automation tab */

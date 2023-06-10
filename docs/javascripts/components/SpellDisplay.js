@@ -49,6 +49,8 @@ Vue.component("SpellDisplay", {
     },
     template: `
     <div class="spell-con">
+        <template v-if="spell.isUnlocked()">
+
         <div class="spell-text-display">
             <div class="spell-info-con">
                 <span class="spell-name">{{spell.name}}</span>
@@ -122,5 +124,13 @@ Vue.component("SpellDisplay", {
                     :backgroundColor="backgroundColour"
                     :color="progressBarColour"
                     :percentage="timer / duration * 100"/>
+        
+        </template>
+
+        <template v-else>
+            <span class="spell-money-requirement">
+                Reach {{format(spell.requiredMoney)}} Money to unlock new spell
+            </span>
+        </template>
     </div>`
 });

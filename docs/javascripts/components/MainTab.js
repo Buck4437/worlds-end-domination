@@ -1,5 +1,8 @@
 Vue.component("MainTab", {
     computed: {
+        afterFirstReset() {
+            return database.apocalypses.getApocalypseLevel() >= 1;
+        },
         showSpells() {
             return player.display.spells;
         },
@@ -21,7 +24,7 @@ Vue.component("MainTab", {
         <div class="main-tab-wrapper">
             <div class="buildings-section" :class="{'pre-apocalypse': !showSpells}">
                 <BuildingsDisplay ref="building"/>
-                <UpgradesDisplay v-if="showUpgrades" ref="upgrade"/>
+                <UpgradesDisplay v-if="showUpgrades || afterFirstReset" ref="upgrade"/>
             </div>
             <div v-if="showSpells" class="spells-section">
                 <SpellsDisplay ref="spell"/>
