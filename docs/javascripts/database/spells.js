@@ -156,6 +156,13 @@ database.spells = {
     },
     convert() {
         if (!this.canConvert()) return;
+        if (player.settings.manaConfirmation) {
+            if (!confirm(
+                "This will reset your money, buildings and building upgrades." +
+                "Do you want to proceed? (You can disable this in the settings)"
+            )) return;
+        }
+
         const gain = this.gainOnConversion();
 
         database.money.reset();

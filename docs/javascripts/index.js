@@ -37,7 +37,7 @@ const app = new Vue({
                     class: "apocalypse-tab-btn"
                 },
                 {
-                    name: "Options",
+                    name: "Settings",
                     shown: () => true,
                     class: null
                 },

@@ -1,17 +1,22 @@
-Vue.component("OptionsTab", {
+Vue.component("SettingsTab", {
     data() {
         return {
-            database,
-            format: toSci
+            settings: player.settings,
+            apocalypseLevel: 0
         };
     },
     methods: {
         // Placeholder
-        update() {}
+        update() {
+            this.apocalypseLevel = database.apocalypses.getApocalypseLevel();
+        }
     },
     template: `
     <div>
-        Placeholder 1
+        Confirmation:<br>
+        <button v-if="apocalypseLevel >= 1" @click="settings.manaConfirmation = !settings.manaConfirmation">
+            Convert Mana: {{settings.manaConfirmation ? "On" : "Off"}}
+        </button>
     </div>`
 });
 

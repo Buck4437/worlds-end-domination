@@ -23,7 +23,8 @@ window.player = {
     },
 
     settings: {
-        buildingBuyMode: 0
+        buildingBuyMode: 0,
+        manaConfirmation: true
     },
     lastTick: Date.now()
 };
