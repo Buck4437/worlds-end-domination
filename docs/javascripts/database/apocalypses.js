@@ -28,7 +28,7 @@ database.apocalypses = {
                 buffs: [
                     "Unlock Spell 4-5",
                     "Unlock Upgrade 4 to 7?",
-                    "Coming soon",
+                    "Other changes"
                 ]
             }
         }

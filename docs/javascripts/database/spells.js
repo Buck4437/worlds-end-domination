@@ -125,6 +125,12 @@ database.spells = {
     },
     decimalGain() {
         const money = database.stats.maxMoneyThisReset();
+
+        const baseRequirement = new Decimal("1e8");
+        if (money.lt(baseRequirement)) {
+            return new Decimal(0);
+        }
+
         // ((log(money/10 + 1) + 1)^3 - 1) / 10
         const base = Decimal.pow(Decimal.log10(money.div(10).add(1)) + 1, 3).sub(1).div(10);
 
@@ -138,6 +144,11 @@ database.spells = {
         return this.decimalGain().floor();
     },
     canConvert() {
+        const baseRequirement = new Decimal("1e8");
+        if (database.stats.maxMoneyThisReset().lt(baseRequirement)) {
+            return false;
+        }
+
         return this.unlocked() && this.gainOnConversion().gt(0) && player.spells.convertCooldown <= 0;
     },
     cooldown() {

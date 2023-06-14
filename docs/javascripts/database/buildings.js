@@ -84,7 +84,8 @@ database.buildings = {
     buyingModes: [
         database.constants.buyingMode.BUY1, 
         database.constants.buyingMode.BUY10,
-        database.constants.buyingMode.BUYMAX
+        database.constants.buyingMode.BUYMAX,
+        database.constants.buyingMode.BUYMAX10
     ],
     currentMode() {
         return this.buyingModes[player.settings.buildingBuyMode];
@@ -94,6 +95,7 @@ database.buildings = {
             case database.constants.buyingMode.BUY1: return "Buy 1";
             case database.constants.buyingMode.BUY10: return "Buy to next 10";
             case database.constants.buyingMode.BUYMAX: return "Buy max";
+            case database.constants.buyingMode.BUYMAX10: return "Buy max 10";
         }
         return null;
     },

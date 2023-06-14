@@ -5,7 +5,6 @@ const app = new Vue({
         player,
         database,
         money: new Decimal(0),
-        maxMoney: new Decimal(0),
         format: toSci,
         currentTab: "",
         version: "v0.0.0"
@@ -55,11 +54,6 @@ const app = new Vue({
                 }
             }
             return tabList;
-        },
-        maxPercentage() {
-            const percent = Decimal.log10(this.maxMoney.add(1)) / 
-                            Decimal.log10(this.database.constants.goal) * 100;
-            return this.format(percent);
         }
     },
     methods: {
@@ -116,7 +110,6 @@ const app = new Vue({
         },
         update() {
             this.money = database.money.get();
-            this.maxMoney = database.stats.maxMoneyThisApocalypse();
 
             this.$refs.buttons.update();
             this.$refs[this.currentTab][0].update();

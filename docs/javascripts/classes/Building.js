@@ -104,6 +104,7 @@ class Building {
             case database.constants.buyingMode.BUY1: return this._costForOne();
             case database.constants.buyingMode.BUY10: return this._costForTen();
             case database.constants.buyingMode.BUYMAX: return this._costForMax();
+            case database.constants.buyingMode.BUYMAX10: return this._costForMax10();
         }
         return null;
     }
@@ -128,6 +129,18 @@ class Building {
         return this._totalCost(this.maxAffordableAmount());
     }
 
+    // Return the cost for X buildings, where X is the maximum amount of buildings the player can purchase.
+    // X = 10a + remainder.
+    // If X = 0, returns the cost for nearest 10 building instead.
+    _costForMax10() {
+        const remainder = (10 - this.owned() % 10) % 10;
+        const maxAffordable = Math.floor((this.maxAffordableAmount() - remainder) / 10) * 10 + remainder;
+        if (maxAffordable <= 0) {
+            return this._costForTen();
+        }
+        return this._totalCost(maxAffordable);
+    }
+
     // Check if the player can purchase any building under the selected mode.
     // mode (optional): Specify the mode to check if the building is buyable.
     isBuyable(mode = null) {
@@ -138,6 +151,7 @@ class Building {
             case database.constants.buyingMode.BUYMAX:
                 return this._isBuyableToOne();
             case database.constants.buyingMode.BUY10:
+            case database.constants.buyingMode.BUYMAX10:
                 return this._isBuyableToTen();
         }
         return false;
@@ -192,6 +206,9 @@ class Building {
             case database.constants.buyingMode.BUYMAX:
                 this._buyMax();
                 break;
+            case database.constants.buyingMode.BUYMAX10:
+                this._buyMax10();
+                break;
         }
     }
 
@@ -220,6 +237,17 @@ class Building {
         if (maxAffordable <= 0)
             return;
         const totalCost = this._costForMax();
+        database.money.sub(totalCost);
+        this._addBuilding(maxAffordable);
+    }
+
+    // Purchase the maximum number of buildings that is closest to multiples of 10.
+    _buyMax10() {
+        const remainder = (10 - this.owned() % 10) % 10;
+        const maxAffordable = Math.floor((this.maxAffordableAmount() - remainder) / 10) * 10 + remainder;
+        if (maxAffordable <= 0)
+            return;
+        const totalCost = this._costForMax10();
         database.money.sub(totalCost);
         this._addBuilding(maxAffordable);
     }

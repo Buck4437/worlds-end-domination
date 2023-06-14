@@ -1,37 +1,25 @@
-
-
 refactor mana shop upgrades and apocalypses to use objects as well
 maybe we can make upgrade reusable as well, idk
 
 todo: 
-- Change unfolding structure
-
 - tooltip
   -- Hide base and multiplier
 - Saving
-- upgrade to remove the convert cooldown
-- Don't use big list to display apocalypses, use another nav bar (e.g. vert) 
+
 
 minghinshi said:
-******unlock mana after worker 2 
-delete "max" 
 warning when pressing prestige
-Remove progress bar for spell ?!?!?!?!?!?!? dold
-Later reset can bank mana to generate more mana (Called Mana Bank)
 change lv while spell activate
 
-refactor:
-- autobuy
-- spells 
+------------------------------------------------------------------------------
 
-idea:
-- Instead of capping spell count, make some spells hv adverse impact on mana
-
-Suggestions by minghinshi:
+ideas for later:
+- can collapse spells
 - Add stats for tracking time needed to complete each apocalypse
-
-todo: Max buy next 10 
-todo: reorganize utils file
+- upgrade to remove the convert cooldown
+- Don't use big list to display apocalypses, use another nav bar (e.g. vert) 
+- Instead of capping spell count, make some spells hv adverse impact on mana
+- Later reset can bank mana to generate more mana (Called Mana Bank)
 
 Later nerf:
 Change to all multi to always 1.5x => 10?????

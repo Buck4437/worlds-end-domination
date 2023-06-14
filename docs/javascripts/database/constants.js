@@ -4,7 +4,8 @@ database.constants = {
     buyingMode: {
         BUY1: 0,
         BUY10: 1,
-        BUYMAX: 2
+        BUYMAX: 2,
+        BUYMAX10: 3
     },
     upgradeType: {
         EFFECT: 0,
