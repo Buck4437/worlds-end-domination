@@ -497,3 +497,12 @@ button.disabled:hover {
 .apocalypse-desc {
     margin-bottom: 6px;
 }
+
+.settings-tab {
+    font-size: 1.2rem;
+}
+
+.settings-tab button {
+    min-width: 10rem;
+    min-height: 2.5rem;
+}
