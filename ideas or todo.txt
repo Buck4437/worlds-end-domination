@@ -1,14 +1,12 @@
 refactor mana shop upgrades and apocalypses to use objects as well
 maybe we can make upgrade reusable as well, idk
 
-todo: 
-- tooltip
-  -- Hide base and multiplier
+todo:
+style confirmation tab and separate settings
 - Saving
 
 
 minghinshi said:
-warning when pressing prestige
 change lv while spell activate
 
 ------------------------------------------------------------------------------
