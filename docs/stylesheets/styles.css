@@ -12,6 +12,12 @@ body {
     margin: auto;
 }
 
+/* config for toastr */
+
+.toast {
+    font-size: 1.3rem;
+}
+
 /* global stuff */
 
 button {

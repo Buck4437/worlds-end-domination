@@ -26,6 +26,8 @@ window.player = {
         buildingBuyMode: 0,
         manaConfirmation: true
     },
+
+    saveVersion: 1,
     lastTick: Date.now()
 };
 

@@ -108,6 +108,25 @@ const app = new Vue({
                 }
             });
         },
+        configToastr() {
+            toastr.options = {
+                "closeButton": false,
+                "debug": false,
+                "newestOnTop": true,
+                "progressBar": true,
+                "positionClass": "toast-top-right",
+                "preventDuplicates": false,
+                "onclick": null,
+                "showDuration": "300",
+                "hideDuration": "300",
+                "timeOut": "5000",
+                "extendedTimeOut": "3000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "slideDown",
+                "hideMethod": "slideUp"
+            };
+        },
         update() {
             this.money = database.money.get();
 
@@ -118,12 +137,19 @@ const app = new Vue({
     mounted() {
         this.switchTab(this.tabs[0].name);
         this.mountHotkeys();
+        this.configToastr();
 
         this.update();
+        
         setInterval(() => {
             this.update();
         }, 25);
         setInterval(gameloop, 25);
+        setInterval(() => {
+            localStorage.setItem(SAVE_NAME, JSON.stringify(this.player));
+            console.log("Game saved!");
+            toastr.info("", "Game saved!");
+        }, 20000);
     }
 });
 

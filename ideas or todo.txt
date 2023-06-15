@@ -2,11 +2,7 @@ refactor mana shop upgrades and apocalypses to use objects as well
 maybe we can make upgrade reusable as well, idk
 
 todo:
-- Saving
-
-
-minghinshi said:
-change lv while spell activate
+- Export, Import
 
 ------------------------------------------------------------------------------
 
