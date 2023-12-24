@@ -33,8 +33,9 @@ Vue.component("SettingsTab", {
         <button @click="reset">
             Hard Reset
         </button>
+        <br><br>
         Debugging: <br><br>
-        <button v-if= "apocalypseLevel == 0"
-                @click="cheatLevel">Cheat to Apocalypse 1</button>
+        <button @click="cheatLevel">Cheat to Apocalypse 1</button><br><br>
+        Special thanks to Jazz for his inputs to the game.
     </div>`
 });
