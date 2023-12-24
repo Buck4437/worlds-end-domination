@@ -15,6 +15,9 @@ Vue.component("SettingsTab", {
                 localStorage.removeItem(SAVE_NAME);
                 window.location.reload();
             }
+        },
+        cheatLevel() {
+            player.apocalypseLevel = 1;
         }
     },
     template: `
@@ -30,5 +33,8 @@ Vue.component("SettingsTab", {
         <button @click="reset">
             Hard Reset
         </button>
+        Debugging: <br><br>
+        <button v-if= "apocalypseLevel == 0"
+                @click="cheatLevel">Cheat to Apocalypse 1</button>
     </div>`
 });

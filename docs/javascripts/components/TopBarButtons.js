@@ -38,15 +38,10 @@ Vue.component("TopBarButtons", {
         },
         convert() {
             database.spells.convert();
-        },
-        cheatLevel() {
-            player.apocalypseLevel = 1;
         }
     },
     template: `
     <div class="top-bar-layer-3 top-bar-layer">
-        <button v-if= "apocalypseLevel == 0"
-                @click="cheatLevel">Cheat to Apocalypse 1 (Temporary)</button>
         <button v-if="apocalypseLevel >= 1"
                 class="mana-convert-btn"
                 @click="convert"

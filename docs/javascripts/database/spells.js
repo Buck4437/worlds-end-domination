@@ -20,7 +20,7 @@ database.spells = {
                 levelCap: 15,
                 _durationFunction: level => 5,
                 _descFunction(level) {
-                    return `Multiply all buildings by x${toSci(this._effectFunction(level))}`;
+                    return `Multiply the production of all buildings by x${toSci(this._effectFunction(level))}`;
                 },
                 _costFunction(level) {
                     return Decimal.pow(5, level - 1);
@@ -56,7 +56,7 @@ database.spells = {
                 levelCap: 6,
                 _durationFunction: level => 7.5,
                 _descFunction(level) {
-                    return `Money Multiplication and Ethereal Expansion multiplier` + 
+                    return `Money Multiplication and Ethereal Expansion multiplier is raised to the power of` + 
                     ` ^${toSci(this._effectFunction(level))}`;
                 },
                 _costFunction(level) {
@@ -74,53 +74,49 @@ database.spells = {
             {
                 name: "Spell 4",
                 requiredApocalypseLevel: 2,
-                levelCap: 3,
-                _durationFunction: level => 30,
+                requiredMoney: new Decimal("1e5"),
+                levelCap: 6,
+                _durationFunction: level => 7.5,
                 _descFunction(level) {
-                    return `Multiply all buildings by x${toSci(this._effectFunction(level, 30))}
-                        in the first 10 seconds, 
-                        x${toSci(this._effectFunction(level, 20))} for the remaining duration.`;
+                    return `Increase production of (building) by ???` + 
+                    ` ^${toSci(this._effectFunction(level))}`;
                 },
                 _costFunction(level) {
-                    return Decimal.pow(1000, level - 1).times(100);
+                    return Decimal.pow(1e3, level - 1).times(1e6);
                 },
                 defaultEffect: new Decimal(1),
                 _effectFunction(level, remainingTime) {
-                    if (remainingTime > this.getDuration(level) - 10) {
-                        return Decimal.pow(10, level);
+                    // 1.4 => 1.5 => 1.7 => 2.1 => 2.9 => 4.2
+                    if (level < 6) {
+                        return Decimal.add(1.3, 0.1 * 2 ** (level - 1));
                     }
-                    return Decimal.pow(0.25, level);
-                },
-                displayEffect: true,
-                effectPrefix: "x",
-                exclusiveWith: [5]
+                    return new Decimal(4.2);
+                }
             },
-            {
-                name: "Spell 5",
-                requiredApocalypseLevel: 2,
-                levelCap: 3,
-                _durationFunction(level) {
-                    return 30 + level * 120;
-                },
-                _descFunction(level) {
-                    return `Multiply all buildings by x1~${toSci(this._effectFunction(level, 30))},
-                        max out after ${this._durationFunction(level) - 30} seconds.`;
-                },
-                _costFunction(level) {
-                    return Decimal.pow(1000, level - 1).times(100);
-                },
-                defaultEffect: new Decimal(1),
-                _effectFunction(level, remainingTime) {
-                    // Effect increases exponentially (x10 every 120 seconds), until the last 30 seconds
-                    if (remainingTime <= 30) {
-                        return Decimal.pow(10, (this._durationFunction(level) - 30) / 120);
-                    }
-                    return Decimal.pow(10, (this._durationFunction(level) - remainingTime) / 120);
-                },
-                displayEffect: true,
-                effectPrefix: "x",
-                exclusiveWith: [4]
-            },
+            // {
+            //     name: "Spell 4",
+            //     requiredApocalypseLevel: 2,
+            //     levelCap: 3,
+            //     _durationFunction: level => 30,
+            //     _descFunction(level) {
+            //         return `Multiply all buildings by x${toSci(this._effectFunction(level, 30))}
+            //             in the first 10 seconds, 
+            //             x${toSci(this._effectFunction(level, 20))} for the remaining duration.`;
+            //     },
+            //     _costFunction(level) {
+            //         return Decimal.pow(1000, level - 1).times(100);
+            //     },
+            //     defaultEffect: new Decimal(1),
+            //     _effectFunction(level, remainingTime) {
+            //         if (remainingTime > this.getDuration(level) - 10) {
+            //             return Decimal.pow(10, level);
+            //         }
+            //         return Decimal.pow(0.25, level);
+            //     },
+            //     displayEffect: true,
+            //     effectPrefix: "x",
+            //     exclusiveWith: [5]
+            // },
         ]
     },
     decimalGain() {

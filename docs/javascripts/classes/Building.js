@@ -62,9 +62,7 @@ class Building {
             .times(this.id === 4 ? database.upgrades.getUpgrade(8).appliedEffect() : 1)
             .times(this.id === 4 ? database.upgrades.getUpgrade(9).appliedEffect() : 1)
             .times(apocalypseLevel >= 1 ? 2 : 1)
-            .times(database.spells.getSpell(1).appliedEffect())
-            .times(database.spells.getSpell(4).appliedEffect())
-            .times(database.spells.getSpell(5).appliedEffect());
+            .times(database.spells.getSpell(1).appliedEffect());
         return multiplier;
     }
 
